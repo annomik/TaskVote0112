@@ -21,8 +21,5 @@ public class Singer {
     }
 
 
-//         singers.add(new Singer("Тимати"));
-//         singers.add(new Singer("Madonna"));
-//         singers.add(new Singer("Shakira"));
-//         singers.add(new Singer("Цой"));
+
 }
