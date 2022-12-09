@@ -10,4 +10,6 @@ public interface ISingerDao {
 
     public List<SingerID> get();
 
+    boolean exist(int id);
+
 }

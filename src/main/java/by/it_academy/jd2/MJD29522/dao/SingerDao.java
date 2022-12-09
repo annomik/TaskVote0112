@@ -25,4 +25,15 @@ public class SingerDao implements ISingerDao {
     public List<SingerID> get() {
         return  singers;
     }
+
+    @Override
+    public boolean exist(int id) {
+        List<SingerID> singerIDS = singers;
+        for (SingerID singerID: singerIDS){
+            if(id == singerID.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }
