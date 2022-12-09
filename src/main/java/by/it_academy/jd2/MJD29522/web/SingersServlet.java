@@ -1,7 +1,6 @@
 package by.it_academy.jd2.MJD29522.web;
 
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
-import by.it_academy.jd2.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

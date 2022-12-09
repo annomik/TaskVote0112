@@ -1,7 +1,6 @@
 package by.it_academy.jd2.MJD29522.service.fabrics;
 
 import by.it_academy.jd2.MJD29522.dao.GenreDaoSingleton;
-
 import by.it_academy.jd2.MJD29522.service.GenreService;
 
 
@@ -21,6 +20,4 @@ public class GenreServiceSingleton {
         }
         return instance;
     }
-
-
 }

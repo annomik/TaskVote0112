@@ -1,17 +1,36 @@
 package by.it_academy.jd2.MJD29522.dto;
 
+import java.util.Objects;
+
 public class GenreDTO {
-    private String [] genre;
+    private String name;
 
-    public GenreDTO(String[] genre) {
-        this.genre = genre;
+    public GenreDTO(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setGenre(String genre) {
+        this.name = name;
     }
 
-    public String[] getGenre() {
-        return genre;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GenreDTO genreDTO = (GenreDTO) o;
+        return Objects.equals(name, genreDTO.name);
     }
-
-    public void setGenre(String[] genre) {
-        this.genre = genre;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+    @Override
+    public String toString() {
+        return "GenreDTO{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
+
