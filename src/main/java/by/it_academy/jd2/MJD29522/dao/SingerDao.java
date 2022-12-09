@@ -26,6 +26,7 @@ public class SingerDao implements ISingerDao {
         return  singers;
     }
 
+
     @Override
     public boolean exist(int id) {
         List<SingerID> singerIDS = singers;

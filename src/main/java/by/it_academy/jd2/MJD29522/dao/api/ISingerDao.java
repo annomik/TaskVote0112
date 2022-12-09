@@ -1,7 +1,5 @@
 package by.it_academy.jd2.MJD29522.dao.api;
 
-
-import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 
 import java.util.List;
