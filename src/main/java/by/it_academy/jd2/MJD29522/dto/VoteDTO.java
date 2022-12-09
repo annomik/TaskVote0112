@@ -2,47 +2,25 @@ package by.it_academy.jd2.MJD29522.dto;
 //test commit
 public class VoteDTO {
 
-    private String nameSinger;
-    private String [] genre;
-    private long time;
-    private String info;
+    private final int executorID;
+    private final int[] genresID;
+    private final String message;
 
-    public VoteDTO(String nameSinger, String[] genre, long time, String info) {
-        this.nameSinger = nameSinger;
-        this.genre = genre;
-        this.time = time;
-        this.info = info;
+    public VoteDTO(int executorID, int[] genresID, String message) {
+        this.executorID = executorID;
+        this.genresID = genresID;
+        this.message = message;
     }
 
-    public String getNameSinger() {
-        return nameSinger;
+    public int getExecutorID() {
+        return executorID;
     }
 
-    public void setNameSinger(String nameSinger) {
-        this.nameSinger = nameSinger;
+    public int[] getGenresID() {
+        return genresID;
     }
 
-    public String[] getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String[] genre) {
-        this.genre = genre;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
+    public String getMessage() {
+        return message;
     }
 }

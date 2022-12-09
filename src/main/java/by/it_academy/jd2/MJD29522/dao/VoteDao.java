@@ -16,11 +16,12 @@ public class VoteDao implements IVoteDao {
 
     @Override
     public List<Vote> getVoteList() {
-
        return votes;
     }
 
     @Override
-    public void save(VoteDTO vote) {
+    public boolean save(VoteDTO vote) {
+       votes.add(new Vote(vote));
+       return true;
     }
 }

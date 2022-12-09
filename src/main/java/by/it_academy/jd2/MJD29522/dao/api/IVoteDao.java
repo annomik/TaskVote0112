@@ -9,5 +9,5 @@ public interface IVoteDao {
 
     public List<Vote> getVoteList();
 
-    void save(VoteDTO vote);
+    boolean save(VoteDTO vote);
 }
