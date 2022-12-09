@@ -28,7 +28,7 @@ public class GenreService implements IGenreService {
     @Override
     public void validate(GenreDTO genreDTO) {
 
-
+//не работает сервис
         if (SingerDTO
 
         String[] singersParams = paramMap.get("singer");
