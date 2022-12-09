@@ -1,13 +1,17 @@
 package by.it_academy.jd2.MJD29522.service.api;
 
-import by.it_academy.jd2.MJD29522.dto.SingerDTO;
+
+import by.it_academy.jd2.MJD29522.dto.SingerID;
+
+import java.util.List;
 
 
 public interface ISingerService {
 
-    void save(SingerDTO singerDTO);
+   List<SingerID> get();
 
-    boolean validate(SingerDTO singerDTO);
+   boolean exist(String name);
+
 
 
 }

@@ -1,11 +1,9 @@
 package by.it_academy.jd2.MJD29522.service;
 
-import by.it_academy.jd2.MJD29522.dao.Singer;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
-
-import by.it_academy.jd2.MJD29522.dto.SingerDTO;
+import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
-
+import java.util.List;
 
 public class SingerService implements ISingerService {
 
@@ -16,28 +14,23 @@ public class SingerService implements ISingerService {
     }
 
     @Override
-    public void save(SingerDTO singerDTO) {
+    public List<SingerID> get() {
+        return singerDao.get();
     }
 
     @Override
-    public boolean validate(SingerDTO singerDTO) {
-        boolean result = false;
-        for (int i = 0; i < singerDao.getSingerList().size(); i++) {
-            if (singerDTO.getNameSinger().equals(singerDao.getSingerList().get(i))) {
-                result = true;
+    public boolean exist(String name) {
+        if (name == null || name.isBlank()){
+            throw new IllegalArgumentException("Имя исполнителя не может быть пустым!");
+        }
+
+        List<SingerID> singerIDS = this.singerDao.get();
+        for (SingerID singerID: singerIDS){
+            if(name.equals(singerID.getSingerDTO().getName())){
+                return true;
             }
         }
-        return result;
+
+        return false;
     }
-
-
-//    public String getSingers(){
-//        String result = "";
-//        for (Singer singer : singers) {
-//            result = result + "<p>Исполнитель: " + singer.getName() + "</p>";
-//        }
-//        return result;
-//    }
-
-
 }

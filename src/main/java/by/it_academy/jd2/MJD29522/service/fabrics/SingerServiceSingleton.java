@@ -19,6 +19,4 @@ public class SingerServiceSingleton {
         }
         return instance;
     }
-
-
 }

@@ -2,25 +2,27 @@ package by.it_academy.jd2.MJD29522.dao;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
-
+import by.it_academy.jd2.MJD29522.dto.SingerID;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SingerDao implements ISingerDao {
 
-  List<String> singers = new ArrayList<>();
+  private List<SingerID> singers = new ArrayList<>();
 
-   public SingerDao() {
+    public SingerDao(List<SingerID> singers) {
+        this.singers = singers;
+    }
 
-   }
-
-    @Override
-    public void save(SingerDTO singerDTO) {
-
+    public SingerDao(){
+        this.singers.add(new SingerID(new SingerDTO("Shakira"), 1));
+        this.singers.add(new SingerID(new SingerDTO("Цой"),2));
+        this.singers.add(new SingerID(new SingerDTO("Madonna"),3));
+        this.singers.add(new SingerID(new SingerDTO("Linkin Park"),4));
     }
 
     @Override
-   public List<String> getSingerList() {
-      return singers;
-   };
+    public List<SingerID> get() {
+        return  singers;
+    }
 }
