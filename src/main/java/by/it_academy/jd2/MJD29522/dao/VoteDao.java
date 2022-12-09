@@ -12,7 +12,6 @@ public class VoteDao implements IVoteDao {
   List<Vote> votes = new ArrayList<>();
 
    public VoteDao() {
-
    }
 
     @Override
@@ -23,6 +22,5 @@ public class VoteDao implements IVoteDao {
 
     @Override
     public void save(VoteDTO vote) {
-
     }
 }

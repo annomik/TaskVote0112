@@ -16,6 +16,4 @@ public class VoteService implements IVoteService {
     public void save(VoteDTO vote) {
 
     }
-
-
 }
