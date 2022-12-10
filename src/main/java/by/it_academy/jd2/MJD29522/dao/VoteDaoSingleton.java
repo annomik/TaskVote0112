@@ -1,21 +1,20 @@
 package by.it_academy.jd2.MJD29522.dao;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
+import by.it_academy.jd2.MJD29522.service.fabrics.VoteServiceSingleton;
 
 public class VoteDaoSingleton {
 
-   private volatile static VoteDao instance = null;
-   private static List<Vote> votes = new ArrayList<Vote>();
+    private volatile static VoteDao instance;
 
-   public static VoteDao getInstance(){
+    private VoteDaoSingleton() {
+    }
+
+    public static IVoteDao getInstance(){
       if(instance == null) {
-          synchronized (VoteDaoSingleton.class) {
+          synchronized (VoteServiceSingleton.class) {
               if (instance == null) {
                   instance = new VoteDao();
-             //     singers.add(new Vote("Shakira"));
-
               }
           }
       }
