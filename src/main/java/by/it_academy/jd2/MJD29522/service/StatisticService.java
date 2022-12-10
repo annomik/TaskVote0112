@@ -36,7 +36,7 @@ public class StatisticService implements IStatisticService {
     public List<StatisticDTOMessage> getResultMessage() {
         return null;
     }
-
+    //аровылароыло
     @Override
     public void setStatistic(Vote vote, GenreID genreID, SingerID singerID) {
 
