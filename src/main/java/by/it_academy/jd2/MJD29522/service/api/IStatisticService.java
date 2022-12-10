@@ -1,8 +1,13 @@
 package by.it_academy.jd2.MJD29522.service.api;
 
+import by.it_academy.jd2.MJD29522.dao.Vote;
+import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.dto.SingerID;
+import by.it_academy.jd2.MJD29522.dto.StatisticDTO;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 
 
 public interface IStatisticService {
-    void save(VoteDTO vote);
+     StatisticDTO getResult();
+     void setStatistic(Vote vote, GenreID genreID, SingerID singerID);
 }
