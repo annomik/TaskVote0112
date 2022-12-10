@@ -20,6 +20,8 @@ public class PostServlet extends HttpServlet {
     private final String EXECUTOR_PARAM = "executor";
     private final String GENRE_PARAM = "genre";
     private final String MESSAGE_PARAM = "message";
+//    private final int MIN_COUNT_GENRES = 3;
+//    private final int MAX_COUNT_GENRES = 5;
     private final IVoteService service;
 
     public PostServlet() {
@@ -52,8 +54,8 @@ public class PostServlet extends HttpServlet {
         String[] genresID = mapRequest.get(GENRE_PARAM);
         if(genresID==null)
             throw new IllegalArgumentException("Don't have ID genres");
-        if(genresID.length<3||genresID.length>5)
-            throw new IllegalArgumentException("Genres must be from 1 to 5");
+//        if(genresID.length<MIN_COUNT_GENRES||genresID.length>MAX_COUNT_GENRES)
+//            throw new IllegalArgumentException("Genres must be from "+MIN_COUNT_GENRES+" to "+MAX_COUNT_GENRES);
         for (String genre : genresID) {
             if(!NumberUtils.isNumber(genre)||genre==null){
                 throw  new IllegalArgumentException("Genre ID must be number");

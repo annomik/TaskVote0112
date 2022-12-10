@@ -25,7 +25,7 @@ public class VoteService implements IVoteService {
     @Override
     public boolean save(VoteDTO vote) {
         boolean itsOK = true;
-        itsOK = (validationExecutors(vote.getExecutorID())&&validationGenres(vote.getGenresID()));
+        itsOK = (validationSinger(vote.getExecutorID())&&validationGenres(vote.getGenresID()));
         if(itsOK){
             if(vote.getMessage().isBlank()||vote.getMessage().length()==0){
                 itsOK = false;
@@ -38,7 +38,7 @@ public class VoteService implements IVoteService {
         return itsOK;
     }
 
-    private boolean validationExecutors(int singerID){
+    private boolean validationSinger(int singerID){
         if(singerService.exist(singerID))
             throw new IllegalArgumentException("Singer with id "+singerID+" don't exist");
         return true;
