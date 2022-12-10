@@ -2,6 +2,7 @@ package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.StatisticDTOArtistOrGenre;
+import by.it_academy.jd2.MJD29522.dto.StatisticDTOMessage;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
@@ -29,11 +30,13 @@ public class StatisticService implements IStatisticService {
         return null;
     }
 
-    public IGenreService getGenreService() {
-        return genreService;
+    @Override
+    public List<StatisticDTOArtistOrGenre> getResultArtist() {
+        return null;
     }
 
-    public ISingerService getSingerService() {
-        return singerService;
+    @Override
+    public List<StatisticDTOMessage> getResultMessage() {
+        return null;
     }
 }
