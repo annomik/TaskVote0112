@@ -1,10 +1,7 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
-import by.it_academy.jd2.MJD29522.dto.StatisticDTOArtistOrGenre;
-import by.it_academy.jd2.MJD29522.dto.StatisticDTOMessage;
-import by.it_academy.jd2.MJD29522.dto.Vote;
-import by.it_academy.jd2.MJD29522.dto.VoteDTO;
+import by.it_academy.jd2.MJD29522.dto.*;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IStatisticService;
@@ -38,5 +35,10 @@ public class StatisticService implements IStatisticService {
     @Override
     public List<StatisticDTOMessage> getResultMessage() {
         return null;
+    }
+
+    @Override
+    public void setStatistic(Vote vote, GenreID genreID, SingerID singerID) {
+
     }
 }
