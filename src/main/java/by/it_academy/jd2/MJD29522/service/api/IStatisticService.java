@@ -4,10 +4,11 @@ import by.it_academy.jd2.MJD29522.dao.Vote;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.dto.StatisticDTO;
-import by.it_academy.jd2.MJD29522.dto.VoteDTO;
+
+import java.util.List;
 
 
 public interface IStatisticService {
-     StatisticDTO getResult();
+     List<StatisticDTO> getResult();
      void setStatistic(Vote vote, GenreID genreID, SingerID singerID);
 }
