@@ -19,18 +19,15 @@ public class SingerService implements ISingerService {
     }
 
     @Override
-    public boolean exist(String name) {
-        if (name == null || name.isBlank()){
-            throw new IllegalArgumentException("Имя исполнителя не может быть пустым!");
+    public boolean exist(int id) {
+        if (id == 0){
+            throw new IllegalArgumentException("ID исполнителя не может быть 0!");
         }
 
         List<SingerID> singerIDS = this.singerDao.get();
         for (SingerID singerID: singerIDS){
-            if(name.equals(singerID.getSingerDTO().getName())){
-                return true;
-            }
+                return this.singerDao.exist(id);
         }
-
         return false;
     }
 }

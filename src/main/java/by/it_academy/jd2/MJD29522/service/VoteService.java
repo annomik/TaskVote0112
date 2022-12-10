@@ -40,7 +40,7 @@ public class VoteService implements IVoteService {
 
     private boolean validationExecutors(int singerID){
         if(singerService.exist(singerID))
-            throw new IllegalArgumentException("Genre with id "+singerID+" don't exist");
+            throw new IllegalArgumentException("Singer with id "+singerID+" don't exist");
         return true;
     }
 

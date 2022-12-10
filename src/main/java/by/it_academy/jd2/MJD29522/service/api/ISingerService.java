@@ -10,7 +10,7 @@ public interface ISingerService {
 
    List<SingerID> get();
 
-   boolean exist(String name);
+   boolean exist(int id);
 
 
 
