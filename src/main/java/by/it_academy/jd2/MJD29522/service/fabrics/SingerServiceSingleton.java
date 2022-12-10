@@ -1,6 +1,6 @@
 package by.it_academy.jd2.MJD29522.service.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.SingerDaoSingleton;
+import by.it_academy.jd2.MJD29522.dao.fabrics.SingerDaoSingleton;
 import by.it_academy.jd2.MJD29522.service.SingerService;
 
 public class SingerServiceSingleton {
