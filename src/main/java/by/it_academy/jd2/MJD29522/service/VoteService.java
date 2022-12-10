@@ -1,13 +1,12 @@
 package by.it_academy.jd2.MJD29522.service;
 
-import by.it_academy.jd2.MJD29522.dao.Vote;
+import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VoteService implements IVoteService {
