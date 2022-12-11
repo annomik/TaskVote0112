@@ -28,7 +28,6 @@ public class StatisticService implements IStatisticService {
     }
 
 
-    //может стоит проверки на ноль добавить, но мне влом этим сейчас заниматься
     @Override
     public List<StatisticDTOArtistOrGenre> getResultGenre() {
         List<GenreID> genres = genreService.get();
