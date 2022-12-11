@@ -41,7 +41,8 @@ public class VoteService implements IVoteService {
             throw new IllegalArgumentException("Singer with id "+singerID+" don't exist");
         return true;
     }
-
+//т.к. жанры могут повторяться, и повторы надо исключить, то придумал вот так: в начале перевожу в сет,
+// тем самым убирая повторы, затем обратно в инт. Т.к. инт это примитивный тип данных
     private int[] validationGenres(int[] genresID){
         Set<Integer> set = new HashSet<>();
         for(int i = 0;i<genresID.length;i++){
