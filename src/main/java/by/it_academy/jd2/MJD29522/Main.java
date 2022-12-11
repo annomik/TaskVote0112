@@ -20,12 +20,18 @@ public class Main {
         VoteService voteService = VoteServiceSingleton.getInstance();
         StatisticService statistic = StatisticServiceSingleton.getInstance();
 
-        VoteDTO voteDTO = new VoteDTO(8, new int[]{2,4,3},"Я дима, заберите меня отсюда");
-        voteService.save(voteDTO);
-
+        VoteDTO voteDTO = new VoteDTO(1, new int[]{1,2,3},"4");
+        VoteDTO voteDTO2 = new VoteDTO(2, new int[]{1,4,5},"3");
+        VoteDTO voteDTO3 = new VoteDTO(3, new int[]{1,3,7},"2");
+        VoteDTO voteDTO4 = new VoteDTO(1, new int[]{1,3,2},"1");
 
         System.out.println(singerService.get());
         System.out.println(genreService.get());
+
+        voteService.save(voteDTO);
+        voteService.save(voteDTO2);
+        voteService.save(voteDTO3);
+        voteService.save(voteDTO4);
 
         System.out.println(statistic.getResultSinger());
         System.out.println(statistic.getResultGenre());
