@@ -40,14 +40,14 @@ public class StatisticService implements IStatisticService {
         }
         for(Vote vote : votes){
             for(int i = 0;i<vote.getGenresID().length;i++){                         //берем каждый существующий жанр в голосе
-                boolean addCount = false;
+                boolean notAddingCount = true;
                 for(int j = 0;j<statisticGenre.size();j++){                         //ничего лучшего не придумал, как обратиться к элементу на прямую без цикла???
                         if(statisticGenre.get(j).getId()==vote.getGenresID()[i]){
                             statisticGenre.get(j).addCount();
-                            addCount = true;
+                            notAddingCount = false;
                             break;
                         }
-                    if(!addCount){
+                    if(notAddingCount){
                         throw new ArrayStoreException("Такого голоса не существует в жанрах");
                     }
                 }
@@ -67,13 +67,13 @@ public class StatisticService implements IStatisticService {
         }
         for(Vote vote : votes){
             for(int i = 0;i<statisticSinger.size();i++){
-                boolean addCount = false;
+                boolean notAddingCount = true;
                 if(vote.getExecutorID()==statisticSinger.get(i).getId()){
                     statisticSinger.get(i).addCount();
-                    addCount = true;
+                    notAddingCount = false;
                     break;
                 }
-                if(!addCount){
+                if(notAddingCount){
                     throw new ArrayStoreException("Такого исполнителя не существует в жанрах");
                 }
             }
