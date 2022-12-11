@@ -25,4 +25,12 @@ public class StatisticDTOMessage {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "StatisticDTOMessage{" +
+                "time=" + time +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

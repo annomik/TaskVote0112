@@ -26,4 +26,13 @@ public class StatisticDTOArtistOrGenre {
     public void addCount() {
         this.count++;
     }
+
+    @Override
+    public String toString() {
+        return "StatisticDTOArtistOrGenre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", count=" + count +
+                '}';
+    }
 }
