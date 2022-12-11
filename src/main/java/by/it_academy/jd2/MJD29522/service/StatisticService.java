@@ -47,9 +47,10 @@ public class StatisticService implements IStatisticService {
                             notAddingCount = false;
                             break;
                         }
-                    if(notAddingCount){
-                        throw new ArrayStoreException("Такого голоса не существует в жанрах");
+
                     }
+                if(notAddingCount){
+                    throw new ArrayStoreException("Такого голоса не существует в жанрах");
                 }
             }
         }
