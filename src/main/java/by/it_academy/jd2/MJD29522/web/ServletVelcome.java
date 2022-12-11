@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "HelloWorldServlet", urlPatterns = {"/hello"})
+@WebServlet(name = "ServletVelcome", urlPatterns = {"/hello"})
 
-public class HelloWorldServlet extends HttpServlet {
+public class ServletVelcome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp)
             throws ServletException, IOException {
 
         PrintWriter writer = resp.getWriter();
-        writer.write("Hello, My Friend!");
+        writer.write("Добро пожаловать на голосование!");
         }
 }
