@@ -32,27 +32,29 @@ public class VoteService implements IVoteService {
 // тем самым убирая повторы, затем обратно в инт. Т.к. инт это примитивный тип данных
 
 // убрал тип возвращаемого значения метода валидации и всю валидацию закинул в лдин метод *Дима
-    private void validation(VoteDTO voteDTO){
+
+   private void validation(VoteDTO voteDTO){
         int singerID = voteDTO.getExecutorID();
         int[] genresID = voteDTO.getGenresID();
 
         if(!singerService.exist(singerID)){
-            throw new IllegalArgumentException("Исполнителя с id " + singerID + " не существует");
+            throw new IllegalArgumentException("Такого исполнителя не существует");
         }
 
         Set<Integer> set = new HashSet<>();
-        for (int genreID : genresID) {
+        for (int genreID : genresID){
             set.add(genreID);
         }
-        if(set.size() != genresID.length){
+
+        if (set.size() != genresID.length){
             throw new IllegalArgumentException("В Вашем голосе жанры дублируются");
         }
 
-        if(genresID.length > 5 || genresID.length < 3){
-            throw new IllegalArgumentException("Колличество жанров должно быть от 3 до 5, и жанры не должны повторяться");
+        if (genresID.length > 5 || genresID.length < 3){
+            throw new IllegalArgumentException("Количество жанров должно быть от 3 до 5, и жанры не должны повторяться");
         }
 
-        for (int genreID : genresID) {
+        for (int genreID : genresID){
             if(!genreService.exist(genreID)){
                 throw new IllegalArgumentException("Жанра с id " + singerID + " не существует");
             }
@@ -60,7 +62,8 @@ public class VoteService implements IVoteService {
         if(voteDTO.getMessage().isBlank()||voteDTO.getMessage().length()==0){
             throw new IllegalArgumentException("Сообщение о себе не может быть пустым");
         }
-    }
+
+   }
 
     @Override
     public List<Vote> getVote() {
