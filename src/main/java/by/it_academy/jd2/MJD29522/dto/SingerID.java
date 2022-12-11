@@ -5,12 +5,10 @@ import java.util.Objects;
 public class SingerID {
     private SingerDTO singerDTO;
     private int id;
-
     public SingerID(SingerDTO singerDTO, int id) {
         this.singerDTO = singerDTO;
         this.id = id;
     }
-
     public SingerDTO getSingerDTO() {
         return singerDTO;
     }

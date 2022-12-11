@@ -10,8 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//я в начале хотел сделать как предложил дима, но в статистику мы все равно должно положить всех артистов(жанры), поэтому
-// надо у сервисов просить всю ифу по жанрам и автистам, и уже сравнивать здесь. Т.к. все равно по списку бегать.
 public class StatisticService implements IStatisticService {
 
     private final ISingerService singerService;

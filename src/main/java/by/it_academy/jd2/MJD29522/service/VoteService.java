@@ -21,17 +21,11 @@ public class VoteService implements IVoteService {
         this.genreService = genreService;
     }
 
-    //убрал тип возвращаемого значения метода save и поменял интерфейс *Дима
     @Override
     public void save(VoteDTO voteDTO) {
         validation(voteDTO);
         this.dao.save(new Vote(voteDTO));
     }
-
-//т.к. жанры могут повторяться, и повторы надо исключить, то придумал вот так: в начале перевожу в сет,
-// тем самым убирая повторы, затем обратно в инт. Т.к. инт это примитивный тип данных
-
-// убрал тип возвращаемого значения метода валидации и всю валидацию закинул в лдин метод *Дима
 
    private void validation(VoteDTO voteDTO){
         int singerID = voteDTO.getExecutorID();
@@ -67,7 +61,6 @@ public class VoteService implements IVoteService {
 
     @Override
     public List<Vote> getVote() {
-        List<Vote> voteDTOs = dao.getVoteList();
-        return voteDTOs;
+        return dao.getVoteList();
     }
 }

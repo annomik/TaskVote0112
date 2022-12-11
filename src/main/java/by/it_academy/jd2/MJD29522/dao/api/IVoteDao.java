@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IVoteDao {
 
-    public List<Vote> getVoteList();
+    List<Vote> getVoteList();
 
     boolean save(VoteDTO vote);
 }

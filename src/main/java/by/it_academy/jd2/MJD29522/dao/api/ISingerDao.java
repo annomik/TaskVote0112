@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ISingerDao {
 
-    public List<SingerID> get();
+    List<SingerID> get();
 
     boolean exist(int id);
 

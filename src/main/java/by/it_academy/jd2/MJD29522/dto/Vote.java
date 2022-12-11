@@ -24,8 +24,7 @@ public class Vote extends VoteDTO{
 
     public String getDate(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date = simpleDateFormat.format(new Date(time));
-        return date;
+        return simpleDateFormat.format(new Date(time));
     }
 
     public long getTime() {
