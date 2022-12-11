@@ -15,13 +15,13 @@ public class ResultServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
-
-        Service service = Service.getService();
-
-        PrintWriter writer = resp.getWriter();
-
-        writer.write(service.viewSinger());
-        writer.write(service.viewGenres());
-        writer.write(service.viewUsers());
+//
+//        Service service = Service.getService();
+//
+//        PrintWriter writer = resp.getWriter();
+//
+//        writer.write(service.viewSinger());
+//        writer.write(service.viewGenres());
+//        writer.write(service.viewUsers());
     }
 }

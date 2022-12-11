@@ -8,7 +8,7 @@ public class StatisticDTOArtistOrGenre {
     public StatisticDTOArtistOrGenre(int id, String name) {
         this.id = id;
         this.name = name;
-        count = 1;
+        count = 0;
     }
 
     public int getId() {

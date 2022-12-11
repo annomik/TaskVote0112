@@ -6,8 +6,7 @@ import java.util.List;
 
 
 public interface IStatisticService {
-     List<StatisticDTOArtistOrGenre> getResultArtist();
+     List<StatisticDTOArtistOrGenre> getResultSinger();
      List<StatisticDTOArtistOrGenre> getResultGenre();
      List<StatisticDTOMessage> getResultMessage();
-     void setStatistic(Vote vote, GenreID genreID, SingerID singerID);
 }

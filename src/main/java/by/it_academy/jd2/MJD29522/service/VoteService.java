@@ -7,7 +7,10 @@ import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class VoteService implements IVoteService {
 
@@ -23,37 +26,49 @@ public class VoteService implements IVoteService {
 
     @Override
     public boolean save(VoteDTO vote) {
-        boolean itsOK = true;
-        itsOK = (validationSinger(vote.getExecutorID())&&validationGenres(vote.getGenresID()));
-        if(itsOK){
-            if(vote.getMessage().isBlank()||vote.getMessage().length()==0){
-                itsOK = false;
-            }
-        } else
-            return false;
-        if(itsOK){
-            itsOK = dao.save(vote);
+        boolean itsOK;
+        if(vote.getMessage().isBlank()||vote.getMessage().length()==0){
+            throw new IllegalArgumentException("Сообщение не может быть пустым");
         }
+        validationSinger(vote.getExecutorID());
+        int[] newGenres = validationGenres(vote.getGenresID());
+        itsOK = dao.save(new VoteDTO(vote.getExecutorID(),newGenres,vote.getMessage()));
         return itsOK;
     }
 
     private boolean validationSinger(int singerID){
-        if(singerService.exist(singerID))
+        if(!singerService.exist(singerID))
             throw new IllegalArgumentException("Singer with id "+singerID+" don't exist");
         return true;
     }
 
-    private boolean validationGenres(int[] genresID){
+    private int[] validationGenres(int[] genresID){
+        Set<Integer> set = new HashSet<>();
         for(int i = 0;i<genresID.length;i++){
-            if(!genreService.exist(genresID[i])){
-                throw new IllegalArgumentException("Genre with id "+genresID[i]+" don't exist");
+            set.add(genresID[i]);
+        }
+        Iterator<Integer> iterator = set.iterator();
+        while (iterator.hasNext()){
+            if(!genreService.exist(iterator.next())){
+                iterator.remove();
             }
         }
-        return true;
+        if(set.size()>5||set.size()<3){
+            throw new IllegalArgumentException("Колличество жанров должно быть от 3 до 5, и жанры не должны повторяться");
+        }
+        int[] newCountGenres = new int[set.size()];
+        int i = 0;
+        iterator = set.iterator();
+        while (iterator.hasNext()){
+            newCountGenres[i] = iterator.next();
+            i++;
+        }
+        return newCountGenres;
     }
 
+
     @Override
-    public List<Vote> getVoteDTO() {
+    public List<Vote> getVote() {
         List<Vote> voteDTOs = dao.getVoteList();
         return voteDTOs;
     }

@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @WebServlet(name = "VoteServlet", urlPatterns = "/vote")
 public class PostServlet extends HttpServlet {
@@ -54,19 +56,17 @@ public class PostServlet extends HttpServlet {
         String[] genresID = mapRequest.get(GENRE_PARAM);
         if(genresID==null)
             throw new IllegalArgumentException("Don't have ID genres");
-//        if(genresID.length<MIN_COUNT_GENRES||genresID.length>MAX_COUNT_GENRES)
-//            throw new IllegalArgumentException("Genres must be from "+MIN_COUNT_GENRES+" to "+MAX_COUNT_GENRES);
         for (String genre : genresID) {
             if(!NumberUtils.isNumber(genre)||genre==null){
                 throw  new IllegalArgumentException("Genre ID must be number");
             }
         }
-        int[] intGenreID = new int[genresID.length];
+        int[] intGenresID = new int[genresID.length];
         for(int i = 0;i<genresID.length;i++){
-            intGenreID[i] = Integer.parseInt(genresID[i]);
+            intGenresID[i] = Integer.parseInt(genresID[i]);
         }
 
-        //РїСЂРѕРІРµСЂРєР° РЅР° РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ
+
         String[] message = mapRequest.get(MESSAGE_PARAM);
         if(message==null){
             throw new IllegalArgumentException("Don't have message");
@@ -74,7 +74,7 @@ public class PostServlet extends HttpServlet {
         if(message[0].length()==0||message[0].isBlank()){
             throw new IllegalArgumentException("Don't have message");
         }
-        if(service.save(new VoteDTO(intExecutorID,intGenreID,message[0]))){
+        if(service.save(new VoteDTO(intExecutorID,intGenresID,message[0]))){
             writer.write("Your vote has been counted");
         } else {
             writer.write("Your vote don't has been counted");

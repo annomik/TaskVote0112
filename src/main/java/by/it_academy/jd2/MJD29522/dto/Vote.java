@@ -5,19 +5,18 @@ import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Vote {
+public class Vote extends VoteDTO{
 
     private final long time;
-    private final VoteDTO voteDTO;
 
     public Vote(VoteDTO voteDTO) {
+        super(voteDTO.getExecutorID(), voteDTO.getGenresID(), voteDTO.getMessage());
         this.time = setDate();
-        this.voteDTO = voteDTO;
     }
 
-    public Vote(long time, VoteDTO voteDTO) {
+    public Vote(VoteDTO voteDTO, long time) {
+        super(voteDTO.getExecutorID(), voteDTO.getGenresID(), voteDTO.getMessage());
         this.time = time;
-        this.voteDTO = voteDTO;
     }
 
     private long setDate(){
@@ -35,7 +34,4 @@ public class Vote {
         return time;
     }
 
-    public VoteDTO getVoteDTO() {
-        return voteDTO;
-    }
 }
