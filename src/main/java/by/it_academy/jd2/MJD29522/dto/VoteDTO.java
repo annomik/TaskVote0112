@@ -1,7 +1,5 @@
 package by.it_academy.jd2.MJD29522.dto;
 
-import java.util.Set;
-
 public class VoteDTO {
 
     private final int executorID;

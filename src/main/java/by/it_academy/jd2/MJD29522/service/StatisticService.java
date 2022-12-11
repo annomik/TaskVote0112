@@ -5,11 +5,8 @@ import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IStatisticService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
-import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
-
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 

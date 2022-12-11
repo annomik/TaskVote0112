@@ -4,8 +4,6 @@ import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 import by.it_academy.jd2.MJD29522.service.fabrics.VoteServiceSingleton;
 import org.apache.commons.lang3.math.NumberUtils;
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

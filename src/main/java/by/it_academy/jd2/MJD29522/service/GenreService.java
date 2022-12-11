@@ -3,7 +3,6 @@ package by.it_academy.jd2.MJD29522.service;
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
-
 import java.util.List;
 
 public class GenreService implements IGenreService {

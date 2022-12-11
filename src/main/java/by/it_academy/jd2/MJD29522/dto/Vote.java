@@ -1,7 +1,5 @@
 package by.it_academy.jd2.MJD29522.dto;
 
-import by.it_academy.jd2.MJD29522.dto.VoteDTO;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

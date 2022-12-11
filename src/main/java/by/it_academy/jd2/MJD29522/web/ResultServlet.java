@@ -4,7 +4,6 @@ import by.it_academy.jd2.MJD29522.dto.StatisticDTOArtistOrGenre;
 import by.it_academy.jd2.MJD29522.dto.StatisticDTOMessage;
 import by.it_academy.jd2.MJD29522.service.api.IStatisticService;
 import by.it_academy.jd2.MJD29522.service.fabrics.StatisticServiceSingleton;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
