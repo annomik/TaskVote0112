@@ -13,17 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+
 
 @WebServlet(name = "VoteServlet", urlPatterns = "/vote")
 public class PostServlet extends HttpServlet {
     private final String EXECUTOR_PARAM = "executor";
     private final String GENRE_PARAM = "genre";
     private final String MESSAGE_PARAM = "message";
-//    private final int MIN_COUNT_GENRES = 3;
-//    private final int MAX_COUNT_GENRES = 5;
+
     private final IVoteService service;
 
     public PostServlet() {
@@ -39,7 +37,6 @@ public class PostServlet extends HttpServlet {
 
         Map<String, String[]> mapRequest = req.getParameterMap();
 
-        //РїСЂРѕРІРµСЂРєР° РєР°РєРѕР№ РР” РїСЂРёС€РµР» РёСЃРїРѕР»РЅРёС‚РµР»СЏ, Рё СЃРєРѕР»СЊРєРѕ РёС… РїСЂРёС€Р»Рѕ
         String[] executorID = mapRequest.get(EXECUTOR_PARAM);
         if(executorID==null)
             throw new IllegalArgumentException("Don't have ID executor");
@@ -51,8 +48,6 @@ public class PostServlet extends HttpServlet {
         }
         int intExecutorID = Integer.parseInt(executorID[0]);
 
-
-        //РїСЂРѕРІРµСЂРєР° Р¶Р°РЅСЂРѕРІ
         String[] genresID = mapRequest.get(GENRE_PARAM);
         if(genresID==null)
             throw new IllegalArgumentException("Don't have ID genres");
@@ -66,7 +61,6 @@ public class PostServlet extends HttpServlet {
             intGenresID[i] = Integer.parseInt(genresID[i]);
         }
 
-
         String[] message = mapRequest.get(MESSAGE_PARAM);
         if(message==null){
             throw new IllegalArgumentException("Don't have message");
@@ -77,11 +71,7 @@ public class PostServlet extends HttpServlet {
 
         service.save(new VoteDTO(intExecutorID,intGenresID,message[0]));
 
-        //переделал эту часть, так как у нас все работает на эксепшенах! смотрите строчкой выше
-//       if(service.save(new VoteDTO(intExecutorID,intGenresID,message[0]))){
-//           writer.write("Your vote has been counted");
-//       } else {
-//           writer.write("Your vote don't has been counted");
-//       }
+        String path = req.getContextPath() + "/result";
+        resp.sendRedirect(path);
     }
 }
