@@ -28,7 +28,6 @@ public class StatisticService implements IStatisticService {
     }
 
 
-    //может стоит проверки на ноль добавить, но мне влом этим сейчас заниматься
     @Override
     public List<StatisticDTOArtistOrGenre> getResultGenre() {
         List<GenreID> genres = genreService.get();
@@ -47,8 +46,7 @@ public class StatisticService implements IStatisticService {
                             notAddingCount = false;
                             break;
                         }
-
-                    }
+                }
                 if(notAddingCount){
                     throw new ArrayStoreException("Такого голоса не существует в жанрах");
                 }
@@ -67,16 +65,16 @@ public class StatisticService implements IStatisticService {
             statisticSinger.add(new StatisticDTOArtistOrGenre(singerID.getId(),singerID.getSingerDTO().getName()));
         }
         for(Vote vote : votes){
+            boolean notAddingCount = true;
             for(int i = 0;i<statisticSinger.size();i++){
-                boolean notAddingCount = true;
                 if(vote.getExecutorID()==statisticSinger.get(i).getId()){
                     statisticSinger.get(i).addCount();
                     notAddingCount = false;
                     break;
                 }
-                if(notAddingCount){
-                    throw new ArrayStoreException("Такого исполнителя не существует в жанрах");
-                }
+            }
+            if(notAddingCount){
+                throw new ArrayStoreException("Такого исполнителя не существует в жанрах");
             }
         }
         List<StatisticDTOArtistOrGenre> sortList = statisticSinger.stream().sorted(Comparator.comparing(StatisticDTOArtistOrGenre::getCount).reversed()).collect(Collectors.toList());
