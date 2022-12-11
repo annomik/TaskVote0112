@@ -7,10 +7,7 @@ import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class VoteService implements IVoteService {
 
@@ -24,49 +21,46 @@ public class VoteService implements IVoteService {
         this.genreService = genreService;
     }
 
+    //убрал тип возвращаемого значения метода save и поменял интерфейс *Дима
     @Override
-    public boolean save(VoteDTO vote) {
-        boolean itsOK;
-        if(vote.getMessage().isBlank()||vote.getMessage().length()==0){
-            throw new IllegalArgumentException("Сообщение не может быть пустым");
-        }
-        validationSinger(vote.getExecutorID());
-        int[] newGenres = validationGenres(vote.getGenresID());
-        itsOK = dao.save(new VoteDTO(vote.getExecutorID(),newGenres,vote.getMessage()));
-        return itsOK;
+    public void save(VoteDTO voteDTO) {
+        validation(voteDTO);
+        this.dao.save(new Vote(voteDTO));
     }
 
-    private boolean validationSinger(int singerID){
-        if(!singerService.exist(singerID))
-            throw new IllegalArgumentException("Singer with id "+singerID+" don't exist");
-        return true;
-    }
 //т.к. жанры могут повторяться, и повторы надо исключить, то придумал вот так: в начале перевожу в сет,
 // тем самым убирая повторы, затем обратно в инт. Т.к. инт это примитивный тип данных
-    private int[] validationGenres(int[] genresID){
+
+// убрал тип возвращаемого значения метода валидации и всю валидацию закинул в лдин метод *Дима
+    private void validation(VoteDTO voteDTO){
+        int singerID = voteDTO.getExecutorID();
+        int[] genresID = voteDTO.getGenresID();
+
+        if(!singerService.exist(singerID)){
+            throw new IllegalArgumentException("Исполнителя с id " + singerID + " не существует");
+        }
+
         Set<Integer> set = new HashSet<>();
-        for(int i = 0;i<genresID.length;i++){
-            set.add(genresID[i]);
+        for (int genreID : genresID) {
+            set.add(genreID);
         }
-        Iterator<Integer> iterator = set.iterator();
-        while (iterator.hasNext()){
-            if(!genreService.exist(iterator.next())){
-                iterator.remove();
-            }
+        if(set.size() != genresID.length){
+            throw new IllegalArgumentException("В Вашем голосе жанры дублируются");
         }
-        if(set.size()>5||set.size()<3){
+
+        if(genresID.length > 5 || genresID.length < 3){
             throw new IllegalArgumentException("Колличество жанров должно быть от 3 до 5, и жанры не должны повторяться");
         }
-        int[] newCountGenres = new int[set.size()];
-        int i = 0;
-        iterator = set.iterator();
-        while (iterator.hasNext()){
-            newCountGenres[i] = iterator.next();
-            i++;
-        }
-        return newCountGenres;
-    }
 
+        for (int genreID : genresID) {
+            if(!genreService.exist(genreID)){
+                throw new IllegalArgumentException("Жанра с id " + singerID + " не существует");
+            }
+        }
+        if(voteDTO.getMessage().isBlank()||voteDTO.getMessage().length()==0){
+            throw new IllegalArgumentException("Сообщение о себе не может быть пустым");
+        }
+    }
 
     @Override
     public List<Vote> getVote() {

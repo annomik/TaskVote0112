@@ -74,10 +74,14 @@ public class PostServlet extends HttpServlet {
         if(message[0].length()==0||message[0].isBlank()){
             throw new IllegalArgumentException("Don't have message");
         }
-        if(service.save(new VoteDTO(intExecutorID,intGenresID,message[0]))){
-            writer.write("Your vote has been counted");
-        } else {
-            writer.write("Your vote don't has been counted");
-        }
+
+        service.save(new VoteDTO(intExecutorID,intGenresID,message[0]));
+
+        //переделал эту часть, так как у нас все работает на эксепшенах! смотрите строчкой выше
+//       if(service.save(new VoteDTO(intExecutorID,intGenresID,message[0]))){
+//           writer.write("Your vote has been counted");
+//       } else {
+//           writer.write("Your vote don't has been counted");
+//       }
     }
 }
