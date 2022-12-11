@@ -56,7 +56,7 @@ public class VoteService implements IVoteService {
 
         for (int genreID : genresID){
             if(!genreService.exist(genreID)){
-                throw new IllegalArgumentException("Жанра с id " + singerID + " не существует");
+                throw new IllegalArgumentException("Такого жанра не существует");
             }
         }
         if(voteDTO.getMessage().isBlank()||voteDTO.getMessage().length()==0){
