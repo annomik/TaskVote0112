@@ -20,7 +20,9 @@ public class Main {
         VoteService voteService = VoteServiceSingleton.getInstance();
         StatisticService statistic = StatisticServiceSingleton.getInstance();
 
-        VoteDTO voteDTO = new VoteDTO(1, new int[]{2,4},"Я дима, заберите меня отсюда");
+        VoteDTO voteDTO = new VoteDTO(8, new int[]{2,4,3},"Я дима, заберите меня отсюда");
+        voteService.save(voteDTO);
+
 
         System.out.println(singerService.get());
         System.out.println(genreService.get());
