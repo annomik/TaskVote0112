@@ -4,7 +4,7 @@ import by.it_academy.jd2.MJD29522.dto.GenreID;
 import java.util.List;
 
 public interface IGenreDao{
-    public List<GenreID> get();
+    List<GenreID> get();
 
     boolean exist(int id);
 }

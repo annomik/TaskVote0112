@@ -10,7 +10,6 @@ public class StatisticDTOArtistOrGenre {
         this.name = name;
         count = 0;
     }
-
     public int getId() {
         return id;
     }

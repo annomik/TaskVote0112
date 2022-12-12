@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "SingersServlet", urlPatterns = "/singer" +
-        "")
+@WebServlet(name = "SingersServlet", urlPatterns = "/singer")
 public class SingersServlet extends HttpServlet {
 
     private final ISingerService service;
