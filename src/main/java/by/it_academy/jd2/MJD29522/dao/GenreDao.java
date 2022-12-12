@@ -31,8 +31,7 @@ public class GenreDao implements IGenreDao {
 
     @Override
     public boolean exist(int id) {
-        List<GenreID> genreIDs = genres;
-        for (GenreID genreID : genreIDs) {
+        for (GenreID genreID : genres) {
             if(id == genreID.getId()){
                 return true;
             }

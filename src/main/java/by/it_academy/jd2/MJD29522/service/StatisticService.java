@@ -62,7 +62,7 @@ public class StatisticService implements IStatisticService {
         for(Vote vote : votes){
             boolean notAddingCount = true;
             for(int i = 0;i<statisticSinger.size();i++){
-                if(vote.getExecutorID()==statisticSinger.get(i).getId()){
+                if(vote.getSingerID()==statisticSinger.get(i).getId()){
                     statisticSinger.get(i).addCount();
                     notAddingCount = false;
                     break;
