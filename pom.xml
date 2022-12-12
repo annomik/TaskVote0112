@@ -6,7 +6,7 @@
 
     <groupId>by.it-academy.jd2</groupId>
     <artifactId>TaskVote</artifactId>
-    <version>123</version>
+    <version>1.0.0-xx</version>
     <name>TaskVote</name>
     <packaging>war</packaging>
 
