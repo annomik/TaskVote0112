@@ -28,7 +28,7 @@ public class VoteService implements IVoteService {
     }
 
    private void validation(VoteDTO voteDTO){
-        int singerID = voteDTO.getExecutorID();
+        int singerID = voteDTO.getSingerID();
         int[] genresID = voteDTO.getGenresID();
 
         if(!singerService.exist(singerID)){

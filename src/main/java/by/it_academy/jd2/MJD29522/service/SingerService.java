@@ -23,11 +23,6 @@ public class SingerService implements ISingerService {
         if (id == 0){
             throw new IllegalArgumentException("ID исполнителя не может быть 0!");
         }
-
-        List<SingerID> singerIDS = this.singerDao.get();
-        for (SingerID singerID: singerIDS){
-                return this.singerDao.exist(id);
-        }
-        return false;
+        return this.singerDao.exist(id);
     }
 }

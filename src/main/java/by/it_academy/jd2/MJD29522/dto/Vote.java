@@ -8,12 +8,12 @@ public class Vote extends VoteDTO{
     private final long time;
 
     public Vote(VoteDTO voteDTO) {
-        super(voteDTO.getExecutorID(), voteDTO.getGenresID(), voteDTO.getMessage());
+        super(voteDTO.getSingerID(), voteDTO.getGenresID(), voteDTO.getMessage());
         this.time = setDate();
     }
 
     public Vote(VoteDTO voteDTO, long time) {
-        super(voteDTO.getExecutorID(), voteDTO.getGenresID(), voteDTO.getMessage());
+        super(voteDTO.getSingerID(), voteDTO.getGenresID(), voteDTO.getMessage());
         this.time = time;
     }
 

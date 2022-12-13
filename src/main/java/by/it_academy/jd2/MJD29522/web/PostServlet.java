@@ -16,7 +16,7 @@ import java.util.Map;
 
 @WebServlet(name = "VoteServlet", urlPatterns = "/vote")
 public class PostServlet extends HttpServlet {
-    private final String EXECUTOR_PARAM = "executor";
+    private final String EXECUTOR_PARAM = "singer";
     private final String GENRE_PARAM = "genre";
     private final String MESSAGE_PARAM = "message";
 
@@ -31,18 +31,16 @@ public class PostServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
 
-        PrintWriter writer = resp.getWriter();
-
         Map<String, String[]> mapRequest = req.getParameterMap();
 
         String[] executorID = mapRequest.get(EXECUTOR_PARAM);
         if(executorID==null)
-            throw new IllegalArgumentException("Don't have ID executor");
+            throw new IllegalArgumentException("Don't have ID singer");
         if(executorID.length!=1){
-            throw new IllegalArgumentException("Executor ID must be alone");
+            throw new IllegalArgumentException("Singer ID must be alone");
         }
         if(!NumberUtils.isNumber(executorID[0])||executorID[0]==null){
-            throw  new IllegalArgumentException("Executor ID must be number");
+            throw  new IllegalArgumentException("Singer ID must be number");
         }
         int intExecutorID = Integer.parseInt(executorID[0]);
 

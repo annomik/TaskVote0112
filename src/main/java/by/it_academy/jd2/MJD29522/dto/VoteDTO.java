@@ -2,18 +2,18 @@ package by.it_academy.jd2.MJD29522.dto;
 
 public class VoteDTO {
 
-    private final int executorID;
+    private final int singerID;
     private final int[] genresID;
     private final String message;
 
-    public VoteDTO(int executorID, int[] genresID, String message) {
-        this.executorID = executorID;
+    public VoteDTO(int singerID, int[] genresID, String message) {
+        this.singerID = singerID;
         this.genresID = genresID;
         this.message = message;
     }
 
-    public int getExecutorID() {
-        return executorID;
+    public int getSingerID() {
+        return singerID;
     }
 
     public int[] getGenresID() {
