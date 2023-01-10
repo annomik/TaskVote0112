@@ -8,7 +8,7 @@ public interface IGenreDao{
 
     boolean add(String newGenre);
 
-    boolean update(int id);
+    boolean update(int id, String name);
 
     boolean delete(int id);
 

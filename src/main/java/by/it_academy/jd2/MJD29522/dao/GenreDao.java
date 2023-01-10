@@ -13,16 +13,16 @@ public class GenreDao implements IGenreDao {
         this.genres = genres;
     }
     public GenreDao() {
-        genres.add(new GenreID(new GenreDTO("Classic"), 1));
-        genres.add(new GenreID(new GenreDTO("Soul"), 2));
-        genres.add(new GenreID(new GenreDTO("Rock"), 3));
-        genres.add(new GenreID(new GenreDTO("Folk"), 4));
-        genres.add(new GenreID(new GenreDTO("Opera"), 5));
-        genres.add(new GenreID(new GenreDTO("Rumba"), 6));
-        genres.add(new GenreID(new GenreDTO("Jazz"), 7));
-        genres.add(new GenreID(new GenreDTO("Electric"), 8));
-        genres.add(new GenreID(new GenreDTO("Blues"), 9));
-        genres.add(new GenreID(new GenreDTO("Disco"), 10));
+        genres.add(new GenreID(new GenreDTO("Classic"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Soul"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Rock"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Folk"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Opera"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Rumba"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Jazz"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Electric"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Blues"), genres.size() + 1));
+        genres.add(new GenreID(new GenreDTO("Disco"), genres.size() + 1));
     }
     @Override
     public List<GenreID> get() {
@@ -30,9 +30,43 @@ public class GenreDao implements IGenreDao {
     }
 
     @Override
+    public boolean add(String newGenre) {
+        if(!exist(newGenre)){
+            genres.add(new GenreID(new GenreDTO(newGenre), genres.size() + 1));
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public boolean update(int id, String name) {
+        genres.add(id - 1, new GenreID(new GenreDTO(name), id));
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        if(exist(id)){
+            genres.remove(id-1);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean exist(int id) {
         for (GenreID genreID : genres) {
             if(id == genreID.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean exist(String genre) {
+        for (GenreID genreID : genres) {
+            if (genre.equals(genreID.getGenreDTO().getName())) {
                 return true;
             }
         }
