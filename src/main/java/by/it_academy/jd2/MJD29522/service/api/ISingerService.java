@@ -7,6 +7,12 @@ public interface ISingerService {
 
    List<SingerID> get();
 
+   boolean add(String newSinger);
+
+   boolean update(int id);
+
+   boolean delete(int id);
+
    boolean exist(int id);
 
 

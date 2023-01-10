@@ -7,5 +7,11 @@ public interface IGenreService {
 
     List<GenreID> get();
 
+    boolean add(String newGenre);
+
+    boolean update(int id);
+
+    boolean delete(int id);
+
     boolean exist (int id);
 }

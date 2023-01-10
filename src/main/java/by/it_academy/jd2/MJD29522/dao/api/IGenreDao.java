@@ -6,5 +6,11 @@ import java.util.List;
 public interface IGenreDao{
     List<GenreID> get();
 
+    boolean add(String newGenre);
+
+    boolean update(int id);
+
+    boolean delete(int id);
+
     boolean exist(int id);
 }
