@@ -1,5 +1,6 @@
 package by.it_academy.jd2.MJD29522.web;
 
+import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
@@ -24,9 +25,13 @@ public class GenresServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        List<GenreID> genreIDS = service.get();
-        for (GenreID genreID : genreIDS) {
-            writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
+//        List<GenreID> genreIDS = service.get();
+//        for (GenreID genreID : genreIDS) {
+//            writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
+//        }
+        List<GenreDTO> genres = service.get();
+        for (GenreDTO genre : genres) {
+            writer.write("<p>" + (genres.indexOf(genre) + 1) + ". " + genre.getName() + "</p>");
         }
     }
 }

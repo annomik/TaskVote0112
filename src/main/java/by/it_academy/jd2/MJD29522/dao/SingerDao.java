@@ -26,6 +26,21 @@ public class SingerDao implements ISingerDao {
         return  singers;
     }
 
+    @Override
+    public boolean add(String newSinger) {
+        return false;
+    }
+
+    @Override
+    public void update(int id, String name) {
+
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
 
     @Override
     public boolean exist(int id) {

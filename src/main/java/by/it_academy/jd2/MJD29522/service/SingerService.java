@@ -19,6 +19,21 @@ public class SingerService implements ISingerService {
     }
 
     @Override
+    public boolean add(String newSinger) {
+        return false;
+    }
+
+    @Override
+    public void update(int id, String name) {
+
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
     public boolean exist(int id) {
         if (id == 0){
             throw new IllegalArgumentException("ID исполнителя не может быть 0!");

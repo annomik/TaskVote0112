@@ -2,37 +2,36 @@ package by.it_academy.jd2.MJD29522.dao;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
-import by.it_academy.jd2.MJD29522.dto.GenreID;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenreDao implements IGenreDao {
-    private List<GenreID> genres = new ArrayList<>();
-    public GenreDao(List<GenreID> genres) {
+    private List<GenreDTO> genres = new ArrayList<>();
+    public GenreDao(List<GenreDTO> genres) {
         this.genres = genres;
     }
     public GenreDao() {
-        genres.add(new GenreID(new GenreDTO("Classic"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Soul"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Rock"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Folk"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Opera"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Rumba"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Jazz"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Electric"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Blues"), genres.size() + 1));
-        genres.add(new GenreID(new GenreDTO("Disco"), genres.size() + 1));
+        genres.add(new GenreDTO("Classic"));
+        genres.add(new GenreDTO("Soul"));
+        genres.add(new GenreDTO("Rock"));
+        genres.add(new GenreDTO("Folk"));
+        genres.add(new GenreDTO("Opera"));
+        genres.add(new GenreDTO("Rumba"));
+        genres.add(new GenreDTO("Jazz"));
+        genres.add(new GenreDTO("Electric"));
+        genres.add(new GenreDTO("Blues"));
+        genres.add(new GenreDTO("Disco"));
     }
     @Override
-    public List<GenreID> get() {
+    public List<GenreDTO> get() {
         return genres;
     }
 
     @Override
     public boolean add(String newGenre) {
         if(!exist(newGenre)){
-            genres.add(new GenreID(new GenreDTO(newGenre), genres.size() + 1));
+            genres.add(new GenreDTO(newGenre));
             return true;
         }else{
             return false;
@@ -40,9 +39,8 @@ public class GenreDao implements IGenreDao {
     }
 
     @Override
-    public boolean update(int id, String name) {
-        genres.add(id - 1, new GenreID(new GenreDTO(name), id));
-        return false;
+    public void update(int id, String name) {
+        genres.set(id - 1, new GenreDTO(name));
     }
 
     @Override
@@ -56,20 +54,29 @@ public class GenreDao implements IGenreDao {
 
     @Override
     public boolean exist(int id) {
-        for (GenreID genreID : genres) {
-            if(id == genreID.getId()){
+            if(genres.size() >= id && id > 0){
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    public boolean exist(String genre) {
+        for (GenreDTO genreDTO : genres) {
+            if (genre.equals(genreDTO.getName())) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean exist(String genre) {
-        for (GenreID genreID : genres) {
-            if (genre.equals(genreID.getGenreDTO().getName())) {
-                return true;
+    public int getId(String genre){
+        int id = -1;
+        for (GenreDTO genreDTO : genres) {
+            if(genreDTO.getName().equals(genre)){
+                id = genres.indexOf(genreDTO) + 1;
             }
         }
-        return false;
+        return id;
     }
 }

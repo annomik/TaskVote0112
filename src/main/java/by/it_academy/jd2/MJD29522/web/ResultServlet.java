@@ -29,23 +29,23 @@ public class ResultServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         List<StatisticDTOArtistOrGenre> sortSingers = statisticService.getResultSinger();
-        writer.write("<p>"+ " Top 4 the best singers: "+ "</p>");
+        writer.write("<p><b>"+ " Top 4 the best singers: "+ "</b></p>");
         int n = 1;
         for (StatisticDTOArtistOrGenre singer: sortSingers) {
-            writer.write("<p>"+ n + ". "+ singer.getName() + " - "+ singer.getCount() + " votes " + "</p>");
+            writer.write("<p>"+ n + " Место - "+ singer.getName() + " - "+ singer.getCount() + " votes " + "</p>");
             n++;
         }
 
         List<StatisticDTOArtistOrGenre> sortGenres = statisticService.getResultGenre();
-        writer.write("<p>"+ " Top 10 the best genres: "+ "</p>");
+        writer.write("<p><b>"+ " Top 10 the best genres: "+ "</b></p>");
         int m = 1;
         for (StatisticDTOArtistOrGenre genre: sortGenres) {
-            writer.write("<p>" + m +". "+ genre.getName() + " - "+ genre.getCount()+ " votes " + "</p>");
+            writer.write("<p>" + m +" Место - "+ genre.getName() + " - "+ genre.getCount()+ " votes " + "</p>");
             m++;
         }
 
         List<StatisticDTOMessage> sortMessages = statisticService.getResultMessage();
-        writer.write("<p>"+ " Sorted messages about voters: "+ "</p>");
+        writer.write("<p><b>"+ " Sorted messages about voters: "+ "</b></p>");
         for (StatisticDTOMessage sortMessage: sortMessages) {
             writer.write("<p>"+ sortMessage.getMessage() + " - "+ sortMessage.getDateToString() + "</p>");
         }

@@ -1,15 +1,15 @@
 package by.it_academy.jd2.MJD29522.service.api;
 
-import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import java.util.List;
 
 public interface IGenreService {
 
-    List<GenreID> get();
+    List<GenreDTO> get();
 
     boolean add(String newGenre);
 
-    boolean update(int id, String name);
+    void update(int id, String name);
 
     boolean delete(int id);
 

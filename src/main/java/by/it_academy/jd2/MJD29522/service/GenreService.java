@@ -1,7 +1,7 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
-import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class GenreService implements IGenreService {
     }
 
     @Override
-    public List<GenreID> get() {
+    public List<GenreDTO> get() {
         return dao.get();
     }
 
@@ -24,8 +24,8 @@ public class GenreService implements IGenreService {
     }
 
     @Override
-    public boolean update(int id, String name) {
-        return dao.update(id, name);
+    public void update(int id, String name) {
+        dao.update(id, name);
     }
 
     @Override

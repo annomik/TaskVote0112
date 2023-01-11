@@ -9,7 +9,7 @@ public interface ISingerService {
 
    boolean add(String newSinger);
 
-   boolean update(int id, String name);
+   void update(int id, String name);
 
    boolean delete(int id);
 
