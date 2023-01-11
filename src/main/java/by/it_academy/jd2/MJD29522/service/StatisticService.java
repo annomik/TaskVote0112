@@ -25,18 +25,15 @@ public class StatisticService implements IStatisticService {
 
     @Override
     public List<StatisticDTOArtistOrGenre> getResultGenre() {
-//        List<GenreID> genres = genreService.get();
-        List<GenreDTO> genres = genreService.get();
+        List<GenreID> genres = genreService.get();
 
         List<Vote> votes = voteService.getVote();
         List<StatisticDTOArtistOrGenre> statisticGenre = new ArrayList<>();
         // в этом цикле происходит заполнение именами. т.к. я заполняю ид и имена, то сравнивать проще по ид, в след методах все однотипно
-//        for(GenreID  genreID : genres){
-//            statisticGenre.add(new StatisticDTOArtistOrGenre(genreID.getId(),genreID.getGenreDTO().getName()));
-//        }
-        for(GenreDTO  genre : genres){
-            statisticGenre.add(new StatisticDTOArtistOrGenre(genres.indexOf(genre) + 1,genre.getName()));
+        for(GenreID  genreID : genres){
+            statisticGenre.add(new StatisticDTOArtistOrGenre(genreID.getId(),genreID.getGenreDTO().getName()));
         }
+
 
         for(Vote vote : votes){
             for(int i = 0;i<vote.getGenresID().length;i++){                         //берем каждый существующий жанр в голосе

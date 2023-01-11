@@ -1,6 +1,7 @@
 package by.it_academy.jd2.MJD29522.web;
 
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
+import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -32,13 +33,9 @@ public class GenresServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-//        List<GenreID> genreIDS = service.get();
-//        for (GenreID genreID : genreIDS) {
-//            writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
-//        }
-        List<GenreDTO> genres = service.get();
-        for (GenreDTO genre : genres) {
-            writer.write("<p>" + (genres.indexOf(genre) + 1) + ". " + genre.getName() + "</p>");
+        List<GenreID> genreIDS = service.get();
+        for (GenreID genreID : genreIDS) {
+            writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
         }
     }
 
@@ -49,7 +46,7 @@ public class GenresServlet extends HttpServlet {
 
         Map<String, String[]> mapParametrs = req.getParameterMap();
 
-        List<GenreDTO> genres = service.get();
+        List<GenreID> genres = service.get();
 
         PrintWriter writer = resp.getWriter();
 
@@ -67,9 +64,8 @@ public class GenresServlet extends HttpServlet {
             int idForDelete = Integer.parseInt(deleteGenre[0]);
 
             if(service.exist(idForDelete)){
-                String genreForDelete = genres.get(idForDelete - 1).getName();
                 service.delete(idForDelete);
-                writer.write("<p>Вы удалили жанр " + genreForDelete + " по id: " + idForDelete + "</p>");
+                writer.write("<p>Вы удалили жанр по id: " + idForDelete + "</p>");
             }
         }
         if(mapParametrs.containsKey(ADD)){
@@ -84,8 +80,8 @@ public class GenresServlet extends HttpServlet {
                 throw new IllegalArgumentException("Необходимо ввести название жанра для добавления");
             }
             String nameForAdd = addGenre[0];
-            for (GenreDTO genre : genres) {
-                if(nameForAdd.equals(genre.getName())){
+            for (GenreID genre : genres) {
+                if(nameForAdd.equals(genre.getGenreDTO().getName())){
                     throw new IllegalArgumentException("Жанр с именем " + nameForAdd + " уже есть в списке жанров");
                 }
             }
@@ -114,10 +110,8 @@ public class GenresServlet extends HttpServlet {
             String name = newName[0];
 
             if(service.exist(idForUpdate)){
-                String genreForUpdate = genres.get(idForUpdate - 1).getName();
                 service.update(idForUpdate, name);
-                writer.write("<p>Вы обновили название жанра " + genreForUpdate + " по id: " + idForUpdate +
-                        " на название: " + name + "</p>");
+                writer.write("<p>Вы обновили название жанра по id: " + idForUpdate + " на название: " + name + "</p>");
             }
         }
     }

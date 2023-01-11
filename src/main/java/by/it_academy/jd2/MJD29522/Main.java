@@ -1,38 +1,38 @@
 package by.it_academy.jd2.MJD29522;
 
 import by.it_academy.jd2.MJD29522.dao.GenreDao;
-import by.it_academy.jd2.MJD29522.dto.GenreDTO;
+import by.it_academy.jd2.MJD29522.dto.GenreID;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         GenreDao genreDao = new GenreDao();
-        List<GenreDTO> genres = genreDao.get();
+        List<GenreID> genres = genreDao.get();
 
-        for (GenreDTO genre : genres) {
-            System.out.println(genreDao.getId(genre.getName()) + ": " + genre.getName());
+        for (GenreID genre : genres) {
+            System.out.println(genre.getId() + ": " + genre.getGenreDTO().getName());
         }
 
-        System.out.println(genreDao.getId("Folk") + ": Folk");
 
         genreDao.add("sadghfgdgfxhgfdcgv");
+        genreDao.add("sadghfgdgfxhgfdcgv");
+        System.out.println(genreDao.add("sadghfgdgfxhgfdcgv"));
 
-        for (GenreDTO genre : genres) {
-            System.out.println(genreDao.getId(genre.getName()) + ": " + genre.getName());
+        for (GenreID genre : genres) {
+            System.out.println(genre.getId() + ": " + genre.getGenreDTO().getName());
         }
 
         System.out.println(genreDao.delete(3));
 
-        for (GenreDTO genre : genres) {
-            System.out.println(genreDao.getId(genre.getName()) + ": " + genre.getName());
+        for (GenreID genre : genres) {
+            System.out.println(genre.getId() + ": " + genre.getGenreDTO().getName());
         }
 
-        genreDao.update(10, "Пугачева");
+        genreDao.update(11, "Пугачева");
 
-        for (GenreDTO genre : genres) {
-            System.out.println(genreDao.getId(genre.getName()) + ": " + genre.getName());
+        for (GenreID genre : genres) {
+            System.out.println(genre.getId() + ": " + genre.getGenreDTO().getName());
         }
-        System.out.println(genreDao.getId("Folk") + ": Folk");
     }
 }
