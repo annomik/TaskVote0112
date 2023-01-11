@@ -38,8 +38,12 @@ public class GenreDao implements IGenreDao {
     }
     @Override
     public boolean add(String newGenre) {
+        int newId = generateId();
         if(!exist(newGenre)){
-            genres.add(new GenreID(new GenreDTO(newGenre), generateId()));
+            while (exist(newId)){
+                newId = generateId();
+            }
+            genres.add(new GenreID(new GenreDTO(newGenre), newId));
             return true;
         }else{
             return false;
