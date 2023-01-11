@@ -35,8 +35,8 @@ public class GenreService implements IGenreService {
 
     @Override
     public boolean exist(int id) {
-        if(id == 0){
-            throw new IllegalArgumentException("ID жанра не может быть 0!");
+        if(id <= 0 || id > get().size()){
+            throw new IllegalArgumentException("Жанра с таким id не существует в голосовании");
         }
         return this.dao.exist(id);
     }
