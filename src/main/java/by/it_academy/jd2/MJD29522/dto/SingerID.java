@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class SingerID {
     private SingerDTO singerDTO;
-    private int id;
-    public SingerID(SingerDTO singerDTO, int id) {
+    private final long id;
+    public SingerID(SingerDTO singerDTO, long id) {
         this.singerDTO = singerDTO;
         this.id = id;
     }
@@ -17,12 +17,12 @@ public class SingerID {
         this.singerDTO = singerDTO;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public long generateId() {
+        return id;
     }
 
     @Override
@@ -45,5 +45,4 @@ public class SingerID {
                 ", id=" + id +
                 '}';
     }
-
 }

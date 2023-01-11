@@ -13,7 +13,7 @@ public class SingerDaoSingleton  {
 
     public static ISingerDao getInstance(){
       if(instance == null) {
-          synchronized (SingerServiceSingleton.class) {
+          synchronized (SingerDaoSingleton.class) {
               if (instance == null) {
                   instance = new SingerDao();
               }
