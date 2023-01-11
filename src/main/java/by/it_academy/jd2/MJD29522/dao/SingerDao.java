@@ -8,17 +8,19 @@ import java.util.List;
 
 public class SingerDao implements ISingerDao {
 
-  private List<SingerID> singers = new ArrayList<>();
+    private List<SingerID> singers = new ArrayList<>();
+
+    private volatile long countID = 0;
 
     public SingerDao(List<SingerID> singers) {
         this.singers = singers;
     }
 
     public SingerDao(){
-        this.singers.add(new SingerID(new SingerDTO("Shakira"), 1));
-        this.singers.add(new SingerID(new SingerDTO("Цой"),2));
-        this.singers.add(new SingerID(new SingerDTO("Madonna"),3));
-        this.singers.add(new SingerID(new SingerDTO("Linkin Park"),4));
+        this.singers.add(new SingerID(new SingerDTO("Shakira"), generateId()));
+        this.singers.add(new SingerID(new SingerDTO("Цой"),generateId()));
+        this.singers.add(new SingerID(new SingerDTO("Madonna"),generateId()));
+        this.singers.add(new SingerID(new SingerDTO("Linkin Park"),generateId()));
     }
 
     @Override
@@ -26,26 +28,56 @@ public class SingerDao implements ISingerDao {
         return  singers;
     }
 
+    public long generateId(){
+        synchronized (SingerDao.class){
+            countID++;
+        }
+        return  countID;
+    }
+
     @Override
     public boolean add(String newSinger) {
-        return false;
+        if(!exist(newSinger)){
+            singers.add(new SingerID(new SingerDTO(newSinger), generateId()));
+            return  true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void update(int id, String name) {
-
+        for (SingerID singer: singers){
+            if(singer.getId() == id){
+                singers.set(singers.indexOf(singer), new SingerID(new SingerDTO(name),id));
+            }
+        }
     }
 
     @Override
     public boolean delete(int id) {
+        for (SingerID singerID: singers){
+                if (singerID.getId() == id){
+                    singers.remove(singerID);
+                    return true;
+                }
+            }
         return false;
     }
-
 
     @Override
     public boolean exist(int id) {
         for (SingerID singerID: singers){
             if(id == singerID.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean exist(String singer) {
+        for (SingerID singerID: singers){
+            if(singer.equals(singerID.getSingerDTO().getName())){
                 return true;
             }
         }

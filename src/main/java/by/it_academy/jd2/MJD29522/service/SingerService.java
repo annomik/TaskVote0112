@@ -20,24 +20,25 @@ public class SingerService implements ISingerService {
 
     @Override
     public boolean add(String newSinger) {
-        return false;
+        return singerDao.add(newSinger);
     }
 
     @Override
-    public void update(int id, String name) {
-
+    public void update(int id, String name) { singerDao.update(id, name);
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        return singerDao.delete(id);
     }
 
     @Override
     public boolean exist(int id) {
-        if (id == 0){
-            throw new IllegalArgumentException("ID исполнителя не может быть 0!");
-        }
         return this.singerDao.exist(id);
     }
+
+//    public boolean exist(String name) {
+//        return this.singerDao.exist(name);
+//    }
+
 }
