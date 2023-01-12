@@ -86,7 +86,7 @@ public class GenresServlet extends HttpServlet {
                 }
             }
             service.add(nameForAdd);
-            writer.write("<p>Вы добавили жанр " + nameForAdd + " по id: " + genres.size() + "</p>");
+            writer.write("<p>Вы добавили жанр " + nameForAdd + "</p>");
         }
         if(mapParametrs.containsKey(UPDATE_ID) && mapParametrs.containsKey(UPDATE_NEW_NAME)){
             String[] updateId = mapParametrs.get(UPDATE_ID);
@@ -106,12 +106,15 @@ public class GenresServlet extends HttpServlet {
                 throw new IllegalArgumentException("В поле updateId необходимо ввести число для обновления жанра по id");
             }
 
-            int idForUpdate = Integer.parseInt(updateId[0]);
+            long idForUpdate = Integer.parseInt(updateId[0]);
             String name = newName[0];
 
             if(service.exist(idForUpdate)){
                 service.update(idForUpdate, name);
                 writer.write("<p>Вы обновили название жанра по id: " + idForUpdate + " на название: " + name + "</p>");
+            }
+            else {
+                writer.write("<p>Не удалось обновить название жанра по id: " + idForUpdate + " на название: " + name + "</p>");
             }
         }
     }

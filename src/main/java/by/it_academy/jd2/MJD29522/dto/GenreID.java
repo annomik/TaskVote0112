@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class GenreID {
     private GenreDTO genreDTO;
-    private int id;
+    private long id;
 
-    public GenreID(GenreDTO genreDTO, int id) {
+    public GenreID(GenreDTO genreDTO, long id) {
         this.genreDTO = genreDTO;
         this.id = id;
     }
@@ -19,7 +19,7 @@ public class GenreID {
         this.genreDTO = genreDTO;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

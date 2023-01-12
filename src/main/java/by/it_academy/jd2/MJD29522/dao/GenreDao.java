@@ -10,7 +10,7 @@ import java.util.List;
 public class GenreDao implements IGenreDao {
     private List<GenreID> genres = new ArrayList<>();
 
-    private volatile int id = 0;
+    private volatile long id = 0;
     public GenreDao(List<GenreID> genres) {
         this.genres = genres;
     }
@@ -26,7 +26,7 @@ public class GenreDao implements IGenreDao {
         genres.add(new GenreID(new GenreDTO("Blues"), generateId()));
         genres.add(new GenreID(new GenreDTO("Disco"), generateId()));
     }
-    public int generateId(){
+    public long generateId(){
         synchronized (GenreDao.class){
             id++;
         }
@@ -38,7 +38,7 @@ public class GenreDao implements IGenreDao {
     }
     @Override
     public boolean add(String newGenre) {
-        int newId = generateId();
+        long newId = generateId();
         if(!exist(newGenre)){
             while (exist(newId)){
                 newId = generateId();
@@ -50,7 +50,7 @@ public class GenreDao implements IGenreDao {
         }
     }
     @Override
-    public void update(int id, String name) {
+    public void update(long id, String name) {
         for (GenreID genre : genres) {
             if(genre.getId() == id){
                 genres.set(genres.indexOf(genre), new GenreID(new GenreDTO(name), id));
@@ -58,7 +58,7 @@ public class GenreDao implements IGenreDao {
         }
     }
     @Override
-    public boolean delete(int id) {
+    public boolean delete(long id) {
         for (GenreID genre : genres) {
             if(genre.getId() == id){
                 genres.remove(genre);
@@ -68,7 +68,7 @@ public class GenreDao implements IGenreDao {
         return false;
     }
     @Override
-    public boolean exist(int id) {
+    public boolean exist(long id) {
         for (GenreID genreID : genres) {
             if(id == genreID.getId()){
                 return true;

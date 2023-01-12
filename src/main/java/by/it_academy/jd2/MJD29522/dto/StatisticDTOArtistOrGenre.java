@@ -1,16 +1,16 @@
 package by.it_academy.jd2.MJD29522.dto;
 
 public class StatisticDTOArtistOrGenre {
-    private final int  id;
+    private final long  id;
     private final String name;
-    private int count;
+    private long count;
 
-    public StatisticDTOArtistOrGenre(int id, String name) {
+    public StatisticDTOArtistOrGenre(long id, String name) {
         this.id = id;
         this.name = name;
         count = 0;
     }
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -18,7 +18,7 @@ public class StatisticDTOArtistOrGenre {
         return name;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 

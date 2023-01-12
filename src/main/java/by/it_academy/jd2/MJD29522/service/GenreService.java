@@ -1,15 +1,22 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
+import by.it_academy.jd2.MJD29522.dao.api.IGenreDaoDB;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import java.util.List;
 
 public class GenreService implements IGenreService {
 
-    private final IGenreDao dao;
+//    private final IGenreDao dao;
 
-    public GenreService(IGenreDao dao) {
+    private final IGenreDaoDB dao;
+
+//    public GenreService(IGenreDao dao) {
+//        this.dao = dao;
+//    }
+
+    public GenreService(IGenreDaoDB dao) {
         this.dao = dao;
     }
 
@@ -24,20 +31,17 @@ public class GenreService implements IGenreService {
     }
 
     @Override
-    public void update(int id, String name) {
+    public void update(long id, String name) {
         dao.update(id, name);
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(long id) {
         return dao.delete(id);
     }
 
     @Override
-    public boolean exist(int id) {
-        if(id <= 0 || id > get().size()){
-            throw new IllegalArgumentException("Жанра с таким id не существует в голосовании");
-        }
+    public boolean exist(long id) {
         return this.dao.exist(id);
     }
 }
