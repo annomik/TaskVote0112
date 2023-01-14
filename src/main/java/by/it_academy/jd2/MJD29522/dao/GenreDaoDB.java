@@ -55,7 +55,6 @@ public class GenreDaoDB implements IGenreDao {
                         "UPDATE app.genres SET name = ? WHERE id = ?;")){
             preparedStatement.setString(1, name);
             preparedStatement.setLong(2, id);
-
             preparedStatement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException(e);
@@ -64,6 +63,15 @@ public class GenreDaoDB implements IGenreDao {
 
     @Override
     public boolean delete(long id) {
+        try(Connection conn = startingDB.load();
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "DELETE FROM app.genres WHERE id = ?;"))
+        {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return false;
     }
 
