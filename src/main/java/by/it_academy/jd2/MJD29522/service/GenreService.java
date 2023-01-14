@@ -1,7 +1,6 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
-import by.it_academy.jd2.MJD29522.dao.api.IGenreDaoDB;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import java.util.List;
@@ -10,13 +9,13 @@ public class GenreService implements IGenreService {
 
 //    private final IGenreDao dao;
 
-    private final IGenreDaoDB dao;
+    private final IGenreDao dao;
 
 //    public GenreService(IGenreDao dao) {
 //        this.dao = dao;
 //    }
 
-    public GenreService(IGenreDaoDB dao) {
+    public GenreService(IGenreDao dao) {
         this.dao = dao;
     }
 
