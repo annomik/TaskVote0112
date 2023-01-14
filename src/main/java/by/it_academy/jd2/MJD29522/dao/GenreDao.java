@@ -67,6 +67,7 @@ public class GenreDao implements IGenreDao {
         }
         return false;
     }
+
     @Override
     public boolean exist(long id) {
         for (GenreID genreID : genres) {
