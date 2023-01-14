@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="TaskVote0112" />
         <module name="JD2-9522" />
         <module name="task1" />
-        <module name="TaskVote0112" />
+        <module name="TaskVote" />
       </profile>
     </annotationProcessing>
   </component>
