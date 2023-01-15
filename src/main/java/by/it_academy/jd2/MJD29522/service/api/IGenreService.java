@@ -3,6 +3,7 @@ package by.it_academy.jd2.MJD29522.service.api;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IGenreService {
 
@@ -15,4 +16,7 @@ public interface IGenreService {
     boolean delete(long id);
 
     boolean exist (long id);
+
+    boolean validation(Map<String, String[]> mapParametrs, String operation);
+
 }
