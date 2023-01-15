@@ -2,6 +2,7 @@ package by.it_academy.jd2.MJD29522.service.api;
 
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 import java.util.List;
+import java.util.Map;
 
 public interface ISingerService {
 
@@ -9,9 +10,11 @@ public interface ISingerService {
 
    boolean add(String newSinger);
 
-   void update(int id, String name);
+   void update(long id, String name);
 
-   boolean delete(int id);
+   boolean delete(long id);
 
-   boolean exist(int id);
+   boolean exist(long id);
+
+   boolean validate(Map<String, String[]> mapParameters, String parameter) ;
 }
