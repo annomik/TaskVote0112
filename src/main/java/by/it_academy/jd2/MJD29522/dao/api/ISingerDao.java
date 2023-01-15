@@ -10,9 +10,9 @@ public interface ISingerDao {
 
     boolean add(String newSinger);
 
-    void update(int id, String name);
+    void update(long id, String name);
 
-    boolean delete(int id);
+    boolean delete(long id);
 
-    boolean exist(int id);
+    boolean exist(long id);
 }

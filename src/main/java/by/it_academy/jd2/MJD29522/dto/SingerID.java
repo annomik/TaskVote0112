@@ -9,6 +9,7 @@ public class SingerID {
         this.singerDTO = singerDTO;
         this.id = id;
     }
+
     public SingerDTO getSingerDTO() {
         return singerDTO;
     }
@@ -16,6 +17,7 @@ public class SingerID {
     public void setSingerDTO(SingerDTO singerDTO) {
         this.singerDTO = singerDTO;
     }
+
 
     public long getId() {
         return id;

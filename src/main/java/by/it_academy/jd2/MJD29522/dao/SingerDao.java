@@ -46,7 +46,7 @@ public class SingerDao implements ISingerDao {
     }
 
     @Override
-    public void update(int id, String name) {
+    public void update(long id, String name) {
         for (SingerID singer: singers){
             if(singer.getId() == id){
                 singers.set(singers.indexOf(singer), new SingerID(new SingerDTO(name),id));
@@ -55,7 +55,7 @@ public class SingerDao implements ISingerDao {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(long id) {
         for (SingerID singerID: singers){
                 if (singerID.getId() == id){
                     singers.remove(singerID);
@@ -66,7 +66,7 @@ public class SingerDao implements ISingerDao {
     }
 
     @Override
-    public boolean exist(int id) {
+    public boolean exist(long id) {
         for (SingerID singerID: singers){
             if(id == singerID.getId()){
                 return true;
