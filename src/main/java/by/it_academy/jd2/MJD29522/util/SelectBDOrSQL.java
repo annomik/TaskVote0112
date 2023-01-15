@@ -1,4 +1,4 @@
-package util;
+package by.it_academy.jd2.MJD29522.util;
 
 public class SelectBDOrSQL {
     private static boolean selectSQL = false;

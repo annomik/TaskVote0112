@@ -10,7 +10,7 @@ public class GenreServiceSingleton {
    private GenreServiceSingleton() {
     }
 
-    public static GenreService getInstance() {
+        public static GenreService getInstance() {
         if(instance == null){
             synchronized (GenreServiceSingleton.class){
                 if(instance == null){

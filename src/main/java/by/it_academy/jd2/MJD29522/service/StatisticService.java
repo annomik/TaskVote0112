@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StatisticService implements IStatisticService {
+public class  StatisticService implements IStatisticService {
 
     private final ISingerService singerService;
     private final IGenreService genreService;
