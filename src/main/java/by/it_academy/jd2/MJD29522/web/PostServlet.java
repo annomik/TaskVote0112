@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 
@@ -19,6 +18,8 @@ public class PostServlet extends HttpServlet {
     private final String EXECUTOR_PARAM = "singer";
     private final String GENRE_PARAM = "genre";
     private final String MESSAGE_PARAM = "message";
+
+    private final String EMAIL = "email";
 
     private final IVoteService service;
 
@@ -52,7 +53,7 @@ public class PostServlet extends HttpServlet {
                 throw  new IllegalArgumentException("Genre ID must be number");
             }
         }
-        int[] intGenresID = new int[genresID.length];
+        long[] intGenresID = new long[genresID.length];
         for(int i = 0;i<genresID.length;i++){
             intGenresID[i] = Integer.parseInt(genresID[i]);
         }
@@ -65,7 +66,7 @@ public class PostServlet extends HttpServlet {
             throw new IllegalArgumentException("Don't have message");
         }
 
-        service.save(new VoteDTO(intExecutorID,intGenresID,message[0]));
+        service.save(new VoteDTO(intExecutorID,intGenresID,message[0],EMAIL));//--------------------------
 
         String path = req.getContextPath() + "/result";
         resp.sendRedirect(path);

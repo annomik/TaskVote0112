@@ -1,34 +1,31 @@
 package by.it_academy.jd2.MJD29522.dto;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Vote extends VoteDTO{
 
-    private final long time;
+    private final long id;
+    private final LocalDate time;
 
-    public Vote(VoteDTO voteDTO) {
-        super(voteDTO.getSingerID(), voteDTO.getGenresID(), voteDTO.getMessage());
-        this.time = setDate();
+    public Vote(long id, VoteDTO voteDTO) {
+        super(voteDTO.getSingerID(), voteDTO.getGenresID(), voteDTO.getMessage(), voteDTO.getEmail());
+        this.time = LocalDate.now();
+        this.id = id;
     }
 
-    public Vote(VoteDTO voteDTO, long time) {
-        super(voteDTO.getSingerID(), voteDTO.getGenresID(), voteDTO.getMessage());
-        this.time = time;
+    public Vote(long id, VoteDTO voteDTO, LocalDate localDate){
+        super(voteDTO.getSingerID(),voteDTO.getGenresID(),voteDTO.getMessage(),voteDTO.getEmail());
+        this.time = localDate;
+        this.id = id;
     }
 
-    private long setDate(){
-        Date date = new Date();
-        return date.getTime();
-    }
-
-    public String getDate(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return simpleDateFormat.format(new Date(time));
-    }
-
-    public long getTime() {
+    public LocalDate getTime() {
         return time;
     }
+
+    public long getId() {
+        return id;
+    }
+
 
 }

@@ -1,26 +1,33 @@
 package by.it_academy.jd2.MJD29522.dto;
 
+
 public class VoteDTO {
 
-    private final int singerID;
-    private final int[] genresID;
+    private final long singerID;
+    private final long[] genresID;
     private final String message;
+    private final String email;
 
-    public VoteDTO(int singerID, int[] genresID, String message) {
+    public VoteDTO(long singerID, long[] genresID, String message, String email) {
         this.singerID = singerID;
         this.genresID = genresID;
         this.message = message;
+        this.email = email;
     }
 
-    public int getSingerID() {
+    public long getSingerID() {
         return singerID;
     }
 
-    public int[] getGenresID() {
+    public long[] getGenresID() {
         return genresID;
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

@@ -24,19 +24,19 @@ public class VoteService implements IVoteService {
     @Override
     public void save(VoteDTO voteDTO) {
         validation(voteDTO);
-        this.dao.save(new Vote(voteDTO));
+        this.dao.save(voteDTO);
     }
 
    private void validation(VoteDTO voteDTO){
-        int singerID = voteDTO.getSingerID();
-        int[] genresID = voteDTO.getGenresID();
+        long singerID = voteDTO.getSingerID();
+        long[] genresID = voteDTO.getGenresID();
 
         if(!singerService.exist(singerID)){
             throw new IllegalArgumentException("Такого исполнителя не существует");
         }
 
-        Set<Integer> set = new HashSet<>();
-        for (int genreID : genresID){
+        Set<Long> set = new HashSet<>();
+        for (long genreID : genresID){
             set.add(genreID);
         }
 
@@ -48,7 +48,7 @@ public class VoteService implements IVoteService {
             throw new IllegalArgumentException("Количество жанров должно быть от 3 до 5, и жанры не должны повторяться");
         }
 
-        for (int genreID : genresID){
+        for (long genreID : genresID){
             if(!genreService.exist(genreID)){
                 throw new IllegalArgumentException("Такого жанра не существует");
             }

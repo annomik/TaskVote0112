@@ -10,8 +10,9 @@ import java.util.List;
 public class VoteDao implements IVoteDao {
 
   private List<Vote> votes = new ArrayList<>();
+  private long id = 0;
 
-   public VoteDao() {
+  public VoteDao() {
    }
 
     @Override
@@ -21,7 +22,12 @@ public class VoteDao implements IVoteDao {
 
     @Override
     public boolean save(VoteDTO vote) {
-       votes.add(new Vote(vote));
+       votes.add(new Vote(getId(),vote));
        return true;
+    }
+
+    private long getId(){
+      this.id++;
+      return this.id;
     }
 }

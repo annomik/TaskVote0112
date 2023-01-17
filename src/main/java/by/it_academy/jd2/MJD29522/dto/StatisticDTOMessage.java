@@ -1,23 +1,17 @@
 package by.it_academy.jd2.MJD29522.dto;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class StatisticDTOMessage {
-    private final long time;
+    private final LocalDate time;
     private final String message;
 
-    public StatisticDTOMessage(long time, String message) {
+    public StatisticDTOMessage(LocalDate time, String message) {
         this.time = time;
         this.message = message;
     }
 
-    public String getDateToString(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return simpleDateFormat.format(new Date(time));
-    }
-
-    public long getTime() {
+    public LocalDate getTime() {
         return time;
     }
 

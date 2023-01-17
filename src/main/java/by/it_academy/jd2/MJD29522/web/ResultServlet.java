@@ -47,7 +47,7 @@ public class ResultServlet extends HttpServlet {
         List<StatisticDTOMessage> sortMessages = statisticService.getResultMessage();
         writer.write("<p><b>"+ " Sorted messages about voters: "+ "</b></p>");
         for (StatisticDTOMessage sortMessage: sortMessages) {
-            writer.write("<p>"+ sortMessage.getMessage() + " - "+ sortMessage.getDateToString() + "</p>");
+            writer.write("<p>"+ sortMessage.getMessage() + " - "+ sortMessage.getTime().toString() + "</p>");
         }
     }
 }
