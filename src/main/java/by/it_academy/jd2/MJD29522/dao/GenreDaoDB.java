@@ -1,8 +1,10 @@
 package by.it_academy.jd2.MJD29522.dao;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
+import by.it_academy.jd2.MJD29522.dao.fabrics.SrartingDBSingleton;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.util.StartingDB;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +12,10 @@ import java.util.List;
 
 public class GenreDaoDB implements IGenreDao {
 
-    StartingDB startingDB = new StartingDB();
+    private final StartingDB startingDB;
+    public GenreDaoDB(){
+        this.startingDB = SrartingDBSingleton.getInstance();
+    }
 
     @Override
     public List<GenreID> get() {
