@@ -10,8 +10,7 @@ public class SingerDaoSingleton  {
 
    private volatile static ISingerDao instance;
 
-    private SingerDaoSingleton() {
-    }
+    private SingerDaoSingleton() {    }
 
     public static ISingerDao getInstance(){
       if(instance == null) {

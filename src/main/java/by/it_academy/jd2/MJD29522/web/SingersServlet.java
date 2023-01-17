@@ -22,6 +22,7 @@ public class SingersServlet extends HttpServlet {
     private final String ADD = "add";
     private final String ID = "updateId";
     private final String NEW_NAME = "newName";
+
     private final ISingerService service;
 
     public SingersServlet() {
@@ -38,7 +39,7 @@ public class SingersServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         for (SingerID singerID : singerDTOS) {
-            writer.write("<p>" + singerID.getId() + ". " +singerID.getSingerDTO().getName() + "</p>");
+            writer.write("<p>" + singerID.getId() + ". " + singerID.getSingerDTO().getName() + "</p>");
         }
     }
 
@@ -55,13 +56,13 @@ public class SingersServlet extends HttpServlet {
 
         String[] addSinger = mapParameters.get(ADD);
 
-       if (!mapParameters.containsKey(ADD) || addSinger == null ){
-           throw new IllegalArgumentException("Ключ операции не передан или передан не правильно");
-       }
-       service.validate(mapParameters, ADD);
-       service.add(addSinger[0]);
+        if (!mapParameters.containsKey(ADD) || addSinger == null) {
+            throw new IllegalArgumentException("Ключ операции не передан или передан не правильно");
+        }
+        service.validate(mapParameters, ADD);
+        service.add(addSinger[0]);
 
-       writer.write("<p> Вы добавили исполнителя - " + addSinger[0] + "!</p>");
+        writer.write("<p> Вы добавили исполнителя - " + addSinger[0] + "!</p>");
     }
 
     @Override
@@ -76,20 +77,20 @@ public class SingersServlet extends HttpServlet {
         String[] newName = mapParameters.get(NEW_NAME);
 
         if (!mapParameters.containsKey(ID) || singerId == null ||
-                !mapParameters.containsKey(NEW_NAME) || newName == null){
+                !mapParameters.containsKey(NEW_NAME) || newName == null) {
             throw new IllegalArgumentException("Ключ операции не передан или передан не правильно");
         }
-        if(!NumberUtils.isDigits(singerId[0])){
-            throw  new IllegalArgumentException("Singer ID must be number");
+        if (!NumberUtils.isDigits(singerId[0])) {
+            throw new IllegalArgumentException("Singer ID must be number");
         }
 
-        if(service.validate(mapParameters, ID) && service.validate(mapParameters, NEW_NAME)){
+        if (service.validate(mapParameters, ID) && service.validate(mapParameters, NEW_NAME)) {
             long idForUpdate = Integer.parseInt(singerId[0]);
 
-            if(service.exist(idForUpdate)){
+            if (service.exist(idForUpdate)) {
                 service.update(idForUpdate, newName[0]);
-               writer.write("<p>Вы обновили исполнителя по id: " + idForUpdate + " на исполнителя: " + newName[0] + "</p>");
-            }else {
+                writer.write("<p>Вы обновили исполнителя по id: " + idForUpdate + " на исполнителя: " + newName[0] + "</p>");
+            } else {
                 throw new IllegalArgumentException("Такого id для обновления не существует");
             }
         }
@@ -108,12 +109,22 @@ public class SingersServlet extends HttpServlet {
 
         String[] deleteSinger = mapParameters.get(DELETE);
 
-        long idForDelete = Integer.parseInt(deleteSinger[0]);
-
-        if(service.exist(idForDelete)){
-            service.delete(idForDelete);
-            writer.write("<p>Вы удалили исполнителя по id: " + idForDelete + "</p>");
+        if (!mapParameters.containsKey(DELETE) || deleteSinger == null ) {
+            throw new IllegalArgumentException("Ключ операции не передан или передан не правильно");
+        }
+        if (!NumberUtils.isDigits(deleteSinger[0])) {
+            throw new IllegalArgumentException("Singer ID must be number");
         }
 
+        if (service.validate(mapParameters, DELETE)) {
+            long idForDelete = Integer.parseInt(deleteSinger[0]);
+
+            if (service.exist(idForDelete)) {
+                service.delete(idForDelete);
+                writer.write("<p>Вы удалили исполнителя по id: " + idForDelete + "</p>");
+            } else {
+                throw new IllegalArgumentException("Такого id для удаления не существует");
+            }
+        }
     }
 }
