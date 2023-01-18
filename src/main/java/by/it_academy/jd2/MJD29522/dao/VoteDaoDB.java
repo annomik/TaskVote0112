@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class VoteDaoDB implements IVoteDao {
-    private final String saveVoteSQL = "INSERT INTO app.votes (about, date) VALUES (?,now());";
+    private final String saveVoteSQL = "INSERT INTO app.votes (about, date, email) VALUES (?,now(),'123@mail.ru');";
     private final String saveVoteArtistSQL = "INSERT INTO app.vote_artist(artist_id,vote_id) VALUES (?,?)";
-    private final String saveVoteGenresSQL = "INSERT INTO app.vote_genre(genre_id,vote_id) VALUES (?,?)";
+    private final String saveVoteGenresSQL = "INSERT INTO app.vote_genres(genre_id,vote_id) VALUES (?,?)";
     private final String getVoteSQL =
             "SELECT app.votes.id, about, date, genres_arr.genres, artist_id AS artist " +
             "FROM app.votes " +
