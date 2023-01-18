@@ -69,6 +69,14 @@ public class PostServlet extends HttpServlet {
                 throw new IllegalArgumentException("Don't have message");
             }
 
+            String[] email = mapRequest.get(EMAIL);
+            if (email == null) {
+                throw new IllegalArgumentException("Don't have your email");
+            }
+            if (email[0].length() == 0 || email[0].isBlank()) {
+                throw new IllegalArgumentException("Don't have your email");
+            }
+
             service.save(new VoteDTO(intExecutorID, intGenresID, message[0], EMAIL));//--------------------------
 
             String path = req.getContextPath() + "/result";
