@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 
@@ -33,42 +34,47 @@ public class PostServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
 
         Map<String, String[]> mapRequest = req.getParameterMap();
+        PrintWriter writer = resp.getWriter();
 
         String[] executorID = mapRequest.get(EXECUTOR_PARAM);
-        if(executorID==null)
-            throw new IllegalArgumentException("Don't have ID singer");
-        if(executorID.length!=1){
-            throw new IllegalArgumentException("Singer ID must be alone");
-        }
-        if(!NumberUtils.isNumber(executorID[0])||executorID[0]==null){
-            throw  new IllegalArgumentException("Singer ID must be number");
-        }
-        int intExecutorID = Integer.parseInt(executorID[0]);
-
-        String[] genresID = mapRequest.get(GENRE_PARAM);
-        if(genresID==null)
-            throw new IllegalArgumentException("Don't have ID genres");
-        for (String genre : genresID) {
-            if(!NumberUtils.isNumber(genre)||genre==null){
-                throw  new IllegalArgumentException("Genre ID must be number");
+        try {
+            if (executorID == null)
+                throw new IllegalArgumentException("Don't have ID singer");
+            if (executorID.length != 1) {
+                throw new IllegalArgumentException("Singer ID must be alone");
             }
-        }
-        long[] intGenresID = new long[genresID.length];
-        for(int i = 0;i<genresID.length;i++){
-            intGenresID[i] = Integer.parseInt(genresID[i]);
-        }
+            if (!NumberUtils.isNumber(executorID[0]) || executorID[0] == null) {
+                throw new IllegalArgumentException("Singer ID must be number");
+            }
+            int intExecutorID = Integer.parseInt(executorID[0]);
 
-        String[] message = mapRequest.get(MESSAGE_PARAM);
-        if(message==null){
-            throw new IllegalArgumentException("Don't have message");
-        }
-        if(message[0].length()==0||message[0].isBlank()){
-            throw new IllegalArgumentException("Don't have message");
-        }
+            String[] genresID = mapRequest.get(GENRE_PARAM);
+            if (genresID == null)
+                throw new IllegalArgumentException("Don't have ID genres");
+            for (String genre : genresID) {
+                if (!NumberUtils.isNumber(genre) || genre == null) {
+                    throw new IllegalArgumentException("Genre ID must be number");
+                }
+            }
+            long[] intGenresID = new long[genresID.length];
+            for (int i = 0; i < genresID.length; i++) {
+                intGenresID[i] = Integer.parseInt(genresID[i]);
+            }
 
-        service.save(new VoteDTO(intExecutorID,intGenresID,message[0],EMAIL));//--------------------------
+            String[] message = mapRequest.get(MESSAGE_PARAM);
+            if (message == null) {
+                throw new IllegalArgumentException("Don't have message");
+            }
+            if (message[0].length() == 0 || message[0].isBlank()) {
+                throw new IllegalArgumentException("Don't have message");
+            }
 
-        String path = req.getContextPath() + "/result";
-        resp.sendRedirect(path);
+            service.save(new VoteDTO(intExecutorID, intGenresID, message[0], EMAIL));//--------------------------
+
+            String path = req.getContextPath() + "/result";
+            resp.sendRedirect(path);
+        }catch(RuntimeException e){
+            writer.write("<p>" + e.getMessage() + "</p>");
+        }
     }
 }

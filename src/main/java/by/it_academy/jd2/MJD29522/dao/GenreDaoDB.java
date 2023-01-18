@@ -22,7 +22,8 @@ public class GenreDaoDB implements IGenreDao {
         List<GenreID> genres = new ArrayList<>();
 
         try(Connection conn = startingDB.load();
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, name FROM app.genres;")) {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, name FROM app.genres " +
+                    "ORDER BY id;")) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
