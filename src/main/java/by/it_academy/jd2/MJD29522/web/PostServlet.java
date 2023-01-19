@@ -77,7 +77,7 @@ public class PostServlet extends HttpServlet {
                 throw new IllegalArgumentException("Don't have your email");
             }
 
-            service.save(new VoteDTO(intExecutorID, intGenresID, message[0], EMAIL));//--------------------------
+            service.save(new VoteDTO(intExecutorID, intGenresID, message[0], email[0]));//--------------------------
 
             String path = req.getContextPath() + "/result";
             resp.sendRedirect(path);
