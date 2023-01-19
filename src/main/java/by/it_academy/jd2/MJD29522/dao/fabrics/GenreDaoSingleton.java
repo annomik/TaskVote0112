@@ -1,7 +1,7 @@
 package by.it_academy.jd2.MJD29522.dao.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.GenreDao;
-import by.it_academy.jd2.MJD29522.dao.GenreDaoDB;
+import by.it_academy.jd2.MJD29522.dao.memory.GenreDao;
+import by.it_academy.jd2.MJD29522.dao.dataBase.GenreDaoDB;
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.util.SelectBDOrSQL;
 

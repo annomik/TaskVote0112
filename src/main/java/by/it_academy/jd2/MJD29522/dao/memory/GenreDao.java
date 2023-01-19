@@ -1,4 +1,4 @@
-package by.it_academy.jd2.MJD29522.dao;
+package by.it_academy.jd2.MJD29522.dao.memory;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;

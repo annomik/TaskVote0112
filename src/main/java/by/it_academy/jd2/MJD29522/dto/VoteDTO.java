@@ -1,6 +1,8 @@
 package by.it_academy.jd2.MJD29522.dto;
 
 
+import java.time.LocalDate;
+
 public class VoteDTO {
 
     private final long singerID;
@@ -8,11 +10,14 @@ public class VoteDTO {
     private final String message;
     private final String email;
 
-    public VoteDTO(long singerID, long[] genresID, String message, String email) {
+    private final LocalDate localDate;
+
+    public VoteDTO(long singerID, long[] genresID, String message, String email, LocalDate localDate) {
         this.singerID = singerID;
         this.genresID = genresID;
         this.message = message;
         this.email = email;
+        this.localDate = localDate;
     }
 
     public long getSingerID() {
@@ -30,4 +35,9 @@ public class VoteDTO {
     public String getEmail() {
         return email;
     }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
 }

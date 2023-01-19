@@ -1,7 +1,7 @@
-package by.it_academy.jd2.MJD29522.dao;
+package by.it_academy.jd2.MJD29522.dao.dataBase;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
-import by.it_academy.jd2.MJD29522.dao.fabrics.SrartingDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.SrartingDBSingleton;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.util.StartingDB;

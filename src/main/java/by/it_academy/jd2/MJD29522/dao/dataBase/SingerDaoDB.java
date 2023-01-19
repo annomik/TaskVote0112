@@ -1,4 +1,4 @@
-package by.it_academy.jd2.MJD29522.dao;
+package by.it_academy.jd2.MJD29522.dao.dataBase;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;

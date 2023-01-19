@@ -1,4 +1,4 @@
-package by.it_academy.jd2.MJD29522.dao.fabrics;
+package by.it_academy.jd2.MJD29522.dao;
 
 import by.it_academy.jd2.MJD29522.util.StartingDB;
 public class SrartingDBSingleton {

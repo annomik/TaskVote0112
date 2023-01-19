@@ -1,7 +1,7 @@
-package by.it_academy.jd2.MJD29522.dao;
+package by.it_academy.jd2.MJD29522.dao.dataBase;
 
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
-import by.it_academy.jd2.MJD29522.dao.fabrics.SrartingDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.SrartingDBSingleton;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.util.StartingDB;
@@ -17,7 +17,6 @@ public class VoteDaoDB implements IVoteDao {
     private final String saveVoteArtistSQL = "INSERT INTO app.vote_artist(artist_id,vote_id) VALUES (?,?)";
     private final String saveVoteGenresSQL = "INSERT INTO app.vote_genres(genre_id,vote_id) VALUES (?,?)";
     private final String getVoteSQL =
-//            "SELECT app.votes.id, about, date, genres_arr.genres, artist_id AS artist " +
                     "SELECT id, about, date, email, genres, artist_id AS artist " +
             "FROM app.votes " +
                 "FULL OUTER JOIN (" +
@@ -48,7 +47,7 @@ public class VoteDaoDB implements IVoteDao {
                 Long[] genresLong = (Long[]) array.getArray();
                 long artist = resultSet.getLong("artist");
                 //------------------------------------------------------------------------------
-                votes.add(new Vote(id,new VoteDTO(artist,arrayLongs(genresLong),about, email),date));
+                votes.add(new Vote(id,new VoteDTO(artist,arrayLongs(genresLong),about, email,date)));
                 //------------------------------------------------------------------------------
             }
         } catch (SQLException e) {
