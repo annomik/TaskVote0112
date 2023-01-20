@@ -16,23 +16,23 @@ import java.util.regex.Pattern;
 
 public class SendingEmailService implements ISendingEmailService {
 
-    private static final String EMAIL_SENDER =  "mikulichmail@mail.ru";
+    private static final String PROTOCOL = "mail.transport.protocol";
+    private static final String AUTH = "mail.smtps.auth";
+    private static final String HOST = "mail.smtps.host";
+    private static final String EMAIL_SENDER = "mail.smtps.user";
 
     private static final String EMAIL_REGEX =  "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
                                  "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
 
-    final Properties properties = new Properties();
+    private Properties properties = new Properties();
 
-    public SendingEmailService() {
-
-//      Настроить почтовый сервер
-        properties.put("mail.transport.protocol", "smtps");
-        properties.put("mail.smtps.auth", "true");
-        properties.put("mail.smtps.host", "smtp.mail.ru");
-        properties.put("mail.smtps.user", "mikulichmail@mail.ru");
-        // properties.put("mail.debug", "true");
+    public SendingEmailService(Properties prop) {
+        this.properties.setProperty(PROTOCOL, prop.getProperty(PROTOCOL));
+        this.properties.setProperty(AUTH, prop.getProperty(AUTH));
+        this.properties.setProperty(HOST, prop.getProperty(HOST));
+        this.properties.setProperty(EMAIL_SENDER, prop.getProperty(EMAIL_SENDER));
     }
 
     @Override
@@ -43,7 +43,6 @@ public class SendingEmailService implements ISendingEmailService {
         } else {
             throw new IllegalArgumentException("Некорректный email. Проверьте правильность введенных данных");
         }
-
         // Получение объекта Session по умолчанию
         Session session = Session.getDefaultInstance(properties);
 
@@ -52,7 +51,7 @@ public class SendingEmailService implements ISendingEmailService {
             MimeMessage message = new MimeMessage(session);
 
             // Установить письмо от:
-            message.setFrom(new InternetAddress(EMAIL_SENDER));
+            message.setFrom(new InternetAddress(properties.getProperty(EMAIL_SENDER)));
 
             // Установить письмо Кому:
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(voteDTO.getEmail()));

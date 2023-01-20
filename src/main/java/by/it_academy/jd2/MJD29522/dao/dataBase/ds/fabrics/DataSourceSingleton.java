@@ -2,10 +2,8 @@ package by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics;
 
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.DataSourceC3P0;
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
-import by.it_academy.jd2.MJD29522.util.StartingDB;
 
 import java.beans.PropertyVetoException;
-import java.util.Date;
 import java.util.Properties;
 
 public class DataSourceSingleton {
@@ -16,7 +14,7 @@ public class DataSourceSingleton {
 
    private DataSourceSingleton(){};
 
-   public static void setSetProperties(Properties properties) {
+   public static void setProperties(Properties properties) {
       synchronized (DataSourceSingleton.class){
          if(instance != null){
             throw new IllegalStateException("Нельзя изменять насторойки подключения БД при подключении");
