@@ -11,6 +11,14 @@ public class Vote {
         this.voteDTO = voteDTO;
     }
 
+    public VoteDTO getVoteDTO() {
+        return voteDTO;
+    }
+
+    public void setVoteDTO(VoteDTO voteDTO) {
+        this.voteDTO = voteDTO;
+    }
+
     public long getId() {
         return id;
     }

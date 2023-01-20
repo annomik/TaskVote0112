@@ -36,10 +36,10 @@ public class  StatisticService implements IStatisticService {
 
 
         for(Vote vote : votes){
-            for(int i = 0;i<vote.getGenresID().length;i++){                         //берем каждый существующий жанр в голосе
+            for(int i = 0;i<vote.getVoteDTO().getGenresID().length;i++){                         //берем каждый существующий жанр в голосе
                 boolean notAddingCount = true;
                 for(int j = 0;j<statisticGenre.size();j++){                         //ничего лучшего не придумал, как обратиться к элементу на прямую без цикла???
-                        if(statisticGenre.get(j).getId()==vote.getGenresID()[i]){
+                        if(statisticGenre.get(j).getId()==vote.getVoteDTO().getGenresID()[i]){
                             statisticGenre.get(j).addCount();
                             notAddingCount = false;
                             break;
@@ -65,7 +65,7 @@ public class  StatisticService implements IStatisticService {
         for(Vote vote : votes){
             boolean notAddingCount = true;
             for(int i = 0;i<statisticSinger.size();i++){
-                if(vote.getSingerID()==statisticSinger.get(i).getId()){
+                if(vote.getVoteDTO().getSingerID()==statisticSinger.get(i).getId()){
                     statisticSinger.get(i).addCount();
                     notAddingCount = false;
                     break;
@@ -84,7 +84,7 @@ public class  StatisticService implements IStatisticService {
         List<Vote> votes = voteService.getVote();
         List<StatisticDTOMessage> messages = new ArrayList<>();
         for(Vote vote : votes){
-            messages.add(new StatisticDTOMessage(vote.getTime(),vote.getMessage()));
+            messages.add(new StatisticDTOMessage(vote.getVoteDTO().getLocalDate(),vote.getVoteDTO().getMessage()));
         }
         List<StatisticDTOMessage> sortList = messages.stream().sorted(Comparator.comparing(StatisticDTOMessage::getTime)).collect(Collectors.toList());
         return sortList;
