@@ -1,25 +1,24 @@
-package by.it_academy.jd2.MJD29522.dao.fabrics;
+package by.it_academy.jd2.MJD29522.dao.memory.fabrics;
 
+import by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics.DataSourceSingleton;
 import by.it_academy.jd2.MJD29522.dao.memory.GenreDao;
 import by.it_academy.jd2.MJD29522.dao.dataBase.GenreDaoDB;
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.util.SelectBDOrSQL;
 
-public class GenreDaoSingleton  {
+import java.beans.PropertyVetoException;
+
+public class GenreDaoMemorySingleton {
 
    private volatile static IGenreDao instance;
 
-   private GenreDaoSingleton (){};
+   private GenreDaoMemorySingleton(){};
 
-   public static IGenreDao getInstance(){
+   public static IGenreDao getInstance() {
       if(instance == null){
-         synchronized (GenreDaoSingleton.class){
+         synchronized (GenreDaoMemorySingleton.class){
             if(instance == null){
-               if(SelectBDOrSQL.getSelectSQL()){
-                  instance = new GenreDaoDB();
-               } else {
-                  instance = new GenreDao();
-               }
+               instance = new GenreDao();
             }
          }
       }

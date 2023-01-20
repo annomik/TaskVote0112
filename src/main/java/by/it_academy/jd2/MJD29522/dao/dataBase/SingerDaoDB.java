@@ -1,6 +1,7 @@
 package by.it_academy.jd2.MJD29522.dao.dataBase;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
+import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.util.StartingDB;
@@ -14,13 +15,16 @@ import java.util.List;
 
 public class SingerDaoDB implements ISingerDao {
 
-    StartingDB startingDB = new StartingDB();
+    private final IDataSourceWrapper dataSource;
+    public SingerDaoDB(IDataSourceWrapper wrapper) {
+        this.dataSource = wrapper;
+    }
 
     @Override
     public List<SingerID> get() {
         List<SingerID> singers = new ArrayList<>();
 
-        try(Connection conn = startingDB.load();
+        try(Connection conn = dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "SELECT id, name FROM app.artists;") ){
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -38,7 +42,7 @@ public class SingerDaoDB implements ISingerDao {
 
     @Override
     public boolean add(String newSinger) {
-        try(Connection conn = startingDB.load();
+        try(Connection conn = dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "INSERT INTO app.artists (name) VALUES (?);") ){
             preparedStatement.setString(1, newSinger);
@@ -51,7 +55,7 @@ public class SingerDaoDB implements ISingerDao {
 
     @Override
     public void update(long id, String name) {
-        try(Connection conn = startingDB.load();
+        try(Connection conn = dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "UPDATE app.artists SET name = ? WHERE id = ?;")){
             preparedStatement.setString(1, name);
@@ -64,7 +68,7 @@ public class SingerDaoDB implements ISingerDao {
 
     @Override
     public boolean delete(long id) {
-        try(Connection conn = startingDB.load();
+        try(Connection conn = dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "DELETE FROM app.artists WHERE id = ?;")){
             preparedStatement.setLong(1, id);

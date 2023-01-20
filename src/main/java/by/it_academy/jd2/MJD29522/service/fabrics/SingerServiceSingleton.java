@@ -1,6 +1,7 @@
 package by.it_academy.jd2.MJD29522.service.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.fabrics.SingerDaoSingleton;
+import by.it_academy.jd2.MJD29522.dao.memory.fabrics.SingerDaoMemorySingleton;
+import by.it_academy.jd2.MJD29522.dao.provider.ChoiceDaoProvider;
 import by.it_academy.jd2.MJD29522.service.SingerService;
 
 public class SingerServiceSingleton {
@@ -13,7 +14,7 @@ public class SingerServiceSingleton {
         if(instance == null){
             synchronized (SingerServiceSingleton.class){
                 if(instance == null){
-                    instance = new SingerService(SingerDaoSingleton.getInstance());
+                    instance = new SingerService(ChoiceDaoProvider.getInstance().getSingerDao());
                 }
             }
         }

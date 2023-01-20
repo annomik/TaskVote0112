@@ -1,25 +1,25 @@
 package by.it_academy.jd2.MJD29522.dao.dataBase;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
-import by.it_academy.jd2.MJD29522.dao.SrartingDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
-import by.it_academy.jd2.MJD29522.util.StartingDB;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GenreDaoDB implements IGenreDao {
 
-    private final StartingDB startingDB;
-    public GenreDaoDB(){
-        this.startingDB = SrartingDBSingleton.getInstance();
+    private final IDataSourceWrapper dataSource;
+    public GenreDaoDB(IDataSourceWrapper wrapper){
+        this.dataSource = wrapper;
     }
 
     @Override
     public synchronized List<GenreID> get() {
         List<GenreID> genres = new ArrayList<>();
-        try(Connection conn = startingDB.load();
+        try(Connection conn = this.dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, name FROM app.genres " +
                     "ORDER BY id;")) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -38,7 +38,7 @@ public class GenreDaoDB implements IGenreDao {
 
     @Override
     public synchronized boolean add(String newGenre) {
-        try(Connection conn = startingDB.load();
+        try(Connection conn = this.dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "INSERT INTO app.genres (name) VALUES (?);")) {
             preparedStatement.setString(1, newGenre);
@@ -51,7 +51,7 @@ public class GenreDaoDB implements IGenreDao {
 
     @Override
     public synchronized void update(long id, String name) {
-        try(Connection conn = startingDB.load();
+        try(Connection conn = this.dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                         "UPDATE app.genres SET name = ? WHERE id = ?;")){
             preparedStatement.setString(1, name);
@@ -64,7 +64,7 @@ public class GenreDaoDB implements IGenreDao {
 
     @Override
     public synchronized boolean delete(long id) {
-        try(Connection conn = startingDB.load();
+        try(Connection conn = this.dataSource.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "DELETE FROM app.genres WHERE id = ?;"))
         {
