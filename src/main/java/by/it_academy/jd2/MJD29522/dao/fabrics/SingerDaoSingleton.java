@@ -1,9 +1,8 @@
 package by.it_academy.jd2.MJD29522.dao.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.SingerDao;
-import by.it_academy.jd2.MJD29522.dao.SingerDaoDB;
+import by.it_academy.jd2.MJD29522.dao.memory.SingerDao;
+import by.it_academy.jd2.MJD29522.dao.dataBase.SingerDaoDB;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
-import by.it_academy.jd2.MJD29522.service.fabrics.SingerServiceSingleton;
 import by.it_academy.jd2.MJD29522.util.SelectBDOrSQL;
 
 public class SingerDaoSingleton  {

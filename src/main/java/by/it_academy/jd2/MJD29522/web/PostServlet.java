@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.Map;
 
 
@@ -77,7 +78,11 @@ public class PostServlet extends HttpServlet {
                 throw new IllegalArgumentException("Don't have your email");
             }
 
-            service.save(new VoteDTO(intExecutorID, intGenresID, message[0], email[0]));//--------------------------
+            service.save(new VoteDTO(intExecutorID,
+                    intGenresID,
+                    message[0],
+                    email[0],
+                    LocalDate.now()));
 
             String path = req.getContextPath() + "/result";
             resp.sendRedirect(path);

@@ -1,7 +1,7 @@
 package by.it_academy.jd2.MJD29522.dao.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.VoteDao;
-import by.it_academy.jd2.MJD29522.dao.VoteDaoDB;
+import by.it_academy.jd2.MJD29522.dao.memory.VoteDao;
+import by.it_academy.jd2.MJD29522.dao.dataBase.VoteDaoDB;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.util.SelectBDOrSQL;
 
