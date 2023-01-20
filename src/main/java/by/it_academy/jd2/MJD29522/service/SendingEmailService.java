@@ -20,6 +20,7 @@ public class SendingEmailService implements ISendingEmailService {
     private static final String AUTH = "mail.smtps.auth";
     private static final String HOST = "mail.smtps.host";
     private static final String EMAIL_SENDER = "mail.smtps.user";
+    private static final String EMAIL_USER_PASSWORD = "user.password";
 
     private static final String EMAIL_REGEX =  "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
                                  "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -33,6 +34,7 @@ public class SendingEmailService implements ISendingEmailService {
         this.properties.setProperty(AUTH, prop.getProperty(AUTH));
         this.properties.setProperty(HOST, prop.getProperty(HOST));
         this.properties.setProperty(EMAIL_SENDER, prop.getProperty(EMAIL_SENDER));
+        this.properties.setProperty(EMAIL_USER_PASSWORD, prop.getProperty(EMAIL_USER_PASSWORD));
     }
 
     @Override
@@ -70,7 +72,7 @@ public class SendingEmailService implements ISendingEmailService {
 
             // Отправить сообщение
             Transport tr = session.getTransport();
-            tr.connect(null, "6NfLpUHWcugYzvcYMQ83" );
+            tr.connect(null, properties.getProperty(EMAIL_USER_PASSWORD) );
             tr.sendMessage(message, message.getAllRecipients());
             tr.close();
 
