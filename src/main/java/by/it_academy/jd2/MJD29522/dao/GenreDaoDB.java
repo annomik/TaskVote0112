@@ -5,7 +5,6 @@ import by.it_academy.jd2.MJD29522.dao.fabrics.SrartingDBSingleton;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.util.StartingDB;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +17,11 @@ public class GenreDaoDB implements IGenreDao {
     }
 
     @Override
-    public List<GenreID> get() {
+    public synchronized List<GenreID> get() {
         List<GenreID> genres = new ArrayList<>();
-
         try(Connection conn = startingDB.load();
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id, name FROM app.genres " +
                     "ORDER BY id;")) {
-
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
@@ -40,24 +37,22 @@ public class GenreDaoDB implements IGenreDao {
     }
 
     @Override
-    public boolean add(String newGenre) {
+    public synchronized boolean add(String newGenre) {
         try(Connection conn = startingDB.load();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "INSERT INTO app.genres (name) VALUES (?);")) {
             preparedStatement.setString(1, newGenre);
-
             preparedStatement.executeUpdate();
-
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return true;
-}
+    }
 
     @Override
-    public void update(long id, String name) {
+    public synchronized void update(long id, String name) {
         try(Connection conn = startingDB.load();
-                PreparedStatement preparedStatement = conn.prepareStatement(
+            PreparedStatement preparedStatement = conn.prepareStatement(
                         "UPDATE app.genres SET name = ? WHERE id = ?;")){
             preparedStatement.setString(1, name);
             preparedStatement.setLong(2, id);
@@ -68,7 +63,7 @@ public class GenreDaoDB implements IGenreDao {
     }
 
     @Override
-    public boolean delete(long id) {
+    public synchronized boolean delete(long id) {
         try(Connection conn = startingDB.load();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "DELETE FROM app.genres WHERE id = ?;"))
@@ -82,7 +77,7 @@ public class GenreDaoDB implements IGenreDao {
     }
 
     @Override
-    public boolean exist(long id) {
+    public synchronized boolean exist(long id) {
         List<GenreID> genres = get();
         for (GenreID genreID : genres) {
             if(id == genreID.getId()){

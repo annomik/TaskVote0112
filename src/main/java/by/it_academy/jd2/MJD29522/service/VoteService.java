@@ -4,6 +4,7 @@ import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
+import by.it_academy.jd2.MJD29522.service.api.ISendingEmailService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 
@@ -14,17 +15,20 @@ public class VoteService implements IVoteService {
     private final IVoteDao dao;
     private final ISingerService singerService;
     private final IGenreService genreService;
+    private final ISendingEmailService sendingEmailService;
 
-    public VoteService(IVoteDao dao, ISingerService singerService, IGenreService genreService) {
+    public VoteService(IVoteDao dao, ISingerService singerService, IGenreService genreService, ISendingEmailService sendingEmailService) {
         this.dao = dao;
         this.singerService = singerService;
         this.genreService = genreService;
+        this.sendingEmailService = sendingEmailService;
     }
 
     @Override
     public void save(VoteDTO voteDTO) {
         validation(voteDTO);
         this.dao.save(voteDTO);
+        sendingEmailService.sendEmail(voteDTO);
     }
 
    private void validation(VoteDTO voteDTO){

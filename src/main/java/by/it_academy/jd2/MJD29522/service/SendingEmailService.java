@@ -1,5 +1,7 @@
 package by.it_academy.jd2.MJD29522.service;
 
+import by.it_academy.jd2.MJD29522.dto.SingerID;
+import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.ISendingEmailService;
 
 import javax.mail.Message;
@@ -34,10 +36,10 @@ public class SendingEmailService implements ISendingEmailService {
     }
 
     @Override
-    public void sendEmail(String emailReceiver) {
+    public void sendEmail(VoteDTO voteDTO) {
 
-        if (validateEmail(emailReceiver)) {
-            System.out.println("The email address " + emailReceiver + " is valid");
+        if (validateEmail(voteDTO.getEmail())) {
+            System.out.println("The email address " + voteDTO.getEmail() + " is valid");
         } else {
             throw new IllegalArgumentException("Некорректный email. Проверьте правильность введенных данных");
         }
@@ -53,12 +55,19 @@ public class SendingEmailService implements ISendingEmailService {
             message.setFrom(new InternetAddress(EMAIL_SENDER));
 
             // Установить письмо Кому:
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailReceiver));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(voteDTO.getEmail()));
 
+            StringBuilder stringBuilder = new StringBuilder();
             // Установить тему:
             message.setSubject("Ваш голос учтен. Спасибо за ваш голос!");
             //message.setContent("<h1>Это актуальное сообщение</h1>", "text/html");
-            message.setText("Вы проголосовали: ");
+
+            stringBuilder.append("Вы проголосовали за исполнителя №: " + voteDTO.getSingerID() + "\n");
+            for (long l : voteDTO.getGenresID()) {
+                stringBuilder.append("Вы проголосовали за жанр №: " + l + "\n");
+            }
+            stringBuilder.append("Вы оставили о себе следующее сообщение: " + voteDTO.getMessage() + ".\n");
+            message.setText(stringBuilder.toString());
 
             // Отправить сообщение
             Transport tr = session.getTransport();
@@ -75,7 +84,6 @@ public class SendingEmailService implements ISendingEmailService {
 
    @Override
     public boolean validateEmail(String email) {
-
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return matcher.matches();
     }

@@ -5,9 +5,9 @@ import java.beans.PropertyVetoException;
 import java.sql.*;
 
 public class StartingDB {
-    private final String URL = "jdbc:postgresql://localhost:5432/voting";
-    private final String LOG = "postgres";
-    private final String PAS = "postgres";
+   private static final String URL = "jdbc:postgresql://localhost:5432/voting";
+   private static final String LOG = "postgres";
+   private static final String PAS = "postgres";
 
     ComboPooledDataSource cpds = new ComboPooledDataSource();
 
@@ -18,7 +18,7 @@ public class StartingDB {
             throw new RuntimeException(e);
         }
     }
-    public Connection load () throws SQLException {
+    public Connection load() throws SQLException {
         cpds.setJdbcUrl(URL);
         cpds.setUser(LOG);
         cpds.setPassword(PAS);
