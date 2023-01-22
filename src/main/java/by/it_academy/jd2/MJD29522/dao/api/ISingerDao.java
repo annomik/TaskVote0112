@@ -15,4 +15,6 @@ public interface ISingerDao {
     boolean delete(long id);
 
     boolean exist(long id);
+
+    String getName(long id);
 }

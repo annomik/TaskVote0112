@@ -1,6 +1,7 @@
 package by.it_academy.jd2.MJD29522.service.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.fabrics.VoteDaoSingleton;
+import by.it_academy.jd2.MJD29522.dao.memory.fabrics.VoteDaoMemorySingleton;
+import by.it_academy.jd2.MJD29522.dao.provider.SelectedDaoProvider;
 import by.it_academy.jd2.MJD29522.service.VoteService;
 
 public class VoteServiceSingleton {
@@ -14,7 +15,7 @@ public class VoteServiceSingleton {
             synchronized (VoteServiceSingleton.class){
                 if(instance == null){
                     instance = new VoteService(
-                            VoteDaoSingleton.getInstance(),
+                            SelectedDaoProvider.getInstance().getIVoteDAo(),
                             SingerServiceSingleton.getInstance(),
                             GenreServiceSingleton.getInstance(),
                             SendingEmailServiceSingleton.getInstance() );

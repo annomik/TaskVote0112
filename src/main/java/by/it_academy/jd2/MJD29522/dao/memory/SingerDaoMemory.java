@@ -6,17 +6,17 @@ import by.it_academy.jd2.MJD29522.dto.SingerID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingerDao implements ISingerDao {
+public class SingerDaoMemory implements ISingerDao {
 
     private List<SingerID> singers = new ArrayList<>();
 
     private volatile long countID = 0;
 
-    public SingerDao(List<SingerID> singers) {
+    public SingerDaoMemory(List<SingerID> singers) {
         this.singers = singers;
     }
 
-    public SingerDao(){
+    public SingerDaoMemory(){
         this.singers.add(new SingerID(new SingerDTO("Shakira"), generateId()));
         this.singers.add(new SingerID(new SingerDTO("Цой"),generateId()));
         this.singers.add(new SingerID(new SingerDTO("Madonna"),generateId()));
@@ -29,7 +29,7 @@ public class SingerDao implements ISingerDao {
     }
 
     public long generateId(){
-        synchronized (SingerDao.class){
+        synchronized (SingerDaoMemory.class){
             countID++;
         }
         return  countID;

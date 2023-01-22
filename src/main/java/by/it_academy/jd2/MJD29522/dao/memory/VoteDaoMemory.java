@@ -7,12 +7,12 @@ import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoteDao implements IVoteDao {
+public class VoteDaoMemory implements IVoteDao {
 
   private List<Vote> votes = new ArrayList<>();
   private long id = 0;
 
-  public VoteDao() {
+  public VoteDaoMemory() {
    }
 
     @Override

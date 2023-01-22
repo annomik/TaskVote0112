@@ -7,14 +7,14 @@ import by.it_academy.jd2.MJD29522.dto.GenreID;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreDao implements IGenreDao {
+public class GenreDaoMemory implements IGenreDao {
     private List<GenreID> genres = new ArrayList<>();
 
     private volatile long id = 0;
-    public GenreDao(List<GenreID> genres) {
+    public GenreDaoMemory(List<GenreID> genres) {
         this.genres = genres;
     }
-    public GenreDao() {
+    public GenreDaoMemory() {
         genres.add(new GenreID(new GenreDTO("Classic"), generateId()));
         genres.add(new GenreID(new GenreDTO("Soul"), generateId()));
         genres.add(new GenreID(new GenreDTO("Rock"), generateId()));
@@ -27,7 +27,7 @@ public class GenreDao implements IGenreDao {
         genres.add(new GenreID(new GenreDTO("Disco"), generateId()));
     }
     public long generateId(){
-        synchronized (GenreDao.class){
+        synchronized (GenreDaoMemory.class){
             id++;
         }
         return  id;
