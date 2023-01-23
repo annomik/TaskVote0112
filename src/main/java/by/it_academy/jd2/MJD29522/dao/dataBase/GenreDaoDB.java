@@ -78,12 +78,20 @@ public class GenreDaoDB implements IGenreDao {
 
     @Override
     public synchronized boolean exist(long id) {
-        List<GenreID> genres = get();
-        for (GenreID genreID : genres) {
-            if(id == genreID.getId()){
-                return true;
+        try(Connection conn = this.dataSource.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM app.genres WHERE id = ?;")) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Long idDB = resultSet.getLong("id");
+                System.out.println(idDB);
+                if (idDB == id) {
+                    return true;
+                }
             }
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return false;
     }
 }
