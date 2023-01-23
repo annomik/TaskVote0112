@@ -17,4 +17,6 @@ public interface ISingerService {
    boolean exist(long id);
 
    boolean validate(Map<String, String[]> mapParameters, String parameter) ;
+
+   String getName(long id);
 }

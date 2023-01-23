@@ -3,6 +3,8 @@ package by.it_academy.jd2.MJD29522.dao.memory;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +75,16 @@ public class SingerDaoMemory implements ISingerDao {
             }
         }
         return false;
+    }
+
+    @Override
+    public String getName(long id) {
+        for(SingerID singerID : singers){
+            if(singerID.getId()==id){
+                return singerID.getSingerDTO().getName();
+            }
+        }
+        return null;
     }
 
     public boolean exist(String singer) {

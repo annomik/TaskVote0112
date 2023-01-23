@@ -104,4 +104,22 @@ public class SingerDaoDB implements ISingerDao {
 //       }
        return existID;
     }
+
+    @Override
+    public String getName(long id) {
+        String name = null;
+        try {
+            Connection conn = ds.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT name FROM app.artists WHERE id = ?");
+            preparedStatement.setLong(1,id);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                name = resultSet.getString("name");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return name;
+    }
 }

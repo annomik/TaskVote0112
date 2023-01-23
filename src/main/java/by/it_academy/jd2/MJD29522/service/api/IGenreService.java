@@ -19,4 +19,5 @@ public interface IGenreService {
 
     boolean validation(Map<String, String[]> mapParametrs, String operation);
 
+    String getName(long id);
 }

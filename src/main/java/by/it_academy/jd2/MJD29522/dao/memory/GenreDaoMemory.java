@@ -77,6 +77,17 @@ public class GenreDaoMemory implements IGenreDao {
         }
         return false;
     }
+
+    @Override
+    public String getName(long id) {
+        for(GenreID genreID : genres){
+            if(genreID.getId() == id){
+                return genreID.getGenreDTO().getName();
+            }
+        }
+        return null;
+    }
+
     public synchronized boolean exist(String genre) {
         for (GenreID genreID : genres) {
             if (genre.equals(genreID.getGenreDTO().getName())) {
