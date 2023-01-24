@@ -1,8 +1,8 @@
 package by.it_academy.jd2.MJD29522.web.listeners;
 
+import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics.DataSourceSingleton;
 import by.it_academy.jd2.MJD29522.service.fabrics.SendingEmailServiceSingleton;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.File;
@@ -16,7 +16,6 @@ public class PropertiesLoaderListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         File confDir = new File(System.getenv("catalina_base") + "/conf");
         File prop = new File(confDir + "/application.properties");
-
         try{
             Properties properties = new Properties();
             properties.load(new FileReader(prop));
@@ -32,6 +31,11 @@ public class PropertiesLoaderListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-
+        try {
+            IDataSourceWrapper dataSourceWrapper = DataSourceSingleton.getInstance();
+            dataSourceWrapper.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
