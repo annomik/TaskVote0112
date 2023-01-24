@@ -1,3 +1,8 @@
+db.class=
+db.url=
+db.login=
+db.password=
+
 mail.transport.protocol=
 mail.smtps.auth=
 mail.smtps.host=

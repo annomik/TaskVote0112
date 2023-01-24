@@ -1,7 +1,7 @@
 package by.it_academy.jd2.MJD29522.dao.dataBase;
 
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
-import by.it_academy.jd2.MJD29522.dao.SrartingDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.util.StartingDB;
@@ -12,7 +12,7 @@ import java.util.*;
 
 public class VoteDaoDB implements IVoteDao {
 
-    StartingDB startingDB;
+    private final IDataSourceWrapper dataSource;
     private final String saveVoteSQL = "INSERT INTO app.votes (about, date, email) VALUES (?,now(), ?);";
     private final String saveVoteArtistSQL = "INSERT INTO app.vote_artist(artist_id,vote_id) VALUES (?,?)";
     private final String saveVoteGenresSQL = "INSERT INTO app.vote_genres(genre_id,vote_id) VALUES (?,?)";
@@ -26,16 +26,16 @@ public class VoteDaoDB implements IVoteDao {
                     "ON id=vote_id " +
                 "FULL OUTER JOIN app.vote_artist ON id = app.vote_artist.vote_id;";
 
-    public VoteDaoDB(){
-        this.startingDB = SrartingDBSingleton.getInstance();
+    public VoteDaoDB(IDataSourceWrapper wrapper) {
+        this.dataSource = wrapper;
     }
+
     @Override
     public List<Vote> getVoteList() {
         List<Vote> votes = new LinkedList<>();
 
-        try {
-            Connection connection = startingDB.load();
-            PreparedStatement preparedStatement = connection.prepareStatement(getVoteSQL);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(getVoteSQL);){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
 //                long id = resultSet.getLong("app.votes.id");
@@ -58,11 +58,9 @@ public class VoteDaoDB implements IVoteDao {
 
     @Override
     public boolean save(VoteDTO vote) {
-        try {
-           Connection connection = startingDB.load();
-           PreparedStatement preparedStatement = connection.prepareStatement(saveVoteSQL,
-                   Statement.RETURN_GENERATED_KEYS
-           );
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(saveVoteSQL,
+                     Statement.RETURN_GENERATED_KEYS);){
            preparedStatement.setString(1,vote.getMessage());
            preparedStatement.setString(2, vote.getEmail());
            preparedStatement.executeUpdate();
@@ -78,9 +76,8 @@ public class VoteDaoDB implements IVoteDao {
     }
 
     private boolean saveVoteArtist(long id, VoteDTO vote){
-        try {
-            Connection connection = startingDB.load();
-            PreparedStatement preparedStatement = connection.prepareStatement(saveVoteArtistSQL);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(saveVoteArtistSQL);){
             preparedStatement.setLong(1,vote.getSingerID());
             preparedStatement.setLong(2,id);
             preparedStatement.executeUpdate();
@@ -91,9 +88,8 @@ public class VoteDaoDB implements IVoteDao {
     }
 
     private boolean saveVoteGenres(long id, VoteDTO voteDTO){
-        try {
-            Connection connection = startingDB.load();
-            PreparedStatement preparedStatement = connection.prepareStatement(saveVoteGenresSQL);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(saveVoteGenresSQL);){
             long[] genres = voteDTO.getGenresID();
             for(long genre : genres){
                 preparedStatement.setLong(1,genre);
