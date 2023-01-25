@@ -3,21 +3,17 @@ package by.it_academy.jd2.MJD29522.dao.provider;
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
-import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.GenreDaoDBSingleton;
 import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.SingerDaoDBSingleton;
 import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.VoteDaoDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.orm.fabrics.GenreDaoHibernateSingleton;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IDaoProvider;
 
 import java.beans.PropertyVetoException;
 
-public class DaoDBProvider implements IDaoProvider {
+public class DaoHibernateProvider implements IDaoProvider {
     @Override
     public IGenreDao getGenreDao() {
-        try {
-            return GenreDaoDBSingleton.getInstance();
-        } catch (PropertyVetoException e) {
-            throw new IllegalStateException(e);
-        }
+        return GenreDaoHibernateSingleton.getInstance();
     }
     @Override
     public ISingerDao getSingerDao() {
@@ -27,7 +23,6 @@ public class DaoDBProvider implements IDaoProvider {
             throw new IllegalStateException(e);
         }
     }
-
     @Override
     public IVoteDao getVoteDao() {
         try {
