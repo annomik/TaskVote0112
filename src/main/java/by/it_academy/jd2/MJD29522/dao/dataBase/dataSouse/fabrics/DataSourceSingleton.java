@@ -12,9 +12,9 @@ public class DataSourceSingleton {
     private DataSourceSingleton(){}
 
     public static IDataSourceWrapper getInstance() throws PropertyVetoException {
-        if(properties==null){
-            throw new IllegalStateException("Настроки не установлены");
-        }
+//        if(properties==null){
+//            throw new IllegalStateException("Настроки не установлены");
+  //      }
         if(instance==null){
             synchronized (DataSourceSingleton.class){
                 if(instance==null){

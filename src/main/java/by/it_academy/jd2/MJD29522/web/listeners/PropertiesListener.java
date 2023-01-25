@@ -15,24 +15,20 @@ public class PropertiesListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         Properties propertiesDB = new Properties();
-        Properties propertiesEmail = new Properties();
+//        Properties propertiesEmail = new Properties();
         if(Select.getSelectDao() == SelectDao.DATABASE){
             File confDir = new File(System.getenv("catalina_base")+"/conf");
             File propDB = new File(confDir+"/applicationDB.properties");
-            File propEmail = new File(confDir+"/applicationEmail.properties");
-            try {
-                propertiesEmail.load(new FileReader(propEmail));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+ //           File propEmail = new File(confDir+"/applicationEmail.properties");
+//            try {
+//                propertiesEmail.load(new FileReader(propEmail));
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
             try {
                 propertiesDB.load(new FileReader(propDB));
-                if(propDB!=null){
                     DataSourceSingleton.setProperties(propertiesDB);
-                } else {
-                    Select.setMemoryDataBase();
-                    throw new IllegalStateException("Файл настроки для подключения к БД не зополнен");
-                }
+//                    Select.setMemoryDataBase();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -41,10 +37,10 @@ public class PropertiesListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        try {
-            DataSourceSingleton.getInstance().close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            DataSourceSingleton.getInstance().close();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

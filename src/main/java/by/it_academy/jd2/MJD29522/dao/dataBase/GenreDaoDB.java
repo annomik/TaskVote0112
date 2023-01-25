@@ -82,7 +82,7 @@ public class GenreDaoDB implements IGenreDao {
         boolean existID = false;
         try {
             Connection conn = ds.getConnection();
-            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM add.genres WHERE id = "+id+";");
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM app.genres WHERE id = "+id+";");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 if(id == resultSet.getLong("id")){

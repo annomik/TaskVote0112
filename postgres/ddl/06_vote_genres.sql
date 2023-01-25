@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS app.vote_genres
         REFERENCES app.votes (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);

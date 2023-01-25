@@ -20,7 +20,12 @@ public class DataSouseC3P0 implements IDataSourceWrapper {
         this.ds.setDriverClass(properties.getProperty(DRIVER_CLASS_PROPERTY));
         this.ds.setJdbcUrl(properties.getProperty(URL_CONNECTION_PROPERTY));
         this.ds.setUser(properties.getProperty(USER_PROPERTY));
-        this.ds.setPassword(PASSWORD_PROPERTY);
+        this.ds.setPassword(properties.getProperty(PASSWORD_PROPERTY));
+//        this.ds = new ComboPooledDataSource();
+//        this.ds.setDriverClass("org.postgresql.Driver");
+//        this.ds.setJdbcUrl("jdbc:postgresql://localhost:5432/ddd");
+//        this.ds.setUser("postgres");
+//        this.ds.setPassword("postgres");
     }
 
     @Override

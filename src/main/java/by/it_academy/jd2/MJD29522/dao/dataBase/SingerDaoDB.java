@@ -85,7 +85,6 @@ public class SingerDaoDB implements ISingerDao {
         try(Connection conn = ds.getConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT id FROM app.artists WHERE id = ?;");
             preparedStatement.setLong(1,id);
-            preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 if(resultSet.getLong("id")==id){
