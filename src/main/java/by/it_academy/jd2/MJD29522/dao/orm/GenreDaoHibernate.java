@@ -18,7 +18,11 @@ import java.util.List;
 
 public class GenreDaoHibernate implements IGenreDao {
 
-    private final EntityManagerFactory factory = Persistence.createEntityManagerFactory("tutorial");
+    private final EntityManagerFactory factory;
+
+    public GenreDaoHibernate(EntityManagerFactory factory) {
+        this.factory = factory;
+    }
 
     @Override
     public synchronized List<GenreID> get() {
