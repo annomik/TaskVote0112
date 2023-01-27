@@ -29,13 +29,19 @@ public class GenreDaoHibernate implements IGenreDao {
         List<GenreID> genres = new ArrayList<>();
         EntityManager entityManager = factory.createEntityManager();
         entityManager.getTransaction().begin();
-        Query query = entityManager.createNativeQuery(
-                "SELECT id, name FROM app.genres ORDER BY id;", GenreHibernate.class);
-        List <GenreHibernate> genreHibernateList = query.getResultList();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        for (GenreHibernate genreHibernate : genreHibernateList) {
-            genres.add(new GenreID(new GenreDTO(genreHibernate.getName()), genreHibernate.getId()));
+        try{
+            List <GenreHibernate> genreHibernateList = entityManager.createQuery
+                    ("from GenreHibernate ORDER BY id", GenreHibernate.class).getResultList();
+
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            for (GenreHibernate genreHibernate : genreHibernateList) {
+                genres.add(new GenreID(new GenreDTO(genreHibernate.getName()), genreHibernate.getId()));
+            }
+        }catch (IllegalArgumentException e){
+            throw new IllegalArgumentException  ("Ошибка в запросе sql");
+        }finally {
+            entityManager.close();
         }
         return genres;
     }
