@@ -6,18 +6,20 @@ import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IDaoProvider;
 
 public class ChoiceDaoProvider implements IDaoProvider {
-    private boolean useBD = true;
+    private boolean useBD = false;
 
-    private static volatile ChoiceDaoProvider instace;
+    private static volatile ChoiceDaoProvider instance;
     private IDaoProvider daoProvider;
 
     private ChoiceDaoProvider() {
+
         if(useBD){
             this.daoProvider = new DaoDBProvider();
         }else {
-            this.daoProvider = new DaoMemoryProvider();
+            this.daoProvider = new DaoHibernateProvider();
         }
     }
+
     @Override
     public IGenreDao getGenreDao() {
         return daoProvider.getGenreDao();
@@ -32,12 +34,12 @@ public class ChoiceDaoProvider implements IDaoProvider {
     }
 
     public static IDaoProvider getInstance(){
-        if(instace == null){
+        if(instance == null){
             synchronized (ChoiceDaoProvider.class){
-                if(instace == null){
-                    instace = new ChoiceDaoProvider();
+                if(instance == null){
+                    instance = new ChoiceDaoProvider();
                 }
             }
-        }return instace;
+        }return instance;
     }
 }
