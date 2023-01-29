@@ -39,6 +39,11 @@ public class GenreService implements IGenreService {
         return this.dao.exist(id);
     }
 
+    @Override
+    public String getName(long id) {
+        return this.dao.getName(id);
+    }
+
     public boolean validation(Map<String, String[]> mapParametrs, String paramert) {
 
         List<GenreID> genres = get();

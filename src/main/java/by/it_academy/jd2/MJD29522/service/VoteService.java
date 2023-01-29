@@ -9,6 +9,8 @@ import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class VoteService implements IVoteService {
 
@@ -16,6 +18,8 @@ public class VoteService implements IVoteService {
     private final ISingerService singerService;
     private final IGenreService genreService;
     private final ISendingEmailService sendingEmailService;
+    ExecutorService executorService = Executors.newFixedThreadPool(10);
+
 
     public VoteService(IVoteDao dao, ISingerService singerService, IGenreService genreService, ISendingEmailService sendingEmailService) {
         this.dao = dao;
@@ -28,7 +32,8 @@ public class VoteService implements IVoteService {
     public void save(VoteDTO voteDTO) {
         validation(voteDTO);
         this.dao.save(voteDTO);
-        sendingEmailService.sendEmail(voteDTO);
+        Runnable runnable = () -> sendingEmailService.sendEmail(voteDTO);
+        executorService.execute(runnable);
     }
 
    private void validation(VoteDTO voteDTO){

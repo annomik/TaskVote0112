@@ -77,6 +77,18 @@ public class GenreDao implements IGenreDao {
         }
         return false;
     }
+
+    @Override
+    public String getName(long id) {
+        String name = null;
+        for(GenreID genreID : genres){
+            if(id==genreID.getId()){
+                name = genreID.getGenreDTO().getName();
+            }
+        }
+        return name;
+    }
+
     public synchronized boolean exist(String genre) {
         for (GenreID genreID : genres) {
             if (genre.equals(genreID.getGenreDTO().getName())) {

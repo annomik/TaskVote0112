@@ -75,6 +75,18 @@ public class SingerDao implements ISingerDao {
         return false;
     }
 
+    @Override
+    public String getName(long id) {
+        String name = null;
+        for(SingerID singerID : singers){
+            if(singerID.getId() == id){
+                name = singerID.getSingerDTO().getName();
+                break;
+            }
+        }
+        return name;
+    }
+
     public boolean exist(String singer) {
         for (SingerID singerID: singers){
             if(singer.equals(singerID.getSingerDTO().getName())){

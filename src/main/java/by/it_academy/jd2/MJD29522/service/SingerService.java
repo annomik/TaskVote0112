@@ -38,6 +38,11 @@ public class SingerService implements ISingerService {
     }
 
     @Override
+    public String getName(long id) {
+        return this.singerDao.getName(id);
+    }
+
+    @Override
     public boolean validate(Map<String, String[]> mapParameters, String parameter) {
 
         List<SingerID> singers = get();

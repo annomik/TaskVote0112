@@ -23,7 +23,11 @@ public class SendingEmailServiceSingleton {
         if(instance == null){
             synchronized (SendingEmailServiceSingleton.class){
                 if(instance == null){
-                    instance = new SendingEmailService(properties);
+                    instance = new SendingEmailService(
+                            properties,
+                            SingerServiceSingleton.getInstance(),
+                            GenreServiceSingleton.getInstance()
+                    );
                 }
             }
         }
