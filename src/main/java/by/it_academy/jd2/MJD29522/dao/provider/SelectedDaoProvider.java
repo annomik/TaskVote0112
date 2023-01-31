@@ -4,6 +4,7 @@ import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IProviderDao;
+import by.it_academy.jd2.MJD29522.mail.api.IMailDao;
 import by.it_academy.jd2.MJD29522.util.Select;
 
 public class SelectedDaoProvider implements IProviderDao {
@@ -35,6 +36,9 @@ public class SelectedDaoProvider implements IProviderDao {
     public IVoteDao getIVoteDAo() {
         return providerDao.getIVoteDAo();
     }
+
+    @Override
+    public IMailDao getImailDao() {return providerDao.getImailDao();}
 
     public static SelectedDaoProvider getInstance() {
         if(instance==null){

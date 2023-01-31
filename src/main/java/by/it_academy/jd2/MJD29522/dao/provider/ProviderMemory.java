@@ -6,9 +6,12 @@ import by.it_academy.jd2.MJD29522.dao.memory.fabrics.GenreDaoMemorySingleton;
 import by.it_academy.jd2.MJD29522.dao.memory.fabrics.SingerDaoMemorySingleton;
 import by.it_academy.jd2.MJD29522.dao.memory.fabrics.VoteDaoMemorySingleton;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IProviderDao;
+import by.it_academy.jd2.MJD29522.mail.api.IMailDao;
+import by.it_academy.jd2.MJD29522.mail.factory.MailDaoSingleton;
+
+import java.beans.PropertyVetoException;
 
 public class ProviderMemory implements IProviderDao {
-
     @Override
     public ISingerDao getSingerDao() {
         return SingerDaoMemorySingleton.getInstance();
@@ -23,4 +26,17 @@ public class ProviderMemory implements IProviderDao {
     public IVoteDao getIVoteDAo() {
         return VoteDaoMemorySingleton.getInstance();
     }
+
+
+    //Надо доделать как память
+    @Override
+    public IMailDao getImailDao() {
+        try {
+            return MailDaoSingleton.getInstance();
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

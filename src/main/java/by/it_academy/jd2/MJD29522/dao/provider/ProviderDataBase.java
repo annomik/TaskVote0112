@@ -9,6 +9,9 @@ import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.GenreDaoDBSingleton;
 import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.SingerDaoDBSingleton;
 import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.VoteDaoDBSingleton;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IProviderDao;
+import by.it_academy.jd2.MJD29522.mail.MailDao;
+import by.it_academy.jd2.MJD29522.mail.api.IMailDao;
+import by.it_academy.jd2.MJD29522.mail.factory.MailDaoSingleton;
 
 import java.beans.PropertyVetoException;
 
@@ -35,6 +38,15 @@ public class ProviderDataBase implements IProviderDao {
     public IVoteDao getIVoteDAo() {
         try {
             return VoteDaoDBSingleton.getInstance();
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public IMailDao getImailDao() {
+        try {
+            return MailDaoSingleton.getInstance();
         } catch (PropertyVetoException e) {
             throw new RuntimeException(e);
         }

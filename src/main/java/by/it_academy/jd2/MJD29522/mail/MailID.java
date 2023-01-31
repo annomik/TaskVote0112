@@ -6,7 +6,7 @@ public class MailID extends MailDTO{
     private final long id;
 
     public MailID(long id, String message, String email, LocalDate createVote, boolean statusSend, boolean statusEmail, LocalDate lastSend) {
-        super(message, email, createVote, statusSend, statusEmail, lastSend);
+        super(message, email, createVote, statusSend, lastSend);
         this.id = id;
     }
 
