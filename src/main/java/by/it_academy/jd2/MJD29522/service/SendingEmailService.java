@@ -1,20 +1,17 @@
 package by.it_academy.jd2.MJD29522.service;
 
-import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.ISendingEmailService;
 import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
 import by.it_academy.jd2.MJD29522.service.fabrics.SingerServiceSingleton;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;

@@ -18,7 +18,6 @@ public class SendingEmailServiceSingleton {
         }
     }
 
-
     public static SendingEmailService getInstance() {
         if(instance == null){
             synchronized (SendingEmailServiceSingleton.class){

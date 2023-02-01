@@ -7,7 +7,9 @@
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
 
-        <class>org.example.entity.Event</class>
+        <class>org.example.entity.GenreEntity</class>
+        <class>org.example.entity.SingerEntity</class>
+        <class>org.example.entity.VoteEntity</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

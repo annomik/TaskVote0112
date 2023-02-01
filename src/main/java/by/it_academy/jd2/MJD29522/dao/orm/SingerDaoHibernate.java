@@ -1,37 +1,37 @@
 package by.it_academy.jd2.MJD29522.dao.orm;
 
-import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
+import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
-import by.it_academy.jd2.MJD29522.dto.GenreDTO;
-import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
+import by.it_academy.jd2.MJD29522.dto.SingerDTO;
+import by.it_academy.jd2.MJD29522.dto.SingerID;
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreDaoHibernate implements IGenreDao {
+public class SingerDaoHibernate implements ISingerDao {
 
     private final IManager manager;
 
-    public GenreDaoHibernate(IManager entityManager) {
+    public SingerDaoHibernate(IManager entityManager) {
         this.manager = entityManager;
     }
 
     @Override
-    public synchronized List<GenreID> get() {
-        List<GenreID> genres = new ArrayList<>();
+    public synchronized List<SingerID> get() {
+        List<SingerID> singers = new ArrayList<>();
 
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            List<GenreEntity> genreEntityList = entityManager.createQuery
-                    ("from GenreEntity ORDER BY id", GenreEntity.class).getResultList();
+            List<SingerEntity> genreEntityList = entityManager.createQuery
+                    ("from SingerEntity ORDER BY id", SingerEntity.class).getResultList();
 
             entityManager.getTransaction().commit();
-            for (GenreEntity genreEntity : genreEntityList) {
-                genres.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
+            for (SingerEntity genreEntity : genreEntityList) {
+                singers.add(new SingerID(new SingerDTO(genreEntity.getName()), genreEntity.getId()));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -40,17 +40,17 @@ public class GenreDaoHibernate implements IGenreDao {
                 entityManager.close();
             }
         }
-        return genres;
+        return singers;
     }
 
     @Override
-    public synchronized boolean add(String newGenre) {
+    public synchronized boolean add(String newSinger) {
         boolean result = false;
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.persist(new GenreEntity(newGenre));
+            entityManager.persist(new SingerEntity(newSinger));
             entityManager.getTransaction().commit();
             result = true;
         } catch (SQLException e) {
@@ -69,9 +69,9 @@ public class GenreDaoHibernate implements IGenreDao {
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, id);
-            genreToUpdate.setName(name);
-            entityManager.merge(genreToUpdate);
+            SingerEntity singerToUpdate = entityManager.find(SingerEntity.class, id);
+            singerToUpdate.setName(name);
+            entityManager.merge(singerToUpdate);
             entityManager.getTransaction().commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -84,14 +84,15 @@ public class GenreDaoHibernate implements IGenreDao {
 
     @Override
     public synchronized boolean delete(long id) {
+        boolean result = false;
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            GenreEntity genreToRemoved = entityManager.find(GenreEntity.class, id);
-            entityManager.remove(genreToRemoved);
+            SingerEntity singerToRemoved = entityManager.find(SingerEntity.class, id);
+            entityManager.remove(singerToRemoved);
             entityManager.getTransaction().commit();
-            if(genreToRemoved !=null){
+            if(singerToRemoved !=null){
                 return true;
             }
         } catch (SQLException e) {
@@ -110,14 +111,15 @@ public class GenreDaoHibernate implements IGenreDao {
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            GenreEntity genre = entityManager.find(GenreEntity.class, id);
+            SingerEntity singer = entityManager.find(SingerEntity.class, id);
             entityManager.getTransaction().commit();
-            if(genre !=null){
+            if(singer !=null){
                 return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        }
+        finally {
             if(entityManager != null){
                 entityManager.close();
             }

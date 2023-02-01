@@ -4,11 +4,9 @@ import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
-import by.it_academy.jd2.MJD29522.util.StartingDB;
-
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.*;
+import java.util.Date;
 
 public class VoteDaoDB implements IVoteDao {
 
@@ -38,10 +36,9 @@ public class VoteDaoDB implements IVoteDao {
              PreparedStatement preparedStatement = connection.prepareStatement(getVoteSQL);){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-//                long id = resultSet.getLong("app.votes.id");
                 long id = resultSet.getLong("id");
                 String about = resultSet.getString("about");
-                LocalDate date = resultSet.getDate("date").toLocalDate();
+                Date date = new Date();
                 String email = resultSet.getString("email");
                 Array array = resultSet.getArray("genres");
                 Long[] genresLong = (Long[]) array.getArray();

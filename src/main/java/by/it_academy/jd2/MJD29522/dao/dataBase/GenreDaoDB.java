@@ -4,7 +4,6 @@ import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

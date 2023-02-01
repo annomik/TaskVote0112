@@ -1,25 +1,23 @@
-package by.it_academy.jd2.MJD29522.dao.orm;
+package by.it_academy.jd2.MJD29522.dao.orm.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "app.genres")
-public class GenreHibernate {
+public class GenreEntity {
 
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
+    @Column(name = "id")
     private  Long id;
+    @Column(name = "name")
     private String name;
 
-    public GenreHibernate() {
+    public GenreEntity() {
     }
-    public GenreHibernate(String name) {
+    public GenreEntity(String name) {
         this.name = name;
     }
 

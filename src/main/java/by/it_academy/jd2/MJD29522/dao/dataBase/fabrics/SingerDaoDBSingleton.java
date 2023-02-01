@@ -3,7 +3,6 @@ package by.it_academy.jd2.MJD29522.dao.dataBase.fabrics;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.dataBase.SingerDaoDB;
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics.DataSourceSingleton;
-
 import java.beans.PropertyVetoException;
 
 public class SingerDaoDBSingleton {

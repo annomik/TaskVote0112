@@ -3,6 +3,7 @@ package by.it_academy.jd2.MJD29522.service;
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,11 @@ public class GenreService implements IGenreService {
 
     @Override
     public List<GenreID> get() {
-        return dao.get();
+        try {
+            return dao.get();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

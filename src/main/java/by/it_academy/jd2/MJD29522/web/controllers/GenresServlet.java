@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,12 @@ public class GenresServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        List<GenreID> genreIDS = service.get();
+        List<GenreID> genreIDS = null;
+        try {
+            genreIDS = service.get();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         for (GenreID genreID : genreIDS) {
             writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
         }

@@ -4,8 +4,6 @@ import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
-import by.it_academy.jd2.MJD29522.util.StartingDB;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
