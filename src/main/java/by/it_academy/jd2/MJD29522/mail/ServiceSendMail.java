@@ -26,16 +26,18 @@ public class ServiceSendMail implements IServiceSendMail {
         int count = 0;
         while (sendMessage){
             List<MailID> mails = mailDao.getMessageForSend();
-            for(MailID mail : mails){
-                boolean sending = sendMail(mail);
-                if(sending){
-                    mailDao.update(mail.getId(),true,true);
-                } else {
-                    count++;
-                }
-                if(count == 5){
-                    count = 0;
-                    break;
+            if(mails!=null){
+                for(MailID mail : mails){
+                    boolean sending = sendMail(mail);
+                    if(sending){
+                        mailDao.update(mail.getId(),true,true);
+                    } else {
+                        count++;
+                    }
+                    if(count == 5){
+                        count = 0;
+                        break;
+                    }
                 }
             }
             try {
