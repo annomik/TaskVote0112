@@ -1,7 +1,6 @@
-package by.it_academy.jd2.MJD29522.mail.api;
+package by.it_academy.jd2.MJD29522.dao.api;
 
-import by.it_academy.jd2.MJD29522.mail.MailDTO;
-import by.it_academy.jd2.MJD29522.mail.MailID;
+import by.it_academy.jd2.MJD29522.dto.MailDTO;
 
 import java.util.List;
 

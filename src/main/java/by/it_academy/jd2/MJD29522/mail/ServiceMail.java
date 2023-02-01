@@ -1,7 +1,8 @@
 package by.it_academy.jd2.MJD29522.mail;
 
+import by.it_academy.jd2.MJD29522.dto.MailDTO;
 import by.it_academy.jd2.MJD29522.dto.Vote;
-import by.it_academy.jd2.MJD29522.mail.api.IMailDao;
+import by.it_academy.jd2.MJD29522.dao.api.IMailDao;
 import by.it_academy.jd2.MJD29522.mail.api.IMailService;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
