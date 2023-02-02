@@ -1,16 +1,11 @@
 package by.it_academy.jd2.MJD29522.dao.orm.entity;
 
-import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
-import by.it_academy.jd2.MJD29522.dto.SingerID;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
-@Table( name = "app.artists" )
-//@NamedQuery(name = "SingerEntity.getAll", query = "SELECT c from app.artists c")
+@Table( name = "app1.artists" )
 public class SingerEntity {
-  //      implements ISingerDao {
 
     @Id
     @GeneratedValue(generator="increment")
@@ -18,7 +13,20 @@ public class SingerEntity {
     private Long id;
     private String name;
 
+    public SingerEntity(String name, VoteEntity voteEntity) {
+        this.name = name;
+    }
+
     public SingerEntity() {
+    }
+
+    public SingerEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public SingerEntity(Long id) {
+        this.id = id;
     }
 
     public SingerEntity(String name) {
@@ -36,4 +44,6 @@ public class SingerEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

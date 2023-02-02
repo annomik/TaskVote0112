@@ -5,9 +5,8 @@ import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
 import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,29 +19,24 @@ public class SingerDaoHibernate implements ISingerDao {
     }
 
     @Override
-    public List<SingerID> get() {
+    public synchronized List<SingerID> get() {
         List<SingerID> singers = new ArrayList<>();
 
-        EntityManager entityManager = manager.getEntityManager();
-               // createEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
-     //   TypedQuery<SingerEntity> namedQuery = entityManager.createNamedQuery("Singer.getAll", SingerEntity.class);
-      //  List<SingerEntity> resultListSingers = namedQuery.getResultList();
-        Query query = entityManager.createNativeQuery(
-                "SELECT id, name FROM app.artists ORDER BY id;", SingerEntity.class);
-        List<SingerEntity> resultListSingers = query.getResultList();
+        List<SingerEntity> resultListSingers = entityManager.createQuery(
+               "from SingerEntity", SingerEntity.class).getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
         for (SingerEntity singerEntities : resultListSingers) {
             singers.add(new SingerID(new SingerDTO(singerEntities.getName()),singerEntities.getId()));
         }
-
         return singers;
     }
 
     @Override
-    public boolean add(String newSinger) {
-        EntityManager entityManager = manager.getEntityManager();
+    public synchronized boolean add(String newSinger) {
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(new SingerEntity(newSinger));
         entityManager.getTransaction().commit();
@@ -51,8 +45,8 @@ public class SingerDaoHibernate implements ISingerDao {
     }
 
     @Override
-    public void update(long id, String name) {
-        EntityManager entityManager = manager.getEntityManager();
+    public synchronized void update(long id, String name) {
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         SingerEntity singer = entityManager.find(SingerEntity.class, id);
         singer.setName(name);
@@ -63,7 +57,7 @@ public class SingerDaoHibernate implements ISingerDao {
 
     @Override
     public synchronized boolean delete(long id) {
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         SingerEntity singer = entityManager.find(SingerEntity.class, id);
         entityManager.remove(singer);
@@ -75,16 +69,10 @@ public class SingerDaoHibernate implements ISingerDao {
        return false;
     }
 
-//    public SingerEntity get(long id){
-//        EntityManager entityManager = factory.createEntityManager();
-//        entityManager.getTransaction().begin();
-//        SingerEntity singer = EntityManager.find(SingerEntity.class, id);
-//        return singer;
-//    }
 
     @Override
     public synchronized boolean exist(long id) {
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         SingerEntity singer = entityManager.find(SingerEntity.class, id);
         entityManager.getTransaction().commit();

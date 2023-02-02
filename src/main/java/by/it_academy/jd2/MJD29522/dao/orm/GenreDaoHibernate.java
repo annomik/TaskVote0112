@@ -7,7 +7,6 @@ import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,22 +21,28 @@ public class GenreDaoHibernate implements IGenreDao {
     @Override
     public synchronized List<GenreID> get() {
         List<GenreID> genres = new ArrayList<>();
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
-        Query query = entityManager.createNativeQuery(
-                "SELECT id, name FROM app.genres ORDER BY id;", GenreEntity.class);
-        List <GenreEntity> genreHibernateList = query.getResultList();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        for (GenreEntity genreEntity : genreHibernateList) {
-            genres.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
+        try {
+            List<GenreEntity> GenreEntityList = entityManager.createQuery(
+                    "from GenreEntity ORDER BY id", GenreEntity.class).getResultList();
+
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            for (GenreEntity genreEntity : GenreEntityList) {
+                genres.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
+            }
+            }catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Ошибка в запросе sql");
+            }finally {
+                entityManager.close();
         }
         return genres;
     }
 
     @Override
     public synchronized boolean add(String newGenre) {
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(new GenreEntity(newGenre));
         entityManager.getTransaction().commit();
@@ -47,7 +52,7 @@ public class GenreDaoHibernate implements IGenreDao {
 
     @Override
     public synchronized void update(long id, String name) {
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, id);
         genreToUpdate.setName(name);
@@ -58,7 +63,7 @@ public class GenreDaoHibernate implements IGenreDao {
 
     @Override
     public synchronized boolean delete(long id) {
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         GenreEntity genreToRemoved = entityManager.find(GenreEntity.class, id);
         entityManager.remove(genreToRemoved);
@@ -72,7 +77,7 @@ public class GenreDaoHibernate implements IGenreDao {
 
     @Override
     public synchronized boolean exist(long id) {
-        EntityManager entityManager = manager.getEntityManager();
+        EntityManager entityManager = manager.getEntityManagerFactory().createEntityManager();
         entityManager.getTransaction().begin();
         GenreEntity genre = entityManager.find(GenreEntity.class, id);
         entityManager.getTransaction().commit();

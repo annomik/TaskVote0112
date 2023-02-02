@@ -60,7 +60,6 @@ public class VoteService implements IVoteService {
         if(voteDTO.getMessage().isBlank()||voteDTO.getMessage().length()==0){
             throw new IllegalArgumentException("Сообщение о себе не может быть пустым");
         }
-
    }
 
     @Override

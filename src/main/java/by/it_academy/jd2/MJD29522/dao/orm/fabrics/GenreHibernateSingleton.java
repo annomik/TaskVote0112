@@ -11,7 +11,7 @@ public class GenreHibernateSingleton {
 
    public static IGenreDao getInstance() {
       if(instance == null){
-         synchronized (GenreHibernateSingleton.class){ //.getEntityManager()
+         synchronized (GenreHibernateSingleton.class){
             if(instance == null){
                   instance = new GenreDaoHibernate(ManagerSingleton.getInstance());
             }

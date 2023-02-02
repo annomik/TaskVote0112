@@ -6,8 +6,8 @@ import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IDaoProvider;
 
 public class ChoiceDaoProvider implements IDaoProvider {
-    private boolean useBD = false;
 
+    private boolean useBD = false;
     private static volatile ChoiceDaoProvider instance;
     private IDaoProvider daoProvider;
 

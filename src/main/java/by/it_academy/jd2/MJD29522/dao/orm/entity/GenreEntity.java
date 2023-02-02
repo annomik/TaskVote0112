@@ -1,15 +1,10 @@
 package by.it_academy.jd2.MJD29522.dao.orm.entity;
 
-
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "app.genres")
+@Table(name = "app1.genres")
 public class GenreEntity {
 
     @Id
@@ -20,7 +15,17 @@ public class GenreEntity {
 
     public GenreEntity() {
     }
+
+    public GenreEntity(Long id) {
+        this.id = id;
+    }
+
     public GenreEntity(String name) {
+        this.name = name;
+    }
+
+    public GenreEntity(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -34,5 +39,13 @@ public class GenreEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "GenreEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
