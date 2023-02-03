@@ -1,8 +1,8 @@
-package by.it_academy.jd2.MJD29522.dao.dataBase.fabrics;
+package by.it_academy.jd2.MJD29522.dao.data_base.fabrics;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
-import by.it_academy.jd2.MJD29522.dao.dataBase.SingerDaoDB;
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics.DataSourceSingleton;
+import by.it_academy.jd2.MJD29522.dao.data_base.SingerDaoDB;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.fabrics.DataSourceSingleton;
 import java.beans.PropertyVetoException;
 
 public class SingerDaoDBSingleton {

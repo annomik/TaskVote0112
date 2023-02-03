@@ -1,6 +1,6 @@
-package by.it_academy.jd2.MJD29522.dao.dataBase.ds;
+package by.it_academy.jd2.MJD29522.dao.data_base.ds;
 
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.api.IDataSourceWrapper;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;

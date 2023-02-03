@@ -50,6 +50,8 @@ public class GenreService implements IGenreService {
 
         String[] paramerts = mapParametrs.get(paramert);
 
+
+
         if (paramerts.length > 1) {
             throw new IllegalArgumentException("Выполнять операции с жанрами можно только по одному. Введите только " +
                     "один жанр");
@@ -63,6 +65,9 @@ public class GenreService implements IGenreService {
             if (nameForAdd.equals(genre.getGenreDTO().getName())) {
                 throw new IllegalArgumentException("Жанр с именем " + nameForAdd + " уже есть в списке жанров");
             }
+        }
+        if(nameForAdd.length() > 255){
+            throw new IllegalArgumentException("Длина названия жанра не должна превышать 255 символов");
         }
         return true;
     }

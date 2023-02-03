@@ -1,7 +1,7 @@
 package by.it_academy.jd2.MJD29522.web.listeners;
 
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics.DataSourceSingleton;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.api.IDataSourceWrapper;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.fabrics.DataSourceSingleton;
 import by.it_academy.jd2.MJD29522.service.fabrics.SendingEmailServiceSingleton;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

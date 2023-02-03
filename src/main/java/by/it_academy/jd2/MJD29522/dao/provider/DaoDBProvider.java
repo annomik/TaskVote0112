@@ -3,9 +3,9 @@ package by.it_academy.jd2.MJD29522.dao.provider;
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
-import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.GenreDaoDBSingleton;
-import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.SingerDaoDBSingleton;
-import by.it_academy.jd2.MJD29522.dao.dataBase.fabrics.VoteDaoDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.data_base.fabrics.GenreDaoDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.data_base.fabrics.SingerDaoDBSingleton;
+import by.it_academy.jd2.MJD29522.dao.data_base.fabrics.VoteDaoDBSingleton;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IDaoProvider;
 
 import java.beans.PropertyVetoException;

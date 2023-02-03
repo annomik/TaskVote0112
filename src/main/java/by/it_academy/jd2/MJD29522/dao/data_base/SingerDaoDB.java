@@ -1,7 +1,7 @@
-package by.it_academy.jd2.MJD29522.dao.dataBase;
+package by.it_academy.jd2.MJD29522.dao.data_base;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.api.IDataSourceWrapper;
 import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 import java.sql.Connection;

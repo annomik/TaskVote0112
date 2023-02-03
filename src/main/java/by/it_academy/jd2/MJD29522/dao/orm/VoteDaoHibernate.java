@@ -8,9 +8,7 @@ import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import javax.persistence.EntityManager;
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class VoteDaoHibernate implements IVoteDao {
@@ -23,7 +21,7 @@ public class VoteDaoHibernate implements IVoteDao {
 
     @Override
     public List<Vote> getVoteList() {
-        List<Vote> votes = new LinkedList<>();
+        List<Vote> votes = new ArrayList<>();
 
         EntityManager entityManager = null;
         try {
@@ -41,8 +39,11 @@ public class VoteDaoHibernate implements IVoteDao {
             }
             entityManager.getTransaction().commit();
             return votes;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
@@ -52,7 +53,6 @@ public class VoteDaoHibernate implements IVoteDao {
 
     @Override
     public boolean save(VoteDTO vote) {
-        boolean result = false;
         List <GenreEntity> genres = voteToGenreEntityList(vote);
         SingerEntity singer = voteToSingerEntity(vote);
         EntityManager entityManager = null;
@@ -66,15 +66,17 @@ public class VoteDaoHibernate implements IVoteDao {
             entityManager.getTransaction().begin();
             entityManager.persist(voteEntity);
             entityManager.getTransaction().commit();
-            result = true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return true;
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
             }
         }
-        return result;
     }
 
     private long[] arrayLongs(List<GenreEntity> genreEntityList){
@@ -97,8 +99,11 @@ public class VoteDaoHibernate implements IVoteDao {
                 genresEntity.add(entityManager.find(GenreEntity.class,genre));
             }
             return genresEntity;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
@@ -112,8 +117,11 @@ public class VoteDaoHibernate implements IVoteDao {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             return entityManager.find(SingerEntity.class,voteDTO.getSingerID());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();

@@ -1,7 +1,7 @@
-package by.it_academy.jd2.MJD29522.dao.dataBase.ds.fabrics;
+package by.it_academy.jd2.MJD29522.dao.data_base.ds.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.DataSourceC3P0;
-import by.it_academy.jd2.MJD29522.dao.dataBase.ds.api.IDataSourceWrapper;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.DataSourceC3P0;
+import by.it_academy.jd2.MJD29522.dao.data_base.ds.api.IDataSourceWrapper;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 

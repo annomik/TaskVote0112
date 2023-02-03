@@ -6,7 +6,6 @@ import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public synchronized List<GenreID> get() {
+    public List<GenreID> get() {
         List<GenreID> genres = new ArrayList<>();
 
         EntityManager entityManager = null;
@@ -33,48 +32,57 @@ public class GenreDaoHibernate implements IGenreDao {
             for (GenreEntity genreEntity : genreEntityList) {
                 genres.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return genres;
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         } finally {
             if(entityManager != null){
                 entityManager.close();
             }
         }
-        return genres;
     }
 
     @Override
-    public synchronized boolean add(String newGenre) {
-        boolean result = false;
+    public boolean add(String newGenre) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(new GenreEntity(newGenre));
             entityManager.getTransaction().commit();
-            result = true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return true;
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
             }
         }
-        return result;
     }
 
     @Override
-    public synchronized void update(long id, String name) {
+    public void update(long id, String name) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, id);
-            genreToUpdate.setName(name);
-            entityManager.merge(genreToUpdate);
+            if(genreToUpdate != null){
+                genreToUpdate.setName(name);
+                entityManager.merge(genreToUpdate);
+            }
             entityManager.getTransaction().commit();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
@@ -83,45 +91,48 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public synchronized boolean delete(long id) {
+    public boolean delete(long id) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             GenreEntity genreToRemoved = entityManager.find(GenreEntity.class, id);
-            entityManager.remove(genreToRemoved);
-            entityManager.getTransaction().commit();
-            if(genreToRemoved !=null){
-                return true;
+            if(genreToRemoved != null){
+                entityManager.remove(genreToRemoved);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            entityManager.getTransaction().commit();
+            return genreToRemoved != null;
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
             }
         }
-        return false;
     }
 
     @Override
-    public synchronized boolean exist(long id) {
+    public boolean exist(long id) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             GenreEntity genre = entityManager.find(GenreEntity.class, id);
             entityManager.getTransaction().commit();
-            if(genre !=null){
-                return true;
+            return genre != null;
+
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Ошибка в базе данных", e);
         }finally {
             if(entityManager != null){
                 entityManager.close();
             }
         }
-        return false;
     }
 }
