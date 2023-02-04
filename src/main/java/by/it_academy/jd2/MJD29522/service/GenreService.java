@@ -1,9 +1,12 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
+import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
+import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +20,15 @@ public class GenreService implements IGenreService {
 
     @Override
     public List<GenreID> get() {
+        List<GenreEntity> genreEntityList;
+        List <GenreID> genreIDList = new ArrayList<>();
+
         try {
-            return dao.get();
+            genreEntityList = dao.get();
+            for (GenreEntity genreEntity : genreEntityList) {
+                genreIDList.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
+            }
+            return genreIDList;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -31,7 +41,11 @@ public class GenreService implements IGenreService {
 
     @Override
     public void update(long id, String name) {
-        dao.update(id, name);
+        if (dao.exist(id)) {
+            GenreEntity genreEntity = new GenreEntity(name);
+            dao.update(genreEntity);
+        }else throw new IllegalArgumentException("Жанра с id " + id + " для обнавления не нейдено!");
+
     }
 
     @Override

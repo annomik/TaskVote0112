@@ -1,7 +1,5 @@
 package by.it_academy.jd2.MJD29522.web.listeners;
 
-import by.it_academy.jd2.MJD29522.dao.data_base.ds.api.IDataSourceWrapper;
-import by.it_academy.jd2.MJD29522.dao.data_base.ds.fabrics.DataSourceSingleton;
 import by.it_academy.jd2.MJD29522.service.fabrics.SendingEmailServiceSingleton;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -20,7 +18,6 @@ public class PropertiesLoaderListener implements ServletContextListener {
             Properties properties = new Properties();
             properties.load(new FileReader(prop));
 
-            DataSourceSingleton.setProperties(properties);
             SendingEmailServiceSingleton.setProperties(properties);
         } catch (FileNotFoundException e) {
             throw new IllegalStateException("Файл с настройками не найден!", e);
@@ -31,11 +28,6 @@ public class PropertiesLoaderListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        try {
-            IDataSourceWrapper dataSourceWrapper = DataSourceSingleton.getInstance();
-            dataSourceWrapper.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
     }
 }

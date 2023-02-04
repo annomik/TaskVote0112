@@ -18,7 +18,7 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public List<GenreID> get() {
+    public List<GenreEntity> get() {
         List<GenreID> genres = new ArrayList<>();
 
         EntityManager entityManager = null;
@@ -29,10 +29,8 @@ public class GenreDaoHibernate implements IGenreDao {
                     ("from GenreEntity ORDER BY id", GenreEntity.class).getResultList();
 
             entityManager.getTransaction().commit();
-            for (GenreEntity genreEntity : genreEntityList) {
-                genres.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
-            }
-            return genres;
+
+            return genreEntityList;
         } catch (Exception e) {
             if(entityManager != null){
                 entityManager.getTransaction().rollback();
@@ -67,15 +65,14 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public void update(long id, String name) {
+    public void update(GenreEntity genreEntity) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, id);
+            GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, genreEntity.getId());
             if(genreToUpdate != null){
-                genreToUpdate.setName(name);
-                entityManager.merge(genreToUpdate);
+                entityManager.merge(genreEntity);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
