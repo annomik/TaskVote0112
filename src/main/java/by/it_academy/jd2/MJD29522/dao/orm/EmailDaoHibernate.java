@@ -5,8 +5,7 @@ import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
 import by.it_academy.jd2.MJD29522.dao.orm.entity.EmailEntity;
 
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EmailDaoHibernate implements IMailDao {
@@ -16,37 +15,120 @@ public class EmailDaoHibernate implements IMailDao {
     }
     @Override
     public List<EmailEntity> getEmails() {
-        List<EmailEntity> emails = new ArrayList<>();
+        List<EmailEntity> emails;
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
+            emails = entityManager.createQuery
+                    ("from EmailEntity ORDER BY lastSendTime",EmailEntity.class).getResultList();
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-            entityManager.getTransaction().commit();
-            entityManager.close();
+            if(entityManager!=null){
+                entityManager.close();
+            }
         }
         return emails;
     }
 
+    public List<EmailEntity> getEmailsForSend() {
+        List<EmailEntity> emails = getEmails();
+        List<EmailEntity> emailForSend = new LinkedList<>();
+        for(EmailEntity email : emails){
+            if((email.isValidateEmail())&&(email.isSendMassage())){
+                emailForSend.add(email);
+            }
+        }
+        return emailForSend;
+    }
+
     @Override
     public EmailEntity getEmail(long id) {
-        return null;
+        EmailEntity email;
+        EntityManager entityManager = null;
+        try {
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            email = entityManager.find(EmailEntity.class,id);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(entityManager!=null){
+                entityManager.close();
+            }
+        }
+        return email;
     }
 
     @Override
     public boolean addEmail(EmailEntity email) {
-        return false;
+        EntityManager entityManager = null;
+        try {
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.persist(email);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(entityManager!=null){
+                entityManager.close();
+            }
+        }
+        return true;
     }
 
     @Override
-    public boolean updateEmail(long id, EmailEntity email) {
-        return false;
+    public boolean updateEmail(long id, String message, boolean validateEmail,
+                               boolean sendMassage, long lastSendTime, String email) {
+        EntityManager entityManager = null;
+        try {
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            EmailEntity emailDao = entityManager.find(EmailEntity.class,id);
+            if(emailDao==null){
+                return false;
+            }
+            emailDao.setMessage(message);
+            emailDao.setValidateEmail(validateEmail);
+            emailDao.setSendMassage(sendMassage);
+            emailDao.setLastSendTime(System.currentTimeMillis());
+            emailDao.setEmail(email);
+            entityManager.merge(emailDao);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(entityManager!=null){
+                entityManager.close();
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean deleteEmail(long id) {
-        return false;
+        EntityManager entityManager = null;
+        try {
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            EmailEntity email = entityManager.find(EmailEntity.class,id);
+            if(email!=null){
+                entityManager.remove(email);
+            } else {
+                return false;
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(entityManager!=null){
+                entityManager.close();
+            }
+        }
+        return true;
     }
 }

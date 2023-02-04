@@ -19,20 +19,32 @@ public class EmailEntity {
     private boolean sendMassage;
     @Column(name = "lastSendTime")
     private long lastSendTime;
+    @Column(name = "email")
+    private String email;
 
     public EmailEntity() {
     }
 
-    public EmailEntity(long id, String message, boolean validateEmail, boolean sendMassage, long lastSendTime) {
+    public EmailEntity(long id, String message, boolean validateEmail,
+                       boolean sendMassage, long lastSendTime, String email) {
         this.id = id;
         this.message = message;
         this.validateEmail = validateEmail;
         this.sendMassage = sendMassage;
         this.lastSendTime = lastSendTime;
+        this.email = email;
     }
 
     public long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getMessage() {

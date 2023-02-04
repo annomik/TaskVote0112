@@ -134,4 +134,9 @@ public class SingerDaoHibernate implements ISingerDao {
             }
         }
     }
+
+    @Override
+    public String getName(long id) {
+        return null;
+    }
 }

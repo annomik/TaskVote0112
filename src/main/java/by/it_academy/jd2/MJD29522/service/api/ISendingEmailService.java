@@ -8,4 +8,5 @@ public interface ISendingEmailService {
 
    boolean validateEmail(String email);
 
+    void sendEmail();
 }
