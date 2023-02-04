@@ -1,15 +1,18 @@
 package by.it_academy.jd2.MJD29522.service;
 
+import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
-import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISendingEmailService;
-import by.it_academy.jd2.MJD29522.service.api.ISingerService;
+import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
+import by.it_academy.jd2.MJD29522.service.fabrics.SingerServiceSingleton;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,12 +28,11 @@ public class SendingEmailService implements ISendingEmailService {
                                  "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private Properties properties = new Properties();
-    IGenreService genreService;
-    ISingerService singerService;
 
-    public SendingEmailService(Properties prop, ISingerService singerService, IGenreService genreService) {
-        this.genreService = genreService;
-        this.singerService = singerService;
+    GenreService genreService = GenreServiceSingleton.getInstance();
+    SingerService singerService = SingerServiceSingleton.getInstance();
+
+    public SendingEmailService(Properties prop) {
         this.properties.setProperty(PROTOCOL, prop.getProperty(PROTOCOL));
         this.properties.setProperty(AUTH, prop.getProperty(AUTH));
         this.properties.setProperty(HOST, prop.getProperty(HOST));
@@ -47,6 +49,7 @@ public class SendingEmailService implements ISendingEmailService {
         }
         // Получение объекта Session по умолчанию
         Session session = Session.getDefaultInstance(properties);
+
         try {
             // Создание объекта MimeMessage по умолчанию
             MimeMessage message = new MimeMessage(session);
@@ -61,10 +64,25 @@ public class SendingEmailService implements ISendingEmailService {
             // Установить тему:
             message.setSubject("Ваш голос учтен. Спасибо за ваш голос!");
             //message.setContent("<h1>Это актуальное сообщение</h1>", "text/html");
-            stringBuilder.append("Вы проголосовали за исполнителя: " + singerService.getName(voteDTO.getSingerID()) + "\n");
-            for(long id : voteDTO.getGenresID()) {
-                stringBuilder.append("Вы проголосовали за жанр: " + genreService.getName(id) + "\n");
+
+            List<SingerID> singerIDS = singerService.get();
+            for (SingerID singerID : singerIDS) {
+                if(singerID.getId() == voteDTO.getSingerID()){
+                    String nameSinger = singerID.getSingerDTO().getName();
+                    stringBuilder.append("Вы проголосовали за исполнителя: " + nameSinger + "\n");
+                }
             }
+
+            List<GenreID> genreIDS = genreService.get();
+            for (GenreID genreDTO : genreIDS) {
+                for (long l : voteDTO.getGenresID()) {
+                    if(genreDTO.getId() == l){
+                        String nameGanre = genreDTO.getGenreDTO().getName();
+                        stringBuilder.append("Вы проголосовали за жанр: " + nameGanre + "\n");
+                    }
+                }
+            }
+
 
             stringBuilder.append("Вы оставили о себе следующее сообщение: " + voteDTO.getMessage() + ".\n");
             message.setText(stringBuilder.toString());

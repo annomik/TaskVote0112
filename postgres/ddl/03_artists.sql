@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS app.artists
 (
-    id bigserial,
-    name text NOT NULL,
+    id bigint NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default",
     CONSTRAINT artists_pkey PRIMARY KEY (id)
 )

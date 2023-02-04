@@ -65,6 +65,12 @@ public class VoteService implements IVoteService {
         if(voteDTO.getMessage().isBlank()||voteDTO.getMessage().length()==0){
             throw new IllegalArgumentException("Сообщение о себе не может быть пустым");
         }
+       if(voteDTO.getMessage().length() > 255){
+           throw new IllegalArgumentException("Длина сообщения о себе не должна превышать 255 символов");
+       }
+       if(voteDTO.getEmail().length() > 255){
+           throw new IllegalArgumentException("Длина почты email не должна превышать 255 символов");
+       }
 
    }
 

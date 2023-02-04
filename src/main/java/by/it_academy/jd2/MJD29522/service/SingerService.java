@@ -62,6 +62,9 @@ public class SingerService implements ISingerService {
                 throw new IllegalArgumentException("Исполнитель с именем " + nameForAdd + " уже есть в списке");
             }
         }
+        if(nameForAdd.length() > 255){
+            throw new IllegalArgumentException("Длина названия исполнителя не должна превышать 255 символов");
+        }
         return true;
     }
 }

@@ -1,7 +1,5 @@
 package by.it_academy.jd2.MJD29522.dto;
 
-import java.time.LocalDate;
-
 public class Vote {
 
     private final long id;

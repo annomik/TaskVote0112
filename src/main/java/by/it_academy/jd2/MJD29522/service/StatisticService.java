@@ -5,6 +5,7 @@ import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IStatisticService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,7 +26,12 @@ public class  StatisticService implements IStatisticService {
 
     @Override
     public List<StatisticDTOArtistOrGenre> getResultGenre() {
-        List<GenreID> genres = genreService.get();
+        List<GenreID> genres = null;
+        try {
+            genres = genreService.get();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         List<Vote> votes = voteService.getVote();
         List<StatisticDTOArtistOrGenre> statisticGenre = new ArrayList<>();
@@ -78,7 +84,6 @@ public class  StatisticService implements IStatisticService {
         List<StatisticDTOArtistOrGenre> sortList = statisticSinger.stream().sorted(Comparator.comparing(StatisticDTOArtistOrGenre::getCount).reversed()).collect(Collectors.toList());
         return sortList;
     }
-
     @Override
     public List<StatisticDTOMessage> getResultMessage() {
         List<Vote> votes = voteService.getVote();

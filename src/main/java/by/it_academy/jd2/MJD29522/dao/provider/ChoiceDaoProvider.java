@@ -6,7 +6,7 @@ import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IDaoProvider;
 
 public class ChoiceDaoProvider implements IDaoProvider {
-    private boolean useBD = true;
+    private boolean useBD = false;
 
     private static volatile ChoiceDaoProvider instace;
     private IDaoProvider daoProvider;
@@ -15,7 +15,7 @@ public class ChoiceDaoProvider implements IDaoProvider {
         if(useBD){
             this.daoProvider = new DaoDBProvider();
         }else {
-            this.daoProvider = new DaoMemoryProvider();
+            this.daoProvider = new DaoHibernateProvider();
         }
     }
     @Override

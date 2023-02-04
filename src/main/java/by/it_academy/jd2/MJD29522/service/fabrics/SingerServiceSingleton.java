@@ -1,6 +1,5 @@
 package by.it_academy.jd2.MJD29522.service.fabrics;
 
-import by.it_academy.jd2.MJD29522.dao.memory.fabrics.SingerDaoMemorySingleton;
 import by.it_academy.jd2.MJD29522.dao.provider.ChoiceDaoProvider;
 import by.it_academy.jd2.MJD29522.service.SingerService;
 

@@ -4,7 +4,6 @@ import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.fabrics.SingerServiceSingleton;
 import org.apache.commons.lang3.math.NumberUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

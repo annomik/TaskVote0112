@@ -18,7 +18,6 @@ public class SingerID {
         this.singerDTO = singerDTO;
     }
 
-
     public long getId() {
         return id;
     }
