@@ -1,6 +1,7 @@
 package by.it_academy.jd2.MJD29522.dao.provider;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
+import by.it_academy.jd2.MJD29522.dao.api.IMailDao;
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.provider.api.IDaoProvider;
@@ -29,6 +30,11 @@ public class ChoiceDaoProvider implements IDaoProvider {
     @Override
     public IVoteDao getVoteDao() {
         return daoProvider.getVoteDao();
+    }
+
+    @Override
+    public IMailDao getMailDao() {
+        return daoProvider.getMailDao();
     }
 
     public static IDaoProvider getInstance(){
