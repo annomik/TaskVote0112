@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "app.votes")
@@ -77,5 +78,30 @@ public class VoteEntity {
 
     public List<GenreEntity> getGenre() {
         return genres;
+    }
+
+    @Override
+    public String toString() {
+        return "VoteEntity{" +
+                "id=" + id +
+                ", about='" + about + '\'' +
+                ", email='" + email + '\'' +
+                ", date=" + date +
+                ", singer=" + singer +
+                ", genres=" + genres +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VoteEntity that = (VoteEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(about, that.about) && Objects.equals(email, that.email) && Objects.equals(date, that.date) && Objects.equals(singer, that.singer) && Objects.equals(genres, that.genres);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, about, email, date, singer, genres);
     }
 }
