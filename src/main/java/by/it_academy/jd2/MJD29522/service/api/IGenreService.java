@@ -17,8 +17,6 @@ public interface IGenreService {
 
     boolean exist (long id);
 
-    String getName(long id);
-
     boolean validation(Map<String, String[]> mapParametrs, String operation);
 
     String getName(long id);

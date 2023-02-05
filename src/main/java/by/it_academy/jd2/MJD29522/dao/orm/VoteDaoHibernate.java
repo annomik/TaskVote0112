@@ -8,6 +8,8 @@ import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +24,11 @@ public class VoteDaoHibernate implements IVoteDao {
     @Override
     public List<VoteEntity> getVoteList() {
         EntityManager entityManager = null;
+        List<VoteEntity> voteEntityList;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            List<VoteEntity> voteEntityList = entityManager.createQuery
+           voteEntityList = entityManager.createQuery
                     ("FROM VoteEntity ORDER BY id", VoteEntity.class).getResultList();
 
             entityManager.getTransaction().commit();
@@ -49,7 +52,9 @@ public class VoteDaoHibernate implements IVoteDao {
         EntityManager entityManager = null;
         VoteEntity voteEntity = new VoteEntity(vote.getMessage(),
                 vote.getEmail(),
-                vote.getLocalDate(),
+                java.util.Date
+                        .from(vote.getLocalDate().atZone(ZoneId.systemDefault())
+                                .toInstant()),
                 singer,
                 genres);
         try {

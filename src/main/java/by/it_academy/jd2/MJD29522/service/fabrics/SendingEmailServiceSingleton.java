@@ -23,9 +23,7 @@ public class SendingEmailServiceSingleton {
             synchronized (SendingEmailServiceSingleton.class){
                 if(instance == null){
                     instance = new SendingEmailService(
-                            properties,
-                            SingerServiceSingleton.getInstance(),
-                            GenreServiceSingleton.getInstance()
+                            properties
                     );
                 }
             }

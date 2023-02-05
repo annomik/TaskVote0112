@@ -2,6 +2,8 @@ package by.it_academy.jd2.MJD29522.dao.orm.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +37,7 @@ public class VoteEntity {
     )
     private SingerEntity singer;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="app.vote_genre",
             joinColumns=
@@ -68,8 +70,10 @@ public class VoteEntity {
         return email;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return this.date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public SingerEntity getSinger() {

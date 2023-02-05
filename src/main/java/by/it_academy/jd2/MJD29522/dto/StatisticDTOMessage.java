@@ -1,17 +1,18 @@
 package by.it_academy.jd2.MJD29522.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class StatisticDTOMessage {
-    private final Date time;
+    private final LocalDateTime time;
     private final String message;
 
-    public StatisticDTOMessage(Date time, String message) {
+    public StatisticDTOMessage(LocalDateTime time, String message) {
         this.time = time;
         this.message = message;
     }
 
-    public Date getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
