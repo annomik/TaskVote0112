@@ -132,4 +132,9 @@ public class GenreDaoHibernate implements IGenreDao {
             }
         }
     }
+
+    @Override
+    public String getName(long id) {
+        return null;
+    }
 }
