@@ -18,20 +18,18 @@ public class SingerDaoHibernate implements ISingerDao {
     }
 
     @Override
-    public List<SingerID> get() {
-        List<SingerID> singers = new ArrayList<>();
+    public List<SingerEntity> get() {
+        List<SingerEntity> singers = new ArrayList<>();
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            List<SingerEntity> genreEntityList = entityManager.createQuery
+            List<SingerEntity>singerEntityList = entityManager.createQuery
                     ("from SingerEntity ORDER BY id", SingerEntity.class).getResultList();
-
             entityManager.getTransaction().commit();
-            for (SingerEntity genreEntity : genreEntityList) {
-                singers.add(new SingerID(new SingerDTO(genreEntity.getName()), genreEntity.getId()));
-            }
+            singers.addAll(singerEntityList);
             return singers;
+
         } catch (Exception e) {
             if(entityManager != null){
                 entityManager.getTransaction().rollback();
@@ -66,15 +64,14 @@ public class SingerDaoHibernate implements ISingerDao {
     }
 
     @Override
-    public void update(long id, String name) {
+    public void update(SingerEntity singerEntity) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            SingerEntity singerToUpdate = entityManager.find(SingerEntity.class, id);
-            if(entityManager != null){
-                singerToUpdate.setName(name);
-                entityManager.merge(singerToUpdate);
+            SingerEntity singerToUpdate = entityManager.find(SingerEntity.class, singerEntity.getId());
+            if(singerToUpdate != null){
+                entityManager.merge(singerEntity);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
@@ -137,6 +134,27 @@ public class SingerDaoHibernate implements ISingerDao {
 
     @Override
     public String getName(long id) {
-        return null;
+        EntityManager entityManager = null;
+        try {
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            SingerEntity singer = entityManager.find(SingerEntity.class, id);
+            entityManager.getTransaction().commit();
+            if(singer == null){
+                throw new IllegalArgumentException("Исполнителя с id " + id + " не существует");
+            }
+            return singer.getName();
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
+        }
+        finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
     }
+
 }

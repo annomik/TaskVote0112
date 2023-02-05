@@ -1,8 +1,12 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
+import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
+import by.it_academy.jd2.MJD29522.dto.SingerDTO;
 import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +20,17 @@ public class SingerService implements ISingerService {
 
     @Override
     public List<SingerID> get() {
-        return singerDao.get();
+        List<SingerEntity> singerEntityList;
+        List<SingerID> singerIDList = new ArrayList<>();
+        try {
+            singerEntityList = singerDao.get();
+            for (SingerEntity singerEntity : singerEntityList) {
+                singerIDList.add(new SingerID(new SingerDTO(singerEntity.getName()), singerEntity.getId()));
+            }
+        return singerIDList;
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -25,7 +39,12 @@ public class SingerService implements ISingerService {
     }
 
     @Override
-    public void update(long id, String name) { singerDao.update(id, name); }
+    public void update(long id, String name) {
+        if (singerDao.exist(id)) {
+            SingerEntity singerEntity = new SingerEntity(name);
+            singerDao.update(singerEntity);
+        } else throw new IllegalArgumentException("Исполнителя с id " + id + " для обновления не нейдено!");
+    }
 
     @Override
     public boolean delete(long id) {
@@ -68,8 +87,4 @@ public class SingerService implements ISingerService {
         return true;
     }
 
-    @Override
-    public String getName(long id) {
-        return null;
-    }
 }
