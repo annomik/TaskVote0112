@@ -90,9 +90,4 @@ public class GenreService implements IGenreService {
         }
         return true;
     }
-
-    @Override
-    public String getName(long id) {
-        return null;
-    }
 }

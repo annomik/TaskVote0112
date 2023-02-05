@@ -6,6 +6,7 @@ import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
 import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.dto.GenreID;
 import javax.persistence.EntityManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,6 +136,24 @@ public class GenreDaoHibernate implements IGenreDao {
 
     @Override
     public String getName(long id) {
-        return null;
+        EntityManager entityManager = null;
+        try{
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            GenreEntity genre = entityManager.find(GenreEntity.class, id);
+            entityManager.getTransaction().commit();
+            if(genre != null){
+                return genre.getName();
+            }else throw new IllegalArgumentException("Жанра с id " + id + " yне найдено");
+        } catch (Exception e) {
+            if(entityManager != null){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
+        }finally {
+            if(entityManager != null){
+                entityManager.close();
+            }
+        }
     }
 }
