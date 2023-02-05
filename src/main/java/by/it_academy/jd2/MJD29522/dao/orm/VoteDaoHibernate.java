@@ -8,6 +8,8 @@ import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,25 +22,17 @@ public class VoteDaoHibernate implements IVoteDao {
     }
 
     @Override
-    public List<Vote> getVoteList() {
-        List<Vote> votes = new ArrayList<>();
-
+    public List<VoteEntity> getVoteList() {
         EntityManager entityManager = null;
+        List<VoteEntity> voteEntityList;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            List<VoteEntity> voteEntityList = entityManager.createQuery
+           voteEntityList = entityManager.createQuery
                     ("FROM VoteEntity ORDER BY id", VoteEntity.class).getResultList();
-            for (VoteEntity voteEntity : voteEntityList) {
-                votes.add(new Vote(voteEntity.getId(),
-                        new VoteDTO(voteEntity.getSinger().getId(),
-                                arrayLongs(voteEntity.getGenre()),
-                                voteEntity.getAbout(),
-                                voteEntity.getEmail(),
-                                voteEntity.getDate())));
-            }
+
             entityManager.getTransaction().commit();
-            return votes;
+            return voteEntityList;
         } catch (Exception e) {
             if(entityManager != null){
                 entityManager.getTransaction().rollback();
@@ -58,7 +52,9 @@ public class VoteDaoHibernate implements IVoteDao {
         EntityManager entityManager = null;
         VoteEntity voteEntity = new VoteEntity(vote.getMessage(),
                 vote.getEmail(),
-                vote.getLocalDate(),
+                java.util.Date
+                        .from(vote.getLocalDate().atZone(ZoneId.systemDefault())
+                                .toInstant()),
                 singer,
                 genres);
         try {
@@ -79,26 +75,16 @@ public class VoteDaoHibernate implements IVoteDao {
         }
     }
 
-    private long[] arrayLongs(List<GenreEntity> genreEntityList){
-        long[] genres = new long[genreEntityList.size()];
-        int i = 0;
-        for (GenreEntity genreEntity : genreEntityList) {
-            genres[i] = genreEntity.getId();
-            i++;
-        }
-        return genres;
-    }
-
     private List <GenreEntity> voteToGenreEntityList (VoteDTO voteDTO){
-        List <GenreEntity> genresEntity = new ArrayList<>();
+        List <GenreEntity> genresEntityList = new ArrayList<>();
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             for (long genre : voteDTO.getGenresID()) {
-                genresEntity.add(entityManager.find(GenreEntity.class,genre));
+                genresEntityList.add(entityManager.find(GenreEntity.class,genre));
             }
-            return genresEntity;
+            return genresEntityList;
         } catch (Exception e) {
             if(entityManager != null){
                 entityManager.getTransaction().rollback();

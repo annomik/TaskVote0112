@@ -1,5 +1,7 @@
 package by.it_academy.jd2.MJD29522.service;
 
+import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
+import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
@@ -71,11 +73,37 @@ public class VoteService implements IVoteService {
        if(voteDTO.getEmail().length() > 255){
            throw new IllegalArgumentException("Длина почты email не должна превышать 255 символов");
        }
-
    }
 
     @Override
     public List<Vote> getVote() {
-        return dao.getVoteList();
+        List<VoteEntity> voteEntityList;
+        List<Vote> votes = new ArrayList<>();
+
+        try{
+            voteEntityList = dao.getVoteList();
+            for (VoteEntity voteEntity : voteEntityList) {
+                votes.add(new Vote(voteEntity.getId(),
+                        new VoteDTO(voteEntity.getSinger().getId(),
+                            arrayLongs(voteEntity.getGenre()),
+                            voteEntity.getAbout(),
+                            voteEntity.getEmail(),
+                            voteEntity.getDate())));
+            }
+            return votes;
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
+
+    private long[] arrayLongs(List<GenreEntity> genreEntityList){
+        long[] genres = new long[genreEntityList.size()];
+        int i = 0;
+        for (GenreEntity genreEntity : genreEntityList) {
+            genres[i] = genreEntity.getId();
+            i++;
+        }
+        return genres;
+    }
+
 }

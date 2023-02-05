@@ -29,7 +29,7 @@ public class GenreService implements IGenreService {
                 genreIDList.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
             }
             return genreIDList;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
