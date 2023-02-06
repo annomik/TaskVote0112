@@ -1,5 +1,3 @@
-CREATE TABLE IF NOT EXISTS app.email
-(
     CREATE TABLE IF NOT EXISTS app.email
     (
         id bigint NOT NULL,
@@ -10,5 +8,3 @@ CREATE TABLE IF NOT EXISTS app.email
         validateemail boolean,
         CONSTRAINT email_pkey PRIMARY KEY (id)
     )
-
-)
