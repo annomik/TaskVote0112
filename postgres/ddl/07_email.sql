@@ -7,4 +7,4 @@
         sendmassage boolean,
         validateemail boolean,
         CONSTRAINT email_pkey PRIMARY KEY (id)
-    )
+  )
