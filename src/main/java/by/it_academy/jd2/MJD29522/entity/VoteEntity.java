@@ -1,4 +1,4 @@
-package by.it_academy.jd2.MJD29522.dao.orm.entity;
+package by.it_academy.jd2.MJD29522.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -48,6 +48,15 @@ public class VoteEntity {
     private List<GenreEntity> genres;
 
     public VoteEntity() {
+    }
+
+    public VoteEntity(Long id, String about, String email, Date date, SingerEntity singer, List<GenreEntity> genres) {
+        this.id = id;
+        this.about = about;
+        this.email = email;
+        this.date = date;
+        this.singer = singer;
+        this.genres = genres;
     }
 
     public VoteEntity(String about, String email, Date date, SingerEntity singer, List<GenreEntity> genres) {

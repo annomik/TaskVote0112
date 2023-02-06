@@ -2,12 +2,8 @@ package by.it_academy.jd2.MJD29522.dao.orm;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
-import by.it_academy.jd2.MJD29522.dto.GenreDTO;
-import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
 import javax.persistence.EntityManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenreDaoHibernate implements IGenreDao {
@@ -20,8 +16,6 @@ public class GenreDaoHibernate implements IGenreDao {
 
     @Override
     public List<GenreEntity> get() {
-        List<GenreID> genres = new ArrayList<>();
-
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();

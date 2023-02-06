@@ -1,7 +1,7 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IMailDao;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.EmailEntity;
+import by.it_academy.jd2.MJD29522.entity.EmailEntity;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.IMailService;
@@ -27,22 +27,20 @@ public class MailService implements IMailService {
     }
 
     @Override
-    public boolean save(VoteDTO voteDTO) {
-        boolean isSave = false;
+    public void save(VoteDTO voteDTO) {
         EmailEntity email = new EmailEntity();
         email.setMessage(massageText(voteDTO));
         email.setValidateEmail(validateEmail(voteDTO.getEmail()));
         email.setSendMassage(true);
         email.setLastSendTime(System.currentTimeMillis());
         email.setEmail(voteDTO.getEmail());
-        isSave = mailDao.addEmail(email);
-        return isSave;
+        mailDao.addEmail(email);
     }
 
     @Override
     public boolean update(long id, String message, boolean validateEmail,
                           boolean sendMassage, long lastSendTime, String email) {
-        boolean isUpdate = false;
+        boolean isUpdate;
         isUpdate = mailDao.updateEmail(id, message,validateEmail(email),sendMassage,
                 System.currentTimeMillis(),email);
         return isUpdate;
@@ -52,11 +50,6 @@ public class MailService implements IMailService {
     public List<EmailEntity> getEmailForSend() {
         List<EmailEntity> emails = mailDao.getEmailsForSend();
         return emails;
-    }
-
-    @Override
-    public void send() {
-
     }
 
     private boolean validateEmail(String email) {

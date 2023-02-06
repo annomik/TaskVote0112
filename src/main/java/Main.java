@@ -1,20 +1,16 @@
-import by.it_academy.jd2.MJD29522.dao.orm.entity.EmailEntity;
-import by.it_academy.jd2.MJD29522.dto.GenreID;
-import by.it_academy.jd2.MJD29522.dto.SingerID;
-import by.it_academy.jd2.MJD29522.dto.VoteDTO;
+import by.it_academy.jd2.MJD29522.entity.EmailEntity;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
+import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.service.SendingEmailServiceNew;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.IMailService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
 import by.it_academy.jd2.MJD29522.service.fabrics.*;
-import by.it_academy.jd2.MJD29522.dto.Vote;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
     private static final String PROTOCOL = "mail.transport.protocol";
@@ -75,8 +71,8 @@ public class Main {
     }
 
     public static void printVotes(){
-        List<Vote> votes = voteService.getVote();
-        for(Vote vote : votes){
+        List<VoteEntity> votes = voteService.getVote();
+        for(VoteEntity vote : votes){
             System.out.println(vote.toString());
         }
     }
@@ -90,14 +86,14 @@ public class Main {
     }
 
     public static void printAllGenres(){
-        List<GenreID> genres = genreService.get();
-        for(GenreID genre : genres){
+        List<GenreEntity> genres = genreService.get();
+        for(GenreEntity genre : genres){
             System.out.println(genre.toString());
         }
     }
     public static void printAllSingers(){
-        List<SingerID> singers = singerService.get();
-        for(SingerID singer : singers){
+        List<SingerEntity> singers = singerService.get();
+        for(SingerEntity singer : singers){
             System.out.println(singer.toString());
         }
     }

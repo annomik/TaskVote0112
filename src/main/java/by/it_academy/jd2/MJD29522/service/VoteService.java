@@ -1,15 +1,11 @@
 package by.it_academy.jd2.MJD29522.service;
 
-import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
-import by.it_academy.jd2.MJD29522.dto.Vote;
+import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import by.it_academy.jd2.MJD29522.service.api.*;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class VoteService implements IVoteService {
 
@@ -73,34 +69,8 @@ public class VoteService implements IVoteService {
    }
 
     @Override
-    public List<Vote> getVote() {
-        List<VoteEntity> voteEntityList;
-        List<Vote> votes = new ArrayList<>();
-
-        try{
-            voteEntityList = dao.getVoteList();
-            for (VoteEntity voteEntity : voteEntityList) {
-                votes.add(new Vote(voteEntity.getId(),
-                        new VoteDTO(voteEntity.getSinger().getId(),
-                            arrayLongs(voteEntity.getGenre()),
-                            voteEntity.getAbout(),
-                            voteEntity.getEmail(),
-                            voteEntity.getDate())));
-            }
-            return votes;
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    private long[] arrayLongs(List<GenreEntity> genreEntityList){
-        long[] genres = new long[genreEntityList.size()];
-        int i = 0;
-        for (GenreEntity genreEntity : genreEntityList) {
-            genres[i] = genreEntity.getId();
-            i++;
-        }
-        return genres;
+    public List<VoteEntity> getVote() {
+        return dao.getVoteList();
     }
 
 }

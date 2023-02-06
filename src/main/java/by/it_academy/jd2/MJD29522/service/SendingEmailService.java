@@ -1,8 +1,8 @@
 package by.it_academy.jd2.MJD29522.service;
 
-import by.it_academy.jd2.MJD29522.dto.GenreID;
-import by.it_academy.jd2.MJD29522.dto.SingerID;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
 import by.it_academy.jd2.MJD29522.service.api.ISendingEmailService;
 import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
 import by.it_academy.jd2.MJD29522.service.fabrics.SingerServiceSingleton;
@@ -65,19 +65,19 @@ public class SendingEmailService implements ISendingEmailService {
             message.setSubject("Ваш голос учтен. Спасибо за ваш голос!");
             //message.setContent("<h1>Это актуальное сообщение</h1>", "text/html");
 
-            List<SingerID> singerIDS = singerService.get();
-            for (SingerID singerID : singerIDS) {
+            List<SingerEntity> singerIDS = singerService.get();
+            for (SingerEntity singerID : singerIDS) {
                 if(singerID.getId() == voteDTO.getSingerID()){
-                    String nameSinger = singerID.getSingerDTO().getName();
+                    String nameSinger = singerID.getName();
                     stringBuilder.append("Вы проголосовали за исполнителя: " + nameSinger + "\n");
                 }
             }
 
-            List<GenreID> genreIDS = genreService.get();
-            for (GenreID genreDTO : genreIDS) {
+            List<GenreEntity> genreIDS = genreService.get();
+            for (GenreEntity genreDTO : genreIDS) {
                 for (long l : voteDTO.getGenresID()) {
                     if(genreDTO.getId() == l){
-                        String nameGanre = genreDTO.getGenreDTO().getName();
+                        String nameGanre = genreDTO.getName();
                         stringBuilder.append("Вы проголосовали за жанр: " + nameGanre + "\n");
                     }
                 }

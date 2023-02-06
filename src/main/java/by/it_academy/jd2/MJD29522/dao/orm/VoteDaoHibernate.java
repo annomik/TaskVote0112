@@ -2,13 +2,11 @@ package by.it_academy.jd2.MJD29522.dao.orm;
 
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
-import by.it_academy.jd2.MJD29522.dto.Vote;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
+import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
 import javax.persistence.EntityManager;
-import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ public class VoteDaoHibernate implements IVoteDao {
     }
 
     @Override
-    public boolean save(VoteDTO vote) {
+    public void save(VoteDTO vote) {
         List <GenreEntity> genres = voteToGenreEntityList(vote);
         SingerEntity singer = voteToSingerEntity(vote);
         EntityManager entityManager = null;
@@ -62,7 +60,6 @@ public class VoteDaoHibernate implements IVoteDao {
             entityManager.getTransaction().begin();
             entityManager.persist(voteEntity);
             entityManager.getTransaction().commit();
-            return true;
         } catch (Exception e) {
             if(entityManager != null){
                 entityManager.getTransaction().rollback();
