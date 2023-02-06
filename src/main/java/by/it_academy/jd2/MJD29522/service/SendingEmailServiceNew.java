@@ -22,6 +22,7 @@ public class SendingEmailServiceNew{
     private final Properties properties = new Properties();
 
     private final IMailService mailService;
+    private boolean isSendingEmails = true;
 
     public SendingEmailServiceNew(Properties prop, IMailService mailService) {
         this.properties.setProperty(PROTOCOL, prop.getProperty(PROTOCOL));
@@ -31,7 +32,22 @@ public class SendingEmailServiceNew{
         this.properties.setProperty(EMAIL_USER_PASSWORD, prop.getProperty(EMAIL_USER_PASSWORD));
         this.mailService = mailService;
     }
-    
+
+    public void startEmailSender(long timeSendSec){
+        while (isSendingEmails){
+            sendEmail();
+            try {
+                Thread.sleep(timeSendSec*1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void stopEmailSender(){
+        this.isSendingEmails = false;
+    }
+
     public void sendEmail() {
         List<EmailEntity> emails = mailService.getEmailForSend();
         if(emails==null){
@@ -67,7 +83,7 @@ public class SendingEmailServiceNew{
                 tr.close();
 
                 System.out.println("Сообщение успешно отправлено!");
-                mailService.update(email.getId(), email.getMessage(),email.isValidateEmail(),true,
+                mailService.update(email.getId(), email.getMessage(),email.isValidateEmail(),false,
                         System.currentTimeMillis(), email.getEmail());
             } catch (MessagingException mex) {
                 mex.printStackTrace();

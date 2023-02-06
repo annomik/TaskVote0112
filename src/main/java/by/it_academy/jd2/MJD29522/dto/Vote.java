@@ -21,5 +21,11 @@ public class Vote {
         return id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", voteDTO=" + voteDTO.toString() +
+                '}';
+    }
 }

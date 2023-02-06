@@ -20,7 +20,7 @@ public class SendingEmailServiceSingletonNew {
         }
     }
 
-    public static SendingEmailServiceNew getInstance() {
+    public static SendingEmailServiceNew getInstance(Properties properties) {
         if(instance == null){
             synchronized (SendingEmailServiceSingletonNew.class){
                 if(instance == null){

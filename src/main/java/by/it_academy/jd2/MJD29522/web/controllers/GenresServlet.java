@@ -32,12 +32,7 @@ public class GenresServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        List<GenreID> genreIDS = null;
-        try {
-            genreIDS = service.get();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        List<GenreID> genreIDS = service.get();
         for (GenreID genreID : genreIDS) {
             writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
         }

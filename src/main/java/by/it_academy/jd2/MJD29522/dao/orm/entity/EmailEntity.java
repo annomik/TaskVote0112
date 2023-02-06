@@ -78,4 +78,16 @@ public class EmailEntity {
     public void setLastSendTime(long lastSendTime) {
         this.lastSendTime = lastSendTime;
     }
+
+    @Override
+    public String toString() {
+        return "EmailEntity{" +
+                "id=" + id +
+                ", message='" + message + '\'' +
+                ", validateEmail=" + validateEmail +
+                ", sendMassage=" + sendMassage +
+                ", lastSendTime=" + lastSendTime +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

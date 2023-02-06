@@ -26,13 +26,7 @@ public class  StatisticService implements IStatisticService {
 
     @Override
     public List<StatisticDTOArtistOrGenre> getResultGenre() {
-        List<GenreID> genres = null;
-        try {
-            genres = genreService.get();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        List<GenreID> genres = genreService.get();
         List<Vote> votes = voteService.getVote();
         List<StatisticDTOArtistOrGenre> statisticGenre = new ArrayList<>();
         // в этом цикле происходит заполнение именами. т.к. я заполняю ид и имена, то сравнивать проще по ид, в след методах все однотипно

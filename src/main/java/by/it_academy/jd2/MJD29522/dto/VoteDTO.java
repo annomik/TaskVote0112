@@ -1,6 +1,7 @@
 package by.it_academy.jd2.MJD29522.dto;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 
 public class VoteDTO {
@@ -40,4 +41,14 @@ public class VoteDTO {
         return localDate;
     }
 
+    @Override
+    public String toString() {
+        return "VoteDTO{" +
+                "singerID=" + singerID +
+                ", genresID=" + Arrays.toString(genresID) +
+                ", message='" + message + '\'' +
+                ", email='" + email + '\'' +
+                ", localDate=" + localDate +
+                '}';
+    }
 }

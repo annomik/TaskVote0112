@@ -17,7 +17,7 @@ public class VoteServiceSingleton {
                             ChoiceDaoProvider.getInstance().getVoteDao(),
                             SingerServiceSingleton.getInstance(),
                             GenreServiceSingleton.getInstance(),
-                            SendingEmailServiceSingleton.getInstance() );
+                            MailServiceSingleton.getInstance() );
                 }
             }
         }

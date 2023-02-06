@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface IGenreService {
 
-    List<GenreID> get() throws SQLException;
+    List<GenreID> get();
 
     boolean add(String newGenre);
 

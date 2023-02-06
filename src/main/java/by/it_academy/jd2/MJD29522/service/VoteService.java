@@ -5,10 +5,7 @@ import by.it_academy.jd2.MJD29522.dao.orm.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dto.Vote;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
-import by.it_academy.jd2.MJD29522.service.api.IGenreService;
-import by.it_academy.jd2.MJD29522.service.api.ISendingEmailService;
-import by.it_academy.jd2.MJD29522.service.api.ISingerService;
-import by.it_academy.jd2.MJD29522.service.api.IVoteService;
+import by.it_academy.jd2.MJD29522.service.api.*;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -19,23 +16,23 @@ public class VoteService implements IVoteService {
     private final IVoteDao dao;
     private final ISingerService singerService;
     private final IGenreService genreService;
-    private final ISendingEmailService sendingEmailService;
-    ExecutorService executorService = Executors.newFixedThreadPool(10);
 
+    private final IMailService mailService;
 
-    public VoteService(IVoteDao dao, ISingerService singerService, IGenreService genreService, ISendingEmailService sendingEmailService) {
+    public VoteService(IVoteDao dao, ISingerService singerService,
+                       IGenreService genreService,
+                       IMailService mailService) {
         this.dao = dao;
         this.singerService = singerService;
         this.genreService = genreService;
-        this.sendingEmailService = sendingEmailService;
+        this.mailService = mailService;
     }
 
     @Override
     public void save(VoteDTO voteDTO) {
         validation(voteDTO);
         this.dao.save(voteDTO);
-        Runnable runnable = () -> sendingEmailService.sendEmail(voteDTO);
-        executorService.execute(runnable);
+        this.mailService.save(voteDTO);
     }
 
    private void validation(VoteDTO voteDTO){
