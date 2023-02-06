@@ -1,14 +1,14 @@
-CREATE TABLE IF NOT EXISTS app.vote_singer
+CREATE TABLE IF NOT EXISTS app.vote_artist
 (
-    singer_id bigint,
-    vote_id bigint NOT NULL,
-    CONSTRAINT vote_singer_pkey PRIMARY KEY (vote_id),
-    CONSTRAINT fkan1gpte6p9vud32yr83nc9bno FOREIGN KEY (vote_id)
-        REFERENCES app.votes (id) MATCH SIMPLE
+    artist_id bigint,
+    vote_id bigint,
+    CONSTRAINT vote_artist_vote_id_key UNIQUE (vote_id),
+    CONSTRAINT vote_artist_artist_id_fkey FOREIGN KEY (artist_id)
+        REFERENCES app.artists (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
-    CONSTRAINT fkd4wcc8vr1y1js9unuqg2qmqy9 FOREIGN KEY (singer_id)
-        REFERENCES app.artists (id) MATCH SIMPLE
+    CONSTRAINT vote_artist_vote_id_fkey FOREIGN KEY (vote_id)
+        REFERENCES app.votes (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
