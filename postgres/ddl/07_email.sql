@@ -3,8 +3,8 @@
         id bigint NOT NULL,
         email character varying(255),
         lastsendtime bigint,
-        massage character varying(255),
-        sendmassage boolean,
+        message character varying(255),
+        sendmessage boolean,
         validateemail boolean,
         CONSTRAINT email_pkey PRIMARY KEY (id)
   )
