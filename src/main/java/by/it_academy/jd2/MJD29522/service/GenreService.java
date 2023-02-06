@@ -1,12 +1,9 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.GenreEntity;
-import by.it_academy.jd2.MJD29522.dto.GenreDTO;
-import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,19 +16,8 @@ public class GenreService implements IGenreService {
     }
 
     @Override
-    public List<GenreID> get() {
-        List<GenreEntity> genreEntityList;
-        List <GenreID> genreIDList = new ArrayList<>();
-
-        try {
-            genreEntityList = dao.get();
-            for (GenreEntity genreEntity : genreEntityList) {
-                genreIDList.add(new GenreID(new GenreDTO(genreEntity.getName()), genreEntity.getId()));
-            }
-            return genreIDList;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public List<GenreEntity> get() {
+        return dao.get();
     }
 
     @Override
@@ -65,7 +51,6 @@ public class GenreService implements IGenreService {
 
     public boolean validation(Map<String, String[]> mapParametrs, String paramert) {
 
-        List<GenreID> genres = get();
 
         String[] paramerts = mapParametrs.get(paramert);
 
@@ -78,16 +63,17 @@ public class GenreService implements IGenreService {
         if (paramerts[0] == null || paramerts[0].isBlank()) {
             throw new IllegalArgumentException("Не передан параметр жанра для выполнения операции");
         }
-
         String nameForAdd = paramerts[0];
-        for (GenreID genre : genres) {
-            if (nameForAdd.equals(genre.getGenreDTO().getName())) {
-                throw new IllegalArgumentException("Жанр с именем " + nameForAdd + " уже есть в списке жанров");
-            }
-        }
         if(nameForAdd.length() > 255){
             throw new IllegalArgumentException("Длина названия жанра не должна превышать 255 символов");
         }
+        List<GenreEntity> genres = get();
+        for (GenreEntity genre : genres) {
+            if (nameForAdd.equals(genre.getName())) {
+                throw new IllegalArgumentException("Жанр с именем " + nameForAdd + " уже есть в списке жанров");
+            }
+        }
+
         return true;
     }
 }

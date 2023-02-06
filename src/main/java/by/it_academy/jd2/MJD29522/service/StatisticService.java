@@ -1,11 +1,13 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dto.*;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
+import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IStatisticService;
 import by.it_academy.jd2.MJD29522.service.api.IVoteService;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -26,20 +28,19 @@ public class  StatisticService implements IStatisticService {
 
     @Override
     public List<StatisticDTOArtistOrGenre> getResultGenre() {
-        List<GenreID> genres = genreService.get();
-        List<Vote> votes = voteService.getVote();
+        List<GenreEntity> genres = genreService.get();
+        List<VoteEntity> votes = voteService.getVote();
         List<StatisticDTOArtistOrGenre> statisticGenre = new ArrayList<>();
         // в этом цикле происходит заполнение именами. т.к. я заполняю ид и имена, то сравнивать проще по ид, в след методах все однотипно
-        for(GenreID  genreID : genres){
-            statisticGenre.add(new StatisticDTOArtistOrGenre(genreID.getId(),genreID.getGenreDTO().getName()));
+        for(GenreEntity  genreID : genres){
+            statisticGenre.add(new StatisticDTOArtistOrGenre(genreID.getId(),genreID.getName()));
         }
 
-
-        for(Vote vote : votes){
-            for(int i = 0;i<vote.getVoteDTO().getGenresID().length;i++){                         //берем каждый существующий жанр в голосе
+        for(VoteEntity vote : votes){
+            for(int i = 0;i<vote.getGenre().size();i++){                         //берем каждый существующий жанр в голосе
                 boolean notAddingCount = true;
                 for(int j = 0;j<statisticGenre.size();j++){                         //ничего лучшего не придумал, как обратиться к элементу на прямую без цикла???
-                        if(statisticGenre.get(j).getId()==vote.getVoteDTO().getGenresID()[i]){
+                        if(statisticGenre.get(j).getId()==vote.getGenre().get(i).getId()){
                             statisticGenre.get(j).addCount();
                             notAddingCount = false;
                             break;
@@ -56,16 +57,16 @@ public class  StatisticService implements IStatisticService {
 
     @Override
     public List<StatisticDTOArtistOrGenre> getResultSinger() {
-        List<SingerID> singers = singerService.get();
-        List<Vote> votes = voteService.getVote();
+        List<SingerEntity> singers = singerService.get();
+        List<VoteEntity> votes = voteService.getVote();
         List<StatisticDTOArtistOrGenre> statisticSinger = new ArrayList<>();
-        for(SingerID singerID: singers){                                    // в этом цикле происходит заполнение именами
-            statisticSinger.add(new StatisticDTOArtistOrGenre(singerID.getId(),singerID.getSingerDTO().getName()));
+        for(SingerEntity singerID: singers){                                    // в этом цикле происходит заполнение именами
+            statisticSinger.add(new StatisticDTOArtistOrGenre(singerID.getId(),singerID.getName()));
         }
-        for(Vote vote : votes){
+        for(VoteEntity vote : votes){
             boolean notAddingCount = true;
             for(int i = 0;i<statisticSinger.size();i++){
-                if(vote.getVoteDTO().getSingerID()==statisticSinger.get(i).getId()){
+                if(vote.getSinger().getId()==statisticSinger.get(i).getId()){
                     statisticSinger.get(i).addCount();
                     notAddingCount = false;
                     break;
@@ -80,10 +81,10 @@ public class  StatisticService implements IStatisticService {
     }
     @Override
     public List<StatisticDTOMessage> getResultMessage() {
-        List<Vote> votes = voteService.getVote();
+        List<VoteEntity> votes = voteService.getVote();
         List<StatisticDTOMessage> messages = new ArrayList<>();
-        for(Vote vote : votes){
-            messages.add(new StatisticDTOMessage(vote.getVoteDTO().getLocalDate(),vote.getVoteDTO().getMessage()));
+        for(VoteEntity vote : votes){
+            messages.add(new StatisticDTOMessage(vote.getDate(),vote.getAbout()));
         }
         List<StatisticDTOMessage> sortList = messages.stream().sorted(Comparator.comparing(StatisticDTOMessage::getTime)).collect(Collectors.toList());
         return sortList;

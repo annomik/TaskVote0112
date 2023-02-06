@@ -1,12 +1,9 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
-import by.it_academy.jd2.MJD29522.dto.SingerDTO;
-import by.it_academy.jd2.MJD29522.dto.SingerID;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,18 +16,8 @@ public class SingerService implements ISingerService {
     }
 
     @Override
-    public List<SingerID> get() {
-        List<SingerEntity> singerEntityList;
-        List<SingerID> singerIDList = new ArrayList<>();
-        try {
-            singerEntityList = singerDao.get();
-            for (SingerEntity singerEntity : singerEntityList) {
-                singerIDList.add(new SingerID(new SingerDTO(singerEntity.getName()), singerEntity.getId()));
-            }
-        return singerIDList;
-        } catch (Exception e){
-            throw new RuntimeException(e);
-        }
+    public List<SingerEntity> get() {
+        return singerDao.get();
     }
 
     @Override
@@ -64,7 +51,6 @@ public class SingerService implements ISingerService {
     @Override
     public boolean validate(Map<String, String[]> mapParameters, String parameter) {
 
-        List<SingerID> singers = get();
         String[] parameters = mapParameters.get(parameter);
 
         if (parameters[0] == null || parameters[0].isBlank()){
@@ -76,14 +62,17 @@ public class SingerService implements ISingerService {
         }
 
         String nameForAdd = parameters[0];
-        for (SingerID singerID : singers) {
-            if (nameForAdd.equals(singerID.getSingerDTO().getName())) {
-                throw new IllegalArgumentException("Исполнитель с именем " + nameForAdd + " уже есть в списке");
-            }
-        }
         if(nameForAdd.length() > 255){
             throw new IllegalArgumentException("Длина названия исполнителя не должна превышать 255 символов");
         }
+
+        List<SingerEntity> singers = get();
+        for (SingerEntity singerID : singers) {
+            if (nameForAdd.equals(singerID.getName())) {
+                throw new IllegalArgumentException("Исполнитель с именем " + nameForAdd + " уже есть в списке");
+            }
+        }
+
         return true;
     }
 

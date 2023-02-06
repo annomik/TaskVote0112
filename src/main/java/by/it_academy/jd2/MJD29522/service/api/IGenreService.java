@@ -1,13 +1,13 @@
 package by.it_academy.jd2.MJD29522.service.api;
 
-import by.it_academy.jd2.MJD29522.dto.GenreID;
-import java.sql.SQLException;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
+
 import java.util.List;
 import java.util.Map;
 
 public interface IGenreService {
 
-    List<GenreID> get();
+    List<GenreEntity> get();
 
     boolean add(String newGenre);
 

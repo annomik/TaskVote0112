@@ -1,6 +1,6 @@
 package by.it_academy.jd2.MJD29522.web.controllers;
 
-import by.it_academy.jd2.MJD29522.dto.SingerID;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.fabrics.SingerServiceSingleton;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -33,12 +33,12 @@ public class SingersServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
 
-        List<SingerID> singerDTOS = service.get();
+        List<SingerEntity> singers = service.get();
 
         PrintWriter writer = resp.getWriter();
 
-        for (SingerID singerID : singerDTOS) {
-            writer.write("<p>" + singerID.getId() + ". " + singerID.getSingerDTO().getName() + "</p>");
+        for (SingerEntity singer : singers) {
+            writer.write("<p>" + singer.getId() + ". " + singer.getName() + "</p>");
         }
     }
 
@@ -51,7 +51,7 @@ public class SingersServlet extends HttpServlet {
 
         Map<String, String[]> mapParameters = req.getParameterMap();
 
-        List<SingerID> singers = service.get();
+        List<SingerEntity> singers = service.get();
 
         String[] addSinger = mapParameters.get(ADD);
 
@@ -111,8 +111,6 @@ public class SingersServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         Map<String, String[]> mapParameters = req.getParameterMap();
-
-        List<SingerID> singers = service.get();
 
         String[] deleteSinger = mapParameters.get(DELETE);
 

@@ -1,6 +1,6 @@
 package by.it_academy.jd2.MJD29522.dao.api;
 
-import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
 
 import java.util.List;
 

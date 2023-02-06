@@ -1,6 +1,6 @@
 package by.it_academy.jd2.MJD29522.service;
 
-import by.it_academy.jd2.MJD29522.dao.orm.entity.EmailEntity;
+import by.it_academy.jd2.MJD29522.entity.EmailEntity;
 import by.it_academy.jd2.MJD29522.service.api.IMailService;
 
 import javax.mail.Message;

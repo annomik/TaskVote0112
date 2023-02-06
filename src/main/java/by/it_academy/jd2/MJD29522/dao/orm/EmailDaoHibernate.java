@@ -2,7 +2,7 @@ package by.it_academy.jd2.MJD29522.dao.orm;
 
 import by.it_academy.jd2.MJD29522.dao.api.IMailDao;
 import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.EmailEntity;
+import by.it_academy.jd2.MJD29522.entity.EmailEntity;
 
 import javax.persistence.EntityManager;
 import java.util.LinkedList;

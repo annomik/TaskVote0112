@@ -1,4 +1,4 @@
-package by.it_academy.jd2.MJD29522.dao.orm.entity;
+package by.it_academy.jd2.MJD29522.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
@@ -37,5 +37,13 @@ public class GenreEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "GenreEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package by.it_academy.jd2.MJD29522.web.controllers;
 
-import by.it_academy.jd2.MJD29522.dto.GenreID;
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.fabrics.GenreServiceSingleton;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +31,9 @@ public class GenresServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        List<GenreID> genreIDS = service.get();
-        for (GenreID genreID : genreIDS) {
-            writer.write("<p>" + genreID.getId() + ". " + genreID.getGenreDTO().getName() + "</p>");
+        List<GenreEntity> genreIDS = service.get();
+        for (GenreEntity genreID : genreIDS) {
+            writer.write("<p>" + genreID.getId() + ". " + genreID.getName() + "</p>");
         }
     }
 

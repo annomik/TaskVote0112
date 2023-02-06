@@ -2,9 +2,8 @@ package by.it_academy.jd2.MJD29522.dao.orm;
 
 import by.it_academy.jd2.MJD29522.dao.api.ISingerDao;
 import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
-import by.it_academy.jd2.MJD29522.dao.orm.entity.SingerEntity;
-import by.it_academy.jd2.MJD29522.dto.SingerDTO;
-import by.it_academy.jd2.MJD29522.dto.SingerID;
+import by.it_academy.jd2.MJD29522.entity.SingerEntity;
+
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
