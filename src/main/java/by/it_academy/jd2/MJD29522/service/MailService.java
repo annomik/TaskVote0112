@@ -29,9 +29,9 @@ public class MailService implements IMailService {
     @Override
     public void save(VoteDTO voteDTO) {
         EmailEntity email = new EmailEntity();
-        email.setMessage(massageText(voteDTO));
+        email.setMessage(messageText(voteDTO));
         email.setValidateEmail(validateEmail(voteDTO.getEmail()));
-        email.setSendMassage(true);
+        email.setSendMessage(true);
         email.setLastSendTime(System.currentTimeMillis());
         email.setEmail(voteDTO.getEmail());
         mailDao.addEmail(email);
@@ -39,9 +39,9 @@ public class MailService implements IMailService {
 
     @Override
     public boolean update(long id, String message, boolean validateEmail,
-                          boolean sendMassage, long lastSendTime, String email) {
+                          boolean sendMessage, long lastSendTime, String email) {
         boolean isUpdate;
-        isUpdate = mailDao.updateEmail(id, message,validateEmail(email),sendMassage,
+        isUpdate = mailDao.updateEmail(id, message,validateEmail(email),sendMessage,
                 System.currentTimeMillis(),email);
         return isUpdate;
     }
@@ -57,7 +57,7 @@ public class MailService implements IMailService {
         return matcher.matches();
     }
 
-    private String massageText(VoteDTO voteDTO){
+    private String messageText(VoteDTO voteDTO){
         StringBuilder message = new StringBuilder();
         message.append("Голос за артиста:\n        " + singerService.getName(voteDTO.getSingerID()) +".\n");
         message.append("Голос за жанры:\n");

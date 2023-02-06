@@ -37,7 +37,7 @@ public class EmailDaoHibernate implements IMailDao {
         List<EmailEntity> emails = getEmails();
         List<EmailEntity> emailForSend = new LinkedList<>();
         for(EmailEntity email : emails){
-            if((email.isValidateEmail())&&(email.isSendMassage())){
+            if((email.isValidateEmail())&&(email.isSendMessage())){
                 emailForSend.add(email);
             }
         }
@@ -83,7 +83,7 @@ public class EmailDaoHibernate implements IMailDao {
 
     @Override
     public boolean updateEmail(long id, String message, boolean validateEmail,
-                               boolean sendMassage, long lastSendTime, String email) {
+                               boolean sendMessage, long lastSendTime, String email) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
@@ -94,7 +94,7 @@ public class EmailDaoHibernate implements IMailDao {
             }
             emailDao.setMessage(message);
             emailDao.setValidateEmail(validateEmail);
-            emailDao.setSendMassage(sendMassage);
+            emailDao.setSendMessage(sendMessage);
             emailDao.setLastSendTime(System.currentTimeMillis());
             emailDao.setEmail(email);
             entityManager.merge(emailDao);

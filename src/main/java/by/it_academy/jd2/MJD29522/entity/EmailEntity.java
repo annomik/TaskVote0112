@@ -11,12 +11,12 @@ public class EmailEntity {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
-    @Column(name = "massage")
+    @Column(name = "message")
     private String message;
     @Column(name = "validateEmail")
     private boolean validateEmail;
-    @Column(name = "sendMassage")
-    private boolean sendMassage;
+    @Column(name = "sendMessage")
+    private boolean sendMessage;
     @Column(name = "lastSendTime")
     private long lastSendTime;
     @Column(name = "email")
@@ -26,11 +26,11 @@ public class EmailEntity {
     }
 
     public EmailEntity(long id, String message, boolean validateEmail,
-                       boolean sendMassage, long lastSendTime, String email) {
+                       boolean sendMessage, long lastSendTime, String email) {
         this.id = id;
         this.message = message;
         this.validateEmail = validateEmail;
-        this.sendMassage = sendMassage;
+        this.sendMessage = sendMessage;
         this.lastSendTime = lastSendTime;
         this.email = email;
     }
@@ -63,12 +63,12 @@ public class EmailEntity {
         this.validateEmail = validateEmail;
     }
 
-    public boolean isSendMassage() {
-        return sendMassage;
+    public boolean isSendMessage() {
+        return sendMessage;
     }
 
-    public void setSendMassage(boolean sendMassage) {
-        this.sendMassage = sendMassage;
+    public void setSendMessage(boolean sendMessage) {
+        this.sendMessage = sendMessage;
     }
 
     public long getLastSendTime() {
@@ -85,7 +85,7 @@ public class EmailEntity {
                 "id=" + id +
                 ", message='" + message + '\'' +
                 ", validateEmail=" + validateEmail +
-                ", sendMassage=" + sendMassage +
+                ", sendMessage=" + sendMessage +
                 ", lastSendTime=" + lastSendTime +
                 ", email='" + email + '\'' +
                 '}';
