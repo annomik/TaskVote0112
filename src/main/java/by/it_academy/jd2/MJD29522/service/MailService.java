@@ -66,15 +66,14 @@ public class MailService implements IMailService {
 
     private String massageText(VoteDTO voteDTO){
         StringBuilder message = new StringBuilder();
-        message.append("Голос за артиста: "+singerService.getName(voteDTO.getSingerID())+", ");
-        message.append("Голоса за жанры: ");
+        message.append("Голос за артиста:\n        " + singerService.getName(voteDTO.getSingerID()) +".\n");
+        message.append("Голос за жанры:\n");
         for(long id : voteDTO.getGenresID()){
-            message.append(genreService.getName(id)+", ");
+            message.append("        " + genreService.getName(id) + ".\n");
         }
-        message.append("о себе: "+voteDTO.getMessage()+", ");
-        message.append("Ваше сообщение: "+voteDTO.getMessage());
-        message.append("Ваша почта: "+voteDTO.getEmail());
-        message.append("В "+voteDTO.getLocalDate());
+        message.append("Ваше сообщение о себе:\n        " + voteDTO.getMessage() + ".\n");
+        message.append("Вы указали email:\n        " + voteDTO.getEmail() + ".\n");
+        message.append("Голос оставлен:\n        " + voteDTO.getLocalDate() + ".\n");
         return message.toString();
     }
 }

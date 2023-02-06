@@ -41,7 +41,7 @@ public class SingerService implements ISingerService {
     @Override
     public void update(long id, String name) {
         if (singerDao.exist(id)) {
-            SingerEntity singerEntity = new SingerEntity(name);
+            SingerEntity singerEntity = new SingerEntity(id, name);
             singerDao.update(singerEntity);
         } else throw new IllegalArgumentException("Исполнителя с id " + id + " для обновления не нейдено!");
     }

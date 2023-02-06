@@ -42,7 +42,7 @@ public class GenreService implements IGenreService {
     @Override
     public void update(long id, String name) {
         if (dao.exist(id)) {
-            GenreEntity genreEntity = new GenreEntity(id,name);
+            GenreEntity genreEntity = new GenreEntity(id, name);
             dao.update(genreEntity);
         }else throw new IllegalArgumentException("Жанра с id " + id + " для обнавления не нейдено!");
 

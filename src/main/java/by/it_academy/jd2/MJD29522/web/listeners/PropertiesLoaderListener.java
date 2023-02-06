@@ -31,14 +31,14 @@ public class PropertiesLoaderListener implements ServletContextListener {
         } catch (IOException e) {
             throw new RuntimeException("Ощибка чтения файла настроек прилажения application.properties", e);
         }
-        SendingEmailServiceNew sendingEmailService = SendingEmailServiceSingletonNew.getInstance(properties);
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                sendingEmailService.startEmailSender(15);
-            }
-        });
+       SendingEmailServiceNew sendingEmailService = SendingEmailServiceSingletonNew.getInstance(properties);
+       ExecutorService executorService = Executors.newFixedThreadPool(1);
+       executorService.submit(new Runnable() {
+           @Override
+           public void run() {
+               sendingEmailService.startEmailSender(15);
+           }
+       });
     }
 
     @Override
