@@ -47,7 +47,7 @@
  ## 4. Страница голосования
 URL "/vote"  (1 vote singer, 3-5 votes for genres)
 ```sh
- (POST)   [http://host:port/WarFileName/genre?add=(genre_name) ](http://host:port/WarFileName/vote?singer=(singer_id)&genre=(genre_id)&genre=(genre_id)&genre=(genre_id)&message=(message)&email=(email))
+ (POST)  http://host:port/WarFileName/vote?singer=(singer_id)&genre=(genre_id)&genre=(genre_id)&genre=(genre_id)&message=(message)&email=(email)
  ``` 
  После отправки голоса пользователь получает на электронную почту информацию о своем выборе жанров и исполнителя.
  ## 5. Страница результатов голосования
