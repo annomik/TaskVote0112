@@ -50,16 +50,7 @@ public class VoteEntity {
     public VoteEntity() {
     }
 
-    public VoteEntity(Long id, String about, String email, Date date, SingerEntity singer, List<GenreEntity> genres) {
-        this.id = id;
-        this.about = about;
-        this.email = email;
-        this.date = date;
-        this.singer = singer;
-        this.genres = genres;
-    }
-
-    public VoteEntity(String about, String email, Date date, SingerEntity singer, List<GenreEntity> genres) {
+    public VoteEntity(SingerEntity singer, List<GenreEntity> genres, String about, String email, Date date) {
         this.about = about;
         this.email = email;
         this.date = date;

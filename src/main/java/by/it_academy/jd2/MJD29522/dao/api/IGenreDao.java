@@ -1,20 +1,23 @@
 package by.it_academy.jd2.MJD29522.dao.api;
 
+import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.entity.GenreEntity;
+
 import java.util.List;
 
 public interface IGenreDao{
-//    List<GenreID> get();
 
     List<GenreEntity> get();
 
-    boolean add(String newGenre);
+    boolean add(GenreDTO newGenre);
 
     void update(GenreEntity genreEntity);
 
-    boolean delete(long id);
+    boolean delete(long id, long version);
 
-    boolean exist(long id);
+    GenreEntity exist(long id);
 
     String getName(long id);
+
+    GenreEntity getCard(long id);
 }

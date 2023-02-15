@@ -5,14 +5,19 @@ import java.util.Objects;
 public class GenreDTO {
     private String name;
 
+    private long version;
+
+    public GenreDTO() {
+    }
     public GenreDTO(String name) {
         this.name = name;
     }
     public String getName() {
         return name;
     }
-    public void setGenre(String genre) {
-        this.name = name;
+
+    public long getVersion() {
+        return version;
     }
 
     @Override
@@ -20,16 +25,19 @@ public class GenreDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GenreDTO genreDTO = (GenreDTO) o;
-        return Objects.equals(name, genreDTO.name);
+        return version == genreDTO.version && Objects.equals(name, genreDTO.name);
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, version);
     }
+
     @Override
     public String toString() {
         return "GenreDTO{" +
                 "name='" + name + '\'' +
+                ", version=" + version +
                 '}';
     }
 }

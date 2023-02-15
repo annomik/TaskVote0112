@@ -6,19 +6,22 @@ import java.util.Date;
 
 public class VoteDTO {
 
-    private final long singerID;
-    private final long[] genresID;
-    private final String message;
-    private final String email;
+    private long singerID;
+    private long[] genresID;
+    private String message;
+    private String email;
+    private LocalDateTime localDate;
 
-    private final LocalDateTime localDate;
 
-    public VoteDTO(long singerID, long[] genresID, String message, String email, LocalDateTime localDate) {
+    public VoteDTO(long singerID, long[] genresID, String message, String email, LocalDateTime dateTime) {
         this.singerID = singerID;
         this.genresID = genresID;
         this.message = message;
         this.email = email;
-        this.localDate = localDate;
+        this.localDate = dateTime;
+    }
+    public VoteDTO() {
+        this.localDate = LocalDateTime.now();
     }
 
     public long getSingerID() {

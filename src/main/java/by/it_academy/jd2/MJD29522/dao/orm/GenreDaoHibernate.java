@@ -2,6 +2,7 @@ package by.it_academy.jd2.MJD29522.dao.orm;
 
 import by.it_academy.jd2.MJD29522.dao.api.IGenreDao;
 import by.it_academy.jd2.MJD29522.dao.orm.api.IManager;
+import by.it_academy.jd2.MJD29522.dto.GenreDTO;
 import by.it_academy.jd2.MJD29522.entity.GenreEntity;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -27,7 +28,7 @@ public class GenreDaoHibernate implements IGenreDao {
 
             return genreEntityList;
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -39,16 +40,16 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public boolean add(String newGenre) {
+    public boolean add(GenreDTO newGenre) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
-            entityManager.persist(new GenreEntity(newGenre));
+            entityManager.persist(new GenreEntity(newGenre.getName()));
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -66,12 +67,12 @@ public class GenreDaoHibernate implements IGenreDao {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             GenreEntity genreToUpdate = entityManager.find(GenreEntity.class, genreEntity.getId());
-            if(genreToUpdate != null){
+            if(genreToUpdate != null && genreEntity.getVersion().equals(genreToUpdate.getVersion())){
                 entityManager.merge(genreEntity);
             }
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -83,19 +84,19 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(long id, long version) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             GenreEntity genreToRemoved = entityManager.find(GenreEntity.class, id);
-            if(genreToRemoved != null){
+            if(genreToRemoved != null && genreToRemoved.getVersion().equals(version)){
                 entityManager.remove(genreToRemoved);
             }
             entityManager.getTransaction().commit();
             return genreToRemoved != null;
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -107,17 +108,17 @@ public class GenreDaoHibernate implements IGenreDao {
     }
 
     @Override
-    public boolean exist(long id) {
+    public GenreEntity exist(long id) {
         EntityManager entityManager = null;
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             GenreEntity genre = entityManager.find(GenreEntity.class, id);
             entityManager.getTransaction().commit();
-            return genre != null;
+            return genre;
 
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -138,9 +139,9 @@ public class GenreDaoHibernate implements IGenreDao {
             entityManager.getTransaction().commit();
             if(genre != null){
                 return genre.getName();
-            }else throw new IllegalArgumentException("Жанра с id " + id + " yне найдено");
+            }else throw new IllegalArgumentException("Жанра с id " + id + " не найдено");
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -150,4 +151,27 @@ public class GenreDaoHibernate implements IGenreDao {
             }
         }
     }
+    @Override
+    public GenreEntity getCard(long id){
+        EntityManager entityManager = null;
+        try{
+            entityManager = manager.getEntityManager();
+            entityManager.getTransaction().begin();
+            GenreEntity genreEntity = entityManager.find(GenreEntity.class, id);
+            entityManager.getTransaction().commit();
+            if(genreEntity != null){
+                return genreEntity;
+            }else throw new IllegalArgumentException("Жанра с id " + id + " не найдено");
+        } catch (Exception e) {
+            if(entityManager != null && entityManager.getTransaction().isActive()){
+                entityManager.getTransaction().rollback();
+            }
+            throw new RuntimeException("Ошибка в базе данных", e);
+        }finally {
+            if(entityManager != null){
+                entityManager.close();
+            }
+        }
+    }
+
 }

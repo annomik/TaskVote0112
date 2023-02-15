@@ -1,5 +1,6 @@
 package by.it_academy.jd2.MJD29522.service;
 
+import by.it_academy.jd2.MJD29522.entity.GenreEntity;
 import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.dao.api.IVoteDao;
 import by.it_academy.jd2.MJD29522.dto.VoteDTO;
@@ -13,22 +14,16 @@ public class VoteService implements IVoteService {
     private final ISingerService singerService;
     private final IGenreService genreService;
 
-    private final IMailService mailService;
-
-    public VoteService(IVoteDao dao, ISingerService singerService,
-                       IGenreService genreService,
-                       IMailService mailService) {
+    public VoteService(IVoteDao dao, ISingerService singerService, IGenreService genreService) {
         this.dao = dao;
         this.singerService = singerService;
         this.genreService = genreService;
-        this.mailService = mailService;
     }
 
     @Override
     public void save(VoteDTO voteDTO) {
         validation(voteDTO);
         this.dao.save(voteDTO);
-        this.mailService.save(voteDTO);
     }
 
    private void validation(VoteDTO voteDTO){
@@ -69,8 +64,27 @@ public class VoteService implements IVoteService {
    }
 
     @Override
-    public List<VoteEntity> getVote() {
-        return dao.getVoteList();
+    public List<VoteDTO> getVote() {
+        List<VoteDTO> voteDTOList = new ArrayList<>();
+        List<VoteEntity> voteEntityList = dao.getVoteList();
+        for (VoteEntity voteEntity : voteEntityList) {
+            voteDTOList.add(new VoteDTO(voteEntity.getSinger().getId(),
+                    listGenresToArray(voteEntity),
+                    voteEntity.getAbout(),
+                    voteEntity.getEmail(),
+                    voteEntity.getDate()));
+        }
+        return voteDTOList;
+    }
+
+    public long[] listGenresToArray(VoteEntity vote){
+        long [] genreArray = new long[vote.getGenre().size()];
+        int i = 0;
+        for (GenreEntity genreEntity : vote.getGenre()) {
+            genreArray[i] = genreEntity.getId();
+            i++;
+        }
+        return genreArray;
     }
 
 }

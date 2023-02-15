@@ -1,11 +1,11 @@
 package by.it_academy.jd2.MJD29522.dto;
 
-public class StatisticDTOArtistOrGenre {
+public class StatisticDTOArtist {
     private final long  id;
     private final String name;
     private long count;
 
-    public StatisticDTOArtistOrGenre(long id, String name) {
+    public StatisticDTOArtist(long id, String name) {
         this.id = id;
         this.name = name;
         count = 0;
@@ -28,7 +28,7 @@ public class StatisticDTOArtistOrGenre {
 
     @Override
     public String toString() {
-        return "StatisticDTOArtistOrGenre{" +
+        return "StatisticDTOArtist{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", count=" + count +

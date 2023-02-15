@@ -9,7 +9,7 @@ public class Manager implements IManager {
     private EntityManagerFactory factory;
 
     public Manager() {
-        this.factory = Persistence.createEntityManagerFactory("tutorial");;
+        this.factory = Persistence.createEntityManagerFactory("tutorial");
     }
 
     @Override

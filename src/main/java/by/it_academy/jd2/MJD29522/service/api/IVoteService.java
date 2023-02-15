@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IVoteService {
     void save(VoteDTO vote);
-    List<VoteEntity> getVote();
+    List<VoteDTO> getVote();
 }

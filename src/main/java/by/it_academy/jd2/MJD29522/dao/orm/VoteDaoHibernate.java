@@ -32,7 +32,7 @@ public class VoteDaoHibernate implements IVoteDao {
             entityManager.getTransaction().commit();
             return voteEntityList;
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -48,20 +48,15 @@ public class VoteDaoHibernate implements IVoteDao {
         List <GenreEntity> genres = voteToGenreEntityList(vote);
         SingerEntity singer = voteToSingerEntity(vote);
         EntityManager entityManager = null;
-        VoteEntity voteEntity = new VoteEntity(vote.getMessage(),
-                vote.getEmail(),
-                java.util.Date
-                        .from(vote.getLocalDate().atZone(ZoneId.systemDefault())
-                                .toInstant()),
-                singer,
-                genres);
+        VoteEntity voteEntity = new VoteEntity(singer, genres, vote.getMessage(), vote.getEmail(),
+                java.util.Date.from(vote.getLocalDate().atZone(ZoneId.systemDefault()).toInstant()));
         try {
             entityManager = manager.getEntityManager();
             entityManager.getTransaction().begin();
             entityManager.persist(voteEntity);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -83,7 +78,7 @@ public class VoteDaoHibernate implements IVoteDao {
             }
             return genresEntityList;
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);
@@ -101,7 +96,7 @@ public class VoteDaoHibernate implements IVoteDao {
             entityManager.getTransaction().begin();
             return entityManager.find(SingerEntity.class,voteDTO.getSingerID());
         } catch (Exception e) {
-            if(entityManager != null){
+            if(entityManager != null && entityManager.getTransaction().isActive()){
                 entityManager.getTransaction().rollback();
             }
             throw new RuntimeException("Ошибка в базе данных", e);

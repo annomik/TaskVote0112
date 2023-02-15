@@ -5,6 +5,10 @@ import java.util.Objects;
 public class SingerDTO {
     private String name;
 
+    private long version;
+
+    public SingerDTO() {
+    }
     public SingerDTO(String name) {
         this.name = name;
     }
@@ -13,15 +17,8 @@ public class SingerDTO {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "SingerDTO{" +
-                "name='" + name + '\'' +
-                '}';
+    public long getVersion() {
+        return version;
     }
 
     @Override
@@ -29,11 +26,19 @@ public class SingerDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SingerDTO singerDTO = (SingerDTO) o;
-        return Objects.equals(name, singerDTO.name);
+        return version == singerDTO.version && Objects.equals(name, singerDTO.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, version);
+    }
+
+    @Override
+    public String toString() {
+        return "SingerDTO{" +
+                "name='" + name + '\'' +
+                ", version=" + version +
+                '}';
     }
 }

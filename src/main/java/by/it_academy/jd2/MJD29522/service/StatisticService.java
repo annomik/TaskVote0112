@@ -1,9 +1,6 @@
 package by.it_academy.jd2.MJD29522.service;
 
 import by.it_academy.jd2.MJD29522.dto.*;
-import by.it_academy.jd2.MJD29522.entity.GenreEntity;
-import by.it_academy.jd2.MJD29522.entity.SingerEntity;
-import by.it_academy.jd2.MJD29522.entity.VoteEntity;
 import by.it_academy.jd2.MJD29522.service.api.IGenreService;
 import by.it_academy.jd2.MJD29522.service.api.ISingerService;
 import by.it_academy.jd2.MJD29522.service.api.IStatisticService;
@@ -27,20 +24,20 @@ public class  StatisticService implements IStatisticService {
 
 
     @Override
-    public List<StatisticDTOArtistOrGenre> getResultGenre() {
-        List<GenreEntity> genres = genreService.get();
-        List<VoteEntity> votes = voteService.getVote();
-        List<StatisticDTOArtistOrGenre> statisticGenre = new ArrayList<>();
+    public List<StatisticDTOGenre> getResultGenre() {
+        List<GenreDTOWithID> genres = genreService.get();
+        List<VoteDTO> votes = voteService.getVote();
+        List<StatisticDTOGenre> statisticGenre = new ArrayList<>();
         // в этом цикле происходит заполнение именами. т.к. я заполняю ид и имена, то сравнивать проще по ид, в след методах все однотипно
-        for(GenreEntity  genreID : genres){
-            statisticGenre.add(new StatisticDTOArtistOrGenre(genreID.getId(),genreID.getName()));
+        for(GenreDTOWithID  genreID : genres){
+            statisticGenre.add(new StatisticDTOGenre(genreID.getId(),genreID.getName()));
         }
 
-        for(VoteEntity vote : votes){
-            for(int i = 0;i<vote.getGenre().size();i++){                         //берем каждый существующий жанр в голосе
+        for(VoteDTO vote : votes){
+            for(int i = 0;i<vote.getGenresID().length;i++){                         //берем каждый существующий жанр в голосе
                 boolean notAddingCount = true;
                 for(int j = 0;j<statisticGenre.size();j++){                         //ничего лучшего не придумал, как обратиться к элементу на прямую без цикла???
-                        if(statisticGenre.get(j).getId()==vote.getGenre().get(i).getId()){
+                        if(statisticGenre.get(j).getId()==vote.getGenresID()[i]){
                             statisticGenre.get(j).addCount();
                             notAddingCount = false;
                             break;
@@ -51,22 +48,22 @@ public class  StatisticService implements IStatisticService {
                 }
             }
         }
-        List<StatisticDTOArtistOrGenre> sortList = statisticGenre.stream().sorted(Comparator.comparing(StatisticDTOArtistOrGenre::getCount).reversed()).collect(Collectors.toList());
+        List<StatisticDTOGenre> sortList = statisticGenre.stream().sorted(Comparator.comparing(StatisticDTOGenre::getCount).reversed()).collect(Collectors.toList());
         return sortList;
     }
 
     @Override
-    public List<StatisticDTOArtistOrGenre> getResultSinger() {
-        List<SingerEntity> singers = singerService.get();
-        List<VoteEntity> votes = voteService.getVote();
-        List<StatisticDTOArtistOrGenre> statisticSinger = new ArrayList<>();
-        for(SingerEntity singerID: singers){                                    // в этом цикле происходит заполнение именами
-            statisticSinger.add(new StatisticDTOArtistOrGenre(singerID.getId(),singerID.getName()));
+    public List<StatisticDTOArtist> getResultSinger() {
+        List<SingerDTOWithID> singers = singerService.get();
+        List<VoteDTO> votes = voteService.getVote();
+        List<StatisticDTOArtist> statisticSinger = new ArrayList<>();
+        for(SingerDTOWithID singerID: singers){                                    // в этом цикле происходит заполнение именами
+            statisticSinger.add(new StatisticDTOArtist(singerID.getId(),singerID.getName()));
         }
-        for(VoteEntity vote : votes){
+        for(VoteDTO vote : votes){
             boolean notAddingCount = true;
             for(int i = 0;i<statisticSinger.size();i++){
-                if(vote.getSinger().getId()==statisticSinger.get(i).getId()){
+                if(vote.getSingerID()==statisticSinger.get(i).getId()){
                     statisticSinger.get(i).addCount();
                     notAddingCount = false;
                     break;
@@ -76,18 +73,23 @@ public class  StatisticService implements IStatisticService {
                 throw new ArrayStoreException("Такого исполнителя не существует в жанрах");
             }
         }
-        List<StatisticDTOArtistOrGenre> sortList = statisticSinger.stream().sorted(Comparator.comparing(StatisticDTOArtistOrGenre::getCount).reversed()).collect(Collectors.toList());
+        List<StatisticDTOArtist> sortList = statisticSinger.stream().sorted(Comparator.comparing(StatisticDTOArtist::getCount).reversed()).collect(Collectors.toList());
         return sortList;
     }
     @Override
     public List<StatisticDTOMessage> getResultMessage() {
-        List<VoteEntity> votes = voteService.getVote();
+        List<VoteDTO> votes = voteService.getVote();
         List<StatisticDTOMessage> messages = new ArrayList<>();
-        for(VoteEntity vote : votes){
-            messages.add(new StatisticDTOMessage(vote.getDate(),vote.getAbout()));
+        for(VoteDTO vote : votes){
+            messages.add(new StatisticDTOMessage(vote.getLocalDate(),vote.getMessage()));
         }
         List<StatisticDTOMessage> sortList = messages.stream().sorted(Comparator.comparing(StatisticDTOMessage::getTime)).collect(Collectors.toList());
         return sortList;
     }
 
+    @Override
+    public StatisticDTO getResult() {
+        StatisticDTO result = new StatisticDTO(getResultSinger(), getResultGenre(), getResultMessage());
+        return result;
+    }
 }
